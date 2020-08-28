@@ -1,0 +1,35 @@
+site_name:  LunaX - Betaflight Docs
+
+nav:
+  - 'Home' : index.md
+  - Release-Notes : 
+     - 'BF 4.2 Release' : 'bf_release_4.2.md'
+     - 'BF 4.1 Release' : 'bf_release_4.1.md'
+     - 'BF 4.0 Release' : 'bf_release_4.0.md'
+  - 'Betaflight' : 
+     - 'Filter': 'bf_filter.md'
+     - 'Blackbox-Analyse' : 'bf_bb_analyse.md'
+     - 'PID-Controller' : 'bf_pid_controller.md'
+     - 'Tuning' : 'bf_tuning.md'
+     - 'Tunig-Parameter' : 'bf_tuning_parameters.md'
+     - 'DMin' : 'bf_dmin.md'
+  - 'About': about.md
+
+theme: windmill
+  
+plugins:
+  - search:
+      lang: ['de','en']
+  - pdf-export:
+      verbose: false
+      combined : true
+  
+markdown_extensions:
+    - toc:
+        baselevel: 2
+        permalink: '#'
+        
+extra:
+   logo: images/LunaX_Font.png
+   article_nav_top: false
+   article_nav_bottom: false

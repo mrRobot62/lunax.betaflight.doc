@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>DMin - LunaX - Betaflight Docs</title>
+<link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../css/base.css" rel="stylesheet"/>
+<link href="../css/highlight.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/bootstrap-3.3.7.min.js"></script>
+<script src="../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "DMin - Handling", url: "#_top", children: [
+              {title: "Allgemeines", url: "#allgemeines" },
+              {title: "Setup f\u00fcr den Erstflug", url: "#setup-fur-den-erstflug" },
+              {title: "Pr\u00fcfen des D Wertes im Flug", url: "#prufen-des-d-wertes-im-flug" },
+              {title: "Parameter", url: "#parameter" },
+          ]},
+        ];
+
+    </script>
+<script src="../js/base.js"></script>
+</meta><link href="../pdf/combined.pdf" rel="alternate" title="PDF Export" type="application/pdf"/></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<h2 id="dmin-handling">DMin - Handling<a class="headerlink" href="#dmin-handling" title="Permanent link">#</a></h2>
+<p>Mit DMin ist es nun möglich unterschiedliche Werte für D zu haben, je nachdem was der Copter gerade macht.</p>
+<p>Im Normalflug erlaubt uns DMin mit reduzierten D-Werten zu fliegen und der DMax-Wert wird für schnelle Bewegungen genutzt (z.B. bei Fast-Roles, Flips, Propwash)</p>
+<p>Außerdem bleiben die Motoren kühler</p>
+<p>Wenn DMin im Konfigurator aktiviert wird, wird D in DMax umbenannt und es gibt eine neue Spalte DMin</p>
+<p>DMin ist vom Profil abhängig (genau wie der D-Wert)</p>
+<p><code>d_min_boost_gain</code>steuert die Empfindlichkeit des Boost-Effekts (also wenn von DMin der DMax Wert verwendet werden soll, gibt der Booster an wie schnell das gehen soll.</p>
+<h3 id="allgemeines">Allgemeines<a class="headerlink" href="#allgemeines" title="Permanent link">#</a></h3>
+<p>Was bringen geringere D-Werte</p>
+<p><strong>Vorteil</strong></p>
+<blockquote>
+<ul>
+<li>weniger Vibrationen, kühlere Motoren</li>
+<li>Besseres Verhalten der Motoren bei Vollgas</li>
+<li>D-Wert bezogenes Oszillieren wird verringert</li>
+</ul>
+</blockquote>
+<p><strong>Nachteil</strong></p>
+<blockquote>
+<ul>
+<li>mehr Propwash</li>
+<li>Größeres Überschießen und Bounce-Backs</li>
+<li>P Oszillation bei schnellen Mannövern</li>
+<li>Langsame und Lowlevel Oszillationen bei smoothen Flügen</li>
+</ul>
+</blockquote>
+<h3 id="setup-fur-den-erstflug">Setup für den Erstflug<a class="headerlink" href="#setup-fur-den-erstflug" title="Permanent link">#</a></h3>
+<p>Default für DMin R23, P25, Y0</p>
+<p><strong>Beachte</strong></p>
+<blockquote>
+<p>wenn DMin aktiviert ist, wird der reguläre DMax Wert nur dann genutzt, wenn schnelle Mannöver (z.B. Flips/Rolls) geflogen werden, in langsameren Flügen wird <code>DMIN</code>verwendet</p>
+</blockquote>
+<h3 id="prufen-des-d-wertes-im-flug">Prüfen des D Wertes im Flug<a class="headerlink" href="#prufen-des-d-wertes-im-flug" title="Permanent link">#</a></h3>
+<ul>
+<li>Anzeige im OSD, <code>set debug_mode=D_MIN</code>und im OSD die Anzeige <code>debug2 on-screen</code>. Die Anzeige zeigt dir den 10fachen Wert. Beispiel: Anzeige 350 = 35D</li>
+<li>Über die Log-Aufzeichnung. Auch hier <code>set debug_mode=D_MIN</code>DEBUG2 im Blackboxexplorer zeigt dir unittelbar D für die ROLL-Achse, DEBUG3 für PITCH.</li>
+</ul>
+<p><code>DEBUG2</code>und <code>DEBUG3</code>zeigen den D-Wert vor <code>TPA</code>.</p>
+<p><code>DEBUG0</code> zeigt die Gyro-Anteil</p>
+<p><strong>Hinweis</strong></p>
+<blockquote>
+<p>Bei Verwendung von <code>DMin</code>erhöht sich die CPU-Last ein wenig. Implementiert ist ein Biquad-Filter und ein PT1-Filter.</p>
+</blockquote>
+<h3 id="parameter">Parameter<a class="headerlink" href="#parameter" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>BF</th>
+<th>Default</th>
+<th>Bezeichnung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d_min</code></td>
+<td></td>
+<td>0/xx</td>
+<td>0 = disabled DMin, Werte &gt; 0 entsprechend dem DMin-Wert. Wenn DMin deaktiviert ist, ist aktuell immer der DMax (D) der genutzte Wert für D</td>
+</tr>
+<tr>
+<td><code>d_min_advanced</code></td>
+<td></td>
+<td>20</td>
+<td>beschleunigt des boost-effekt, wenn sich Änderungen am <code>setpoint</code> ergeben (oder Gyro-Veränderungen). Wird unmittelbar bei Veränderungen durchgeführt bevor der Copter überhaupt die Bewegung ausführt. Der Wert kann zum Overshot beitragen, 0 deaktiviert diese Funktion und sollte bei Racern verwendet werden (und bei den meisten Coptern).</td>
+</tr>
+<tr>
+<td><code>d_min_boost_gain</code></td>
+<td></td>
+<td></td>
+<td>Verstärkungsfaktor, wie schnell bei schnellen Bewegungen D angepasst werden soll. 30-35 ist für normale Copter gut geeignet, 40-45 für wirklich sauber gebaute Freestyler. Wenn Propwash das Hauptproblem sind und die Motoren kühl sind, dann DMax erhöhen und den gain-Faktor ebenfalls (moderat!)</td>
+</tr>
+</tbody>
+</table>
+<p>Fine-Tuning des DMin Wertes geht nur über eine Blackboxauswertung. Für diese Anlayse sollte der Debug-Mode <code>D-MIN</code>ausgewählt werden. Nur dann sieht man die aktuellen <code>D_Min</code>Werte im Flug</p>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+</body>
+</html>
