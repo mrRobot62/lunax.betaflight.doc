@@ -6,7 +6,7 @@
 
 # Allgemeines
 ## _Noise / Vibrationen_
-Ist eine Bezeichnung für Rauschen. Also Messwerte die irreguläre sind und die Performance des Copters negativ beeinflussen. 
+Ist eine Bezeichnung für Rauschen. Also Messwerte die irreguläre sind und die Performance des Copters neg	ativ beeinflussen. 
 Noise (Rauschen) kann ausgelöst werden durch: 
 * äußere Einflüsse (z.B. Wind, ...) 
 * Vibrationen am Chassis (z.B. lose schrauben, dünne schwingende Arme, ...) 
@@ -39,44 +39,16 @@ Versuche durch Deine Filter ein maximales Gyro & DTerm Delay von <5ms zu erreich
 ## _Harmonics_
 Harmonics oder Harmonische sind wiederkehrende Amplituden (Vibrationen) in den gleichen Frequenzabständen.
 
+Das nachfolgende Bild zeigt deutlich drei sich im gleichen Abstand wiederholende Frequenz-Peaks von Vibrationen (Motor Vibrationen)
+
+Beginnend mit dem Motor-Noise-Peak bei 158hz, dann die erste Harmonische Amplitude bei 316hz (2x158hz) und die dritte Amplitude bei 474hz (3x158).
+
+
 ![bbe_harmonics1.png](images/bbe_harmonics1.png "Harmonics")
 
 # Gyro-Data-Filtering
-```mermaid
 
-graph LR
-GY(Gyro)
-GY -.-> DMGYR[[DebugMode-GyroRaw]]:::dbg
-GY -.-> DMNF[[DebugMode-Notch]]:::dbg
-GY -.-> DMFFT[[DebugMode-FFT]]:::dbg
-DMFFT & DMNF & DMGYR -.-> DNF(DynamicNotch-Filter)
-GY-->DNF
-DNF -.-> DMFFT2[[DebugMode-FFT]]:::dbg
-DNF --> SNF(Static Notch Filter)
-DMFFT2 -.-> SNF(Static Notch Filter)
 
-classDef dbg fill:#ddd
-
-```
-
-```mermaid
-graph LR
-SNF(Static Notch Filter)
-SNF -.-> DMGY[[DebugMode-Gyro]]:::dbg
-DMGY -.-> SLPF(Static LowPass Filter)
-SNF --> SLPF(Static LowPass Filter)
-SLPF --> PID(PID-Loop)
-
-PID -.-> DMDT[[DebugMode - DTerm-Filter]]:::dbg
-PID --> DTLPF(DTerm LowPass Filter)
-DMDT -.-> DTLPF(DTerm LowPass Filter)
-
-DTLPF --> DTNF(DTerm Notch Filter)
-DTNF --> M(Motors)
-
-classDef dbg fill:#ddd
-
-``` 
 
 # Filter-Arten
 ## _Lowpass-Filter_
@@ -92,7 +64,10 @@ Die Dämpfungskurve ist eine Steigung. d.h. je höher die Signalfrequenz desto s
 
 Für den Einsatzbereich des Quadcopters ist der Frequenzbereich von 0-80Hz relevant, alles darüber sollte möglichst effizient weg gefiltert werden. 
 
-Ein fundamentaler Aspekt ist, je niedriger der Schwellwert für den Lowpass Filter ist - umso mehr muss gefiltert werden. Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter die andere Algorithmen verwenden und das System effizienter gestalten. 
+**Beachten**
+> Ein fundamentaler Aspekt ist, je niedriger der Schwellwert(Cutoff) für den Lowpass Filter ist - umso mehr muss gefiltert werden.
+
+> Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter die andere Algorithmen verwenden und das System effizienter gestalten. 
 
 
 
@@ -127,7 +102,7 @@ Die RPM-Filter basieren auf die Drehzahl der Motoren und dem bidrektionalen DSho
 > Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) [JFLIGHT](https://jflight.net/index.php)
 
 ## _Static-Filter_
-Statische Filter sind an eine Frequenz gebunden
+Im Rahmen von Betaflight werden statische Filter als LowPass-Filter oder als Notch-Filter genutzt
 
 ## _Dynamic-Filter_
 Dynamic Filter reduzieren ebenfalls Rauschen, wenn die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, ... können durch die Dynamic-Filter reduziert werden. 
@@ -140,7 +115,18 @@ Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen 
 
 ## _BF - Dynamic-Lowpassfilter_
 
+## _BF - Static Notchfilter_
+Statische Notchfilter werden explizit mit der Center-Frequenz auf auf die Herzzahl der höchsten Vibrationen (Peak) gesetzt.
+In BF kann man zwei dieser Notch-Filter aktivieren. Angegeben werden jeweils die Cutoff-Frequenz und die Center-Frequenz
+
 ## _BF - Dynamic-Notchfilter_
+Ab `BF 3.1` kann man auch `Dynamic Notch Filter` einsetzen. Dieser hocheffiziente Dynamasiche Notch-Filter setzt sich automatisch auf den Motor-Peak - also den aktuelle höchste Frequenz der Motor-Vibrationen, basieren auf die jeweils aktuelle FFT-Analyse. Hierdurch wirkt dieser Notch-Filter in allen Throttle-Stellungen und wandert demnach durch das Frequenzband.
+
+Dynamische Notch-Filter haben eine geringere Latzenzzeit als LP-Filter. Notch-Filter sind sehr effektiv und bei einer guten Abstimmung kann man sogar auf LPF-Filter verzichten. Dadurch steigert sich die Gesamtperformance des Copters.
+
+LP-Filter aber einfach abschalten sollte wirklich mit bedacht gemacht werden.
+
+Der Dyn-Notch-Filter ist per default eingeschaltet.
 
 ## _BF - Static-Lowpassfilter_
 In Betaflight wird zwischen zwei Static-LPF Filtern unterschieden
@@ -162,3 +148,9 @@ Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von 
 
 ## _BF - Gyro-LowPass Filter_
 
+## _BF - DTerm LowPass Filter_
+Der DTerm verstärkt alles - auch Vibrationssignale - somit können ungefilterte DTerm Werte die direkt zu den Motoren gesendet werden dazu führen, dass die Motoren heiß werden oder sogar überhitzen und zerstört werden.
+
+Hier kommen jetzt die DTerm-Lowpass Filter -> Einstellung wie bei den Static-Lowpassfilter
+
+Allgemeinen ist ein Biquad-Filter das sinnvolle Minimum an Filterung mit einer Frequenz um 100 Hz bis hinunter zu 80 Hz, wenn man heiße Motoren hat.
