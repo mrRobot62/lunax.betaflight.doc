@@ -14,7 +14,7 @@ nav:
      - 'Tunig-Parameter' : 'bf_tuning_parameters.md'
      - 'DMin' : 'bf_dmin.md'
   - 'About': about.md
-
+  
 theme: windmill
   
 plugins:
@@ -23,6 +23,7 @@ plugins:
   - pdf-export:
       verbose: false
       combined : true
+  - markdownmermaid
   
 markdown_extensions:
     - toc:
@@ -33,3 +34,8 @@ extra:
    logo: images/LunaX_Font.png
    article_nav_top: false
    article_nav_bottom: false
+   
+ 
+extra_javascript:
+   - https://unpkg.com/browse/mermaid@8.7.0/dist/mermad.min.js
+   

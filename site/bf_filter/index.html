@@ -6,7 +6,7 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../img/favicon.ico" rel="shortcut icon"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
 <title>Filter - LunaX - Betaflight Docs</title>
 <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
 <link href="../css/font-awesome-4.7.0.css" rel="stylesheet"/>
@@ -32,6 +32,8 @@
               {title: "Noise / Vibrationen", url: "#noise-vibrationen" },
               {title: "Harmonics", url: "#harmonics" },
           ]},
+          {title: "Gyro-Data-Filtering", url: "#gyro-data-filtering", children: [
+          ]},
           {title: "Filter-Arten", url: "#filter-arten", children: [
               {title: "Lowpass-Filter", url: "#lowpass-filter" },
               {title: "Notch-Filter", url: "#notch-filter" },
@@ -50,7 +52,8 @@
 
     </script>
 <script src="../js/base.js"></script>
-</meta><link href="../pdf/combined.pdf" rel="alternate" title="PDF Export" type="application/pdf"/></head>
+<script src="https://unpkg.com7.1.2aid@8.7.0/dist/mermad.mn.js"></script>
+<link href="../pdf/combined.pdf" rel="alternate" title="PDF Export" type="application/pdf"/></head>
 <body>
 <script>
 if (is_top_frame) { $('body').addClass('wm-top-page'); }
@@ -66,6 +69,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <li><a href="#harmonics">Harmonics</a></li>
 </ul>
 </li>
+<li><a href="#gyro-data-filtering">Gyro-Data-Filtering</a></li>
 <li><a href="#filter-arten">Filter-Arten</a><ul>
 <li><a href="#lowpass-filter">Lowpass-Filter</a></li>
 <li><a href="#notch-filter">Notch-Filter</a></li>
@@ -77,13 +81,18 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <li><a href="#betaflight-filter">Betaflight-Filter</a><ul>
 <li><a href="#bf-dynamic-lowpassfilter">BF - Dynamic-Lowpassfilter</a></li>
 <li><a href="#bf-dynamic-notchfilter">BF - Dynamic-Notchfilter</a></li>
-<li><a href="#bf-static-lowpassfilter">BF - Static-Lowpassfilter</a></li>
+<li><a href="#bf-static-lowpassfilter">BF - Static-Lowpassfilter</a><ul>
+<li><a href="#pt1">PT1</a></li>
+<li><a href="#biquad">BIQUAD</a></li>
+</ul>
+</li>
 <li><a href="#bf-gyro-rpm-filter">BF - Gyro-RPM-Filter</a></li>
 <li><a href="#bf-gyro-lowpass-filter">BF - Gyro-LowPass Filter</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<p>{{TOC}}</p>
 <h2 id="allgemeines">Allgemeines<a class="headerlink" href="#allgemeines" title="Permanent link">#</a></h2>
 <h3 id="noise-vibrationen"><em>Noise / Vibrationen</em><a class="headerlink" href="#noise-vibrationen" title="Permanent link">#</a></h3>
 <p>Ist eine Bezeichnung für Rauschen. Also Messwerte die irreguläre sind und die Performance des Copters negativ beeinflussen. 
@@ -107,7 +116,41 @@ Noise (Rauschen) kann ausgelöst werden durch:
 </blockquote>
 <p>Versuche durch Deine Filter ein maximales Gyro &amp; DTerm Delay von &lt;5ms zu erreichen. Du kannst das sehr einfach mit <code>PIDToolbox</code> erkennen.</p>
 <h3 id="harmonics"><em>Harmonics</em><a class="headerlink" href="#harmonics" title="Permanent link">#</a></h3>
-<p><a href=""><strong>todo bild einfügen</strong></a></p>
+<p>Harmonics oder Harmonische sind wiederkehrende Amplituden (Vibrationen) in den gleichen Frequenzabständen.</p>
+<p><img alt="bbe_harmonics1.png" src="../images/bbe_harmonics1.png" title="Harmonics"/></p>
+<h2 id="gyro-data-filtering">Gyro-Data-Filtering<a class="headerlink" href="#gyro-data-filtering" title="Permanent link">#</a></h2>
+<div class="mermaid">
+graph LR
+GY(Gyro)
+GY -.-&gt; DMGYR[[DebugMode-GyroRaw]]:::dbg
+GY -.-&gt; DMNF[[DebugMode-Notch]]:::dbg
+GY -.-&gt; DMFFT[[DebugMode-FFT]]:::dbg
+DMFFT &amp; DMNF &amp; DMGYR -.-&gt; DNF(DynamicNotch-Filter)
+GY--&gt;DNF
+DNF -.-&gt; DMFFT2[[DebugMode-FFT]]:::dbg
+DNF --&gt; SNF(Static Notch Filter)
+DMFFT2 -.-&gt; SNF(Static Notch Filter)
+
+classDef dbg fill:#ddd
+
+</div>
+<div class="mermaid">graph LR
+SNF(Static Notch Filter)
+SNF -.-&gt; DMGY[[DebugMode-Gyro]]:::dbg
+DMGY -.-&gt; SLPF(Static LowPass Filter)
+SNF --&gt; SLPF(Static LowPass Filter)
+SLPF --&gt; PID(PID-Loop)
+
+PID -.-&gt; DMDT[[DebugMode - DTerm-Filter]]:::dbg
+PID --&gt; DTLPF(DTerm LowPass Filter)
+DMDT -.-&gt; DTLPF(DTerm LowPass Filter)
+
+DTLPF --&gt; DTNF(DTerm Notch Filter)
+DTNF --&gt; M(Motors)
+
+classDef dbg fill:#ddd
+
+</div>
 <h2 id="filter-arten">Filter-Arten<a class="headerlink" href="#filter-arten" title="Permanent link">#</a></h2>
 <h3 id="lowpass-filter"><em>Lowpass-Filter</em><a class="headerlink" href="#lowpass-filter" title="Permanent link">#</a></h3>
 <p>Niedrige Frequenzen werden durch den Filter durchgelassen, hohe Frequenzen werden gedämpft.</p>
@@ -136,6 +179,7 @@ Noise (Rauschen) kann ausgelöst werden durch:
 <p>Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) <a href="https://jflight.net/index.php">JFLIGHT</a></p>
 </blockquote>
 <h3 id="static-filter"><em>Static-Filter</em><a class="headerlink" href="#static-filter" title="Permanent link">#</a></h3>
+<p>Statische Filter sind an eine Frequenz gebunden</p>
 <h3 id="dynamic-filter"><em>Dynamic-Filter</em><a class="headerlink" href="#dynamic-filter" title="Permanent link">#</a></h3>
 <p>Dynamic Filter reduzieren ebenfalls Rauschen, wenn die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, ... können durch die Dynamic-Filter reduziert werden. </p>
 <p>Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen kann und er kann den Notch-Filter verwenden, um ihn automatisch zu reduzieren. </p>
@@ -144,12 +188,23 @@ Noise (Rauschen) kann ausgelöst werden durch:
 <h3 id="bf-dynamic-lowpassfilter"><em>BF - Dynamic-Lowpassfilter</em><a class="headerlink" href="#bf-dynamic-lowpassfilter" title="Permanent link">#</a></h3>
 <h3 id="bf-dynamic-notchfilter"><em>BF - Dynamic-Notchfilter</em><a class="headerlink" href="#bf-dynamic-notchfilter" title="Permanent link">#</a></h3>
 <h3 id="bf-static-lowpassfilter"><em>BF - Static-Lowpassfilter</em><a class="headerlink" href="#bf-static-lowpassfilter" title="Permanent link">#</a></h3>
+<p>In Betaflight wird zwischen zwei Static-LPF Filtern unterschieden</p>
+<ul>
+<li>PT1</li>
+<li>BIQUAD</li>
+</ul>
+<h4 id="pt1">PT1<a class="headerlink" href="#pt1" title="Permanent link">#</a></h4>
+<p>Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latzenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)</p>
+<h4 id="biquad">BIQUAD<a class="headerlink" href="#biquad" title="Permanent link">#</a></h4>
+<p>Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latzenzzeit schlechter, das Filterergebniss besser.</p>
 <h3 id="bf-gyro-rpm-filter"><em>BF - Gyro-RPM-Filter</em><a class="headerlink" href="#bf-gyro-rpm-filter" title="Permanent link">#</a></h3>
+<p>Ein mächtiges neues Feature, welches mit BF 4.0 eingeführt wurde und in den nachfolgenden Releasen weiter verbessert wurde.
+Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von Detailinformationen.</p>
 <h3 id="bf-gyro-lowpass-filter"><em>BF - Gyro-LowPass Filter</em><a class="headerlink" href="#bf-gyro-lowpass-filter" title="Permanent link">#</a></h3>
 <br/>
 </div>
 <footer class="container-fluid wm-page-content">
 <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
 </footer>
-</body>
+<script>mermaid.initialize();</script></body>
 </html>

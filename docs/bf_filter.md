@@ -2,6 +2,7 @@
 
 [TOC]
 
+{{TOC}}
 
 # Allgemeines
 ## _Noise / Vibrationen_
@@ -36,8 +37,46 @@ Filter helfen, diese Vibrationen möglichst aus den Signalen für den Flight-Con
 Versuche durch Deine Filter ein maximales Gyro & DTerm Delay von <5ms zu erreichen. Du kannst das sehr einfach mit `PIDToolbox` erkennen.
 
 ## _Harmonics_
+Harmonics oder Harmonische sind wiederkehrende Amplituden (Vibrationen) in den gleichen Frequenzabständen.
 
-[**todo bild einfügen**]()
+![bbe_harmonics1.png](images/bbe_harmonics1.png "Harmonics")
+
+# Gyro-Data-Filtering
+```mermaid
+
+graph LR
+GY(Gyro)
+GY -.-> DMGYR[[DebugMode-GyroRaw]]:::dbg
+GY -.-> DMNF[[DebugMode-Notch]]:::dbg
+GY -.-> DMFFT[[DebugMode-FFT]]:::dbg
+DMFFT & DMNF & DMGYR -.-> DNF(DynamicNotch-Filter)
+GY-->DNF
+DNF -.-> DMFFT2[[DebugMode-FFT]]:::dbg
+DNF --> SNF(Static Notch Filter)
+DMFFT2 -.-> SNF(Static Notch Filter)
+
+classDef dbg fill:#ddd
+
+```
+
+```mermaid
+graph LR
+SNF(Static Notch Filter)
+SNF -.-> DMGY[[DebugMode-Gyro]]:::dbg
+DMGY -.-> SLPF(Static LowPass Filter)
+SNF --> SLPF(Static LowPass Filter)
+SLPF --> PID(PID-Loop)
+
+PID -.-> DMDT[[DebugMode - DTerm-Filter]]:::dbg
+PID --> DTLPF(DTerm LowPass Filter)
+DMDT -.-> DTLPF(DTerm LowPass Filter)
+
+DTLPF --> DTNF(DTerm Notch Filter)
+DTNF --> M(Motors)
+
+classDef dbg fill:#ddd
+
+``` 
 
 # Filter-Arten
 ## _Lowpass-Filter_
@@ -88,6 +127,7 @@ Die RPM-Filter basieren auf die Drehzahl der Motoren und dem bidrektionalen DSho
 > Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) [JFLIGHT](https://jflight.net/index.php)
 
 ## _Static-Filter_
+Statische Filter sind an eine Frequenz gebunden
 
 ## _Dynamic-Filter_
 Dynamic Filter reduzieren ebenfalls Rauschen, wenn die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, ... können durch die Dynamic-Filter reduziert werden. 
@@ -103,8 +143,22 @@ Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen 
 ## _BF - Dynamic-Notchfilter_
 
 ## _BF - Static-Lowpassfilter_
+In Betaflight wird zwischen zwei Static-LPF Filtern unterschieden
+
+* PT1
+* BIQUAD
+
+### PT1
+Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latzenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)
+
+### BIQUAD
+Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latzenzzeit schlechter, das Filterergebniss besser.
 
 ## _BF - Gyro-RPM-Filter_
+Ein mächtiges neues Feature, welches mit BF 4.0 eingeführt wurde und in den nachfolgenden Releasen weiter verbessert wurde.
+Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von Detailinformationen.
+
+
 
 ## _BF - Gyro-LowPass Filter_
 
