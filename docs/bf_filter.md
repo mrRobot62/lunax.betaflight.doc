@@ -47,7 +47,43 @@ Beginnend mit dem Motor-Noise-Peak bei 158hz, dann die erste Harmonische Amplitu
 ![bbe_harmonics1.png](images/bbe_harmonics1.png "Harmonics")
 
 # Gyro-Data-Filtering
+Signal & Prozessfluß zur Filterung
 
+```mermaid
+graph LR
+	classDef dbg fill:#ddd
+
+	GY(Gyro) -.-> DBG1[[DebugMode<br>Gyro_Raw<br>Notch<br>FFT]]
+	GY --> DNF
+	DBG1 -.-> DNF(Dynamic Notch Filter)
+	DNF -.-> DBGFFT[[DebugMode<br>FFT]]
+	DNF --> SNF(Static Notch Filter)
+	DBGFFT -.-> SNF
+
+```
+
+```mermaid
+graph LR
+	SNF(Static Notch Filter) --> GLPF
+	SNF -.-> DBGGY[[DebugMode<br>Gyro]]
+	DBGGY -.-> GLPF(Gyro LPF<br>LowPass Filter)
+	GLPF --> PID(PID Loop)
+
+```
+
+```mermaid
+graph LR
+	PID(PID Loop) -.-> DBGDF[[DebugMode<br>DFilter]]
+	PID --> DTLPF(DTerm<br>LPF)
+	DBGDF -.-> DTLPF
+	DTLPF --> DTNF(DTerm<br>Notch Filter)
+```
+
+```mermaid
+graph LR
+	DTNF(DTerm<br>Notch Filter) --> M(Motoren)
+	
+```
 
 
 # Filter-Arten
