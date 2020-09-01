@@ -12,6 +12,7 @@
 <link href="../css/font-awesome-4.7.0.css" rel="stylesheet"/>
 <link href="../css/base.css" rel="stylesheet"/>
 <link href="../css/highlight.css" rel="stylesheet"/>
+<link href="../css/pdf.css" rel="stylesheet"/>
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -26,7 +27,9 @@
       var is_top_frame = false;
         
         var pageToc = [
-          {title: "BF 4.2 Tuning Tips", url: "#_top", children: [
+          {title: "BF Allgemeine Tuning Tips", url: "#_top", children: [
+              {title: "Inhaltsverzeichnis", url: "#inhaltsverzeichnis" },
+              {title: "Allgemeines", url: "#allgemeines" },
           ]},
         ];
 
@@ -40,7 +43,39 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </script>
 <div class="container-fluid wm-page-content">
 <a name="_top"></a>
-<h2 id="bf-42-tuning-tips">BF 4.2 Tuning Tips<a class="headerlink" href="#bf-42-tuning-tips" title="Permanent link">#</a></h2>
+<h2 id="bf-allgemeine-tuning-tips">BF Allgemeine Tuning Tips<a class="headerlink" href="#bf-allgemeine-tuning-tips" title="Permanent link">#</a></h2>
+<h3 id="inhaltsverzeichnis">Inhaltsverzeichnis<a class="headerlink" href="#inhaltsverzeichnis" title="Permanent link">#</a></h3>
+<div class="toc">
+<ul>
+<li><a href="#bf-allgemeine-tuning-tips">BF Allgemeine Tuning Tips</a><ul>
+<li><a href="#inhaltsverzeichnis">Inhaltsverzeichnis</a></li>
+<li><a href="#allgemeines">Allgemeines</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>{{TOC}}</p>
+<h3 id="allgemeines">Allgemeines<a class="headerlink" href="#allgemeines" title="Permanent link">#</a></h3>
+<p>Um den Copter zu tunen sollte nachfolgende Reihenfolge versucht werden einzuhalten</p>
+<ol>
+<li>
+<p><strong><em>Sauber bauen</em></strong>. Vermeide schlackernde Kabel. Der FC sollte vibrationsgedämpft verbaut sein. Prüfe ob den Gyro etwas berührt (<strong>strikt vermeiden</strong>). Sind alle Schrauben fest</p>
+</li>
+<li>
+<p><strong>Versuche auf die aktuelleste BF-Version aufzusetzen.</strong> Mache vor Deinen Änderungen ein Backup der aktuellen FW. Sichere Deine Konfiguration mit <code>diff all</code>. Neue BF-Version versprechen Bugfixings und häufig verbesserte Filter/Tunig-Möglichkeiten. Leider ist der Update immer mit Arbeit verbunden.</p>
+</li>
+<li>
+<p><strong>Sender kalibrieren</strong>. Im Receiver-Tab sollten für alle drei Achsen die Einstellungen zwischenn <strong>1000</strong> und <strong>2000</strong> liegen. Hintergrund ist, liegen die aktuellen Werte unter-/oberhalb wird das RC-Signal beschnitten oder gespreizt, beides sorgt dafür, dass die Signalverarbeitung nicht optimal ist.</p>
+</li>
+<li>
+<p><strong>Prüfe im BF-Configurator die Lage des Copters.</strong> Der grüne Pfeil symbolisiert <strong>Vorne</strong>. Neige den Copter nach unten (PITCH-Forward), der der simulierte Copter <strong>muss</strong> sich ebenfalls nach unten neigen. Wiederholen für alle Achsen. Der simulierte Copter <strong>muss exakt</strong> das gleiche tun als der echte Copter.</p>
+<blockquote>
+<p>Das ist eine <strong>sehr, sehr wichtige</strong> Funktionsprüfung, ansonsten wird der Copter beim Erststart vermutlich direkt einen Salto schlagen</p>
+</blockquote>
+</li>
+<li></li>
+</ol>
+<p><img alt="Baustelle" src="../images/inwork.png" title="In-Arbeit"/></p>
 <br/>
 </div>
 <footer class="container-fluid wm-page-content">

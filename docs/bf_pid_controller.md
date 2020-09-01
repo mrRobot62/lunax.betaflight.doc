@@ -33,11 +33,15 @@ Ist der Wert, der durch das Gyro über alle drei Achsen gemessen wurde
 
 
 ## _PID-Loop_ 
-Die PID-Loop in Betaflight beinhaltet (für **alle** Achsen) folgende Punkte (vereinfachte Darstellung und nicht 100% vollständig)
+Die PID-Loop in Betaflight beinhaltet (für **alle** Achsen) folgende Punkte (vereinfachte Darstellung und nicht 100% vollständig). Die PID-Loop beschreibt auch die maximale [Looptime](#looptime-dt)
 
 ```mermaid
-flowchart LR
-	loop(d/t)
+graph LR
+	classDef LP fill:#f96
+
+	
+	ls[Loop<br>Start d/t]:::LP
+	le[Loop<br>ende]:::LP
 	RC(RC-Cmd)
 	RPM(RPM-Tele)
 	GY(Gyro)
@@ -49,14 +53,20 @@ flowchart LR
 	PERR((PID<br>Error))
 	PSUM((PID<br>Sum))
 	PID(P-I-D<br>Terms)
-	loop --> RPM & RC & GY
-	RC --> SM --> PERR --> PID
+
+	
+	ls--> RPM & RC & GY
+	RC --> SM --> PERR
 	GY --> GF --> DT
 	RPM --> GF
 	GF & DT --> PERR
-	PID --> PSUM --> MIX
+	
+	subgraph PIDCTRL [PID-Controller]
+		PERR --> PID --> PSUM 
+	end
+	PSUM --> MIX
 	MIX --> MOT
-	MOT --> loop
+	MOT --> le
 	
 ```
 _P-Term (Proportionaler Fehler)_
@@ -115,7 +125,7 @@ Der DTerm ist im Prinzip der Gegenpart zum PTerm und versucht eine Vorhersage zu
 
 P & D hängen eng beieinander. 
 
-Der DTerm ist ein Dämpfungsglied für ein überkorrigieren des P-Reglers und versucht „Overshoots“ zu minimieren. Ähnlich einem Schock-Absorber. 
+Der DTerm ist ein Dämpfungsglied für ein Überkorrigieren des P-Reglers und versucht „Overshoots“ zu minimieren. Ähnlich einem Schock-Absorber. 
 
 Den DTerm erhöhen kann eine Oszillation mehr glätten. Zu hohe DTerm führen aber zu heißen Motoren und können bis zur Zerstörung des ESCs oder des Motors führen. 
 
@@ -132,7 +142,7 @@ Im Beispiel gehen wir davon aus, dass DerrAlt = -4 ist
 	
 ```
 
-_Looptime (d/t)_ {#looptime}
+_Looptime (d/t)_ 
 ---------------------
 Den Zyklus den der PID-Controller benötigt das Eingangssignal (Eingangswert) und der daraus resultierenden Kalkulation und einen Ausgabewert zu berechnen bezeichnet man als „Loop“. 
 
@@ -141,18 +151,22 @@ Die dazu benötigte Zeit wird „Looptime“ genannt Looptime wird in ms (Millis
 ```
 1sek = 1000ms = 1Hz = 1 Zyklus 
 1ms = 0.001sek = 1KHz 
+
+4k Looptime = 4000x die Loop durchlaufen pro Sekunde
 ```
 
 Daher ist es auch wichtig, dass man in BF die Looptime so einstellt das der FC dies auch verarbeiten kann ohne Fehlberechnungen durchzuführen 
 
-Beispiel FC F405
-4KHz = 4000 Loops pro Sekunde - das schafft der FC problemlos 8KHz = 8000 Loops ist für einige F4 FCs zuviel, wenn zusätzliche Filter eingeschaltet wurden.
-Bei F7 FCs ist 8K typisch
+**Beispiel FC F405**
+4KHz = 4000 Loops pro Sekunde - das schafft der FC problemlos 8KHz = 8000 Loops ist für einige F4 FCs zu viel, wenn zusätzliche Filter eingeschaltet wurden.
+Bei F7 FCs ist 8K typisch.
 
 
 ---------------------
 
 [^Kpid]: Fehlerkonstanten, werden pro Achse in BF eingestellt.
 [^Perr]: PID-Error, Summe aller anliegenden Fehlersignale.
+[^DT] 
+
 
 [imgPIDCtrl]: images/pidController.png "PID Controller"

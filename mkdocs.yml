@@ -22,7 +22,6 @@ plugins:
       lang: ['de','en']
   
   - markdownmermaid
-  
   - pdf-export:
       verbose: false
       combined : true
@@ -43,4 +42,8 @@ extra:
  
 extra_javascript:
    - js/mermaid.min.js
+   
+
+extra_css:
+   - css/pdf.css
    
