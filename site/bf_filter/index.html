@@ -26,60 +26,69 @@
       var is_top_frame = false;
         
         var pageToc = [
-          {title: "FILTER-Bescheibungen", url: "#_top", children: [
+          {title: "FILTER Ein * Eins", url: "#_top", children: [
+              {title: "Historie", url: "#historie" },
           ]},
           {title: "Allgemeines", url: "#allgemeines", children: [
+              {title: "Typische Frequenzen", url: "#typische-frequenzen" },
               {title: "Noise / Vibrationen", url: "#noise-vibrationen" },
               {title: "Harmonics", url: "#harmonics" },
           ]},
           {title: "Gyro-Data-Filtering", url: "#gyro-data-filtering", children: [
           ]},
-          {title: "Filter-Arten", url: "#filter-arten", children: [
+          {title: "Grundlage Filter-Arten", url: "#grundlage-filter-arten", children: [
               {title: "Lowpass-Filter", url: "#lowpass-filter" },
               {title: "Notch-Filter", url: "#notch-filter" },
-              {title: "RPM-Filter", url: "#rpm-filter" },
               {title: "Static-Filter", url: "#static-filter" },
               {title: "Dynamic-Filter", url: "#dynamic-filter" },
           ]},
           {title: "Betaflight-Filter", url: "#betaflight-filter", children: [
+              {title: "RPM-Filter", url: "#rpm-filter" },
               {title: "BF - Dynamic-Lowpassfilter", url: "#bf-dynamic-lowpassfilter" },
+              {title: "BF - Static Notchfilter {#SNF}", url: "#bf-static-notchfilter-snf" },
               {title: "BF - Dynamic-Notchfilter", url: "#bf-dynamic-notchfilter" },
               {title: "BF - Static-Lowpassfilter", url: "#bf-static-lowpassfilter" },
               {title: "BF - Gyro-RPM-Filter", url: "#bf-gyro-rpm-filter" },
               {title: "BF - Gyro-LowPass Filter", url: "#bf-gyro-lowpass-filter" },
+              {title: "BF - DTerm LowPass Filter", url: "#bf-dterm-lowpass-filter" },
           ]},
         ];
 
     </script>
 <script src="../js/base.js"></script>
-<script src="https://unpkg.com/browse/mermaid@8.7.0/dist/mermaid.min.js"></script>
-<link href="../pdf/combined.pdf" rel="alternate" title="PDF Export" type="application/pdf"/></head>
+<script src="../js/mermaid.min.js"></script>
+<link href="../pdf/bf_doc_all.pdf" rel="alternate" title="PDF Export" type="application/pdf"/></head>
 <body>
 <script>
 if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </script>
 <div class="container-fluid wm-page-content">
 <a name="_top"></a>
-<h2 id="filter-bescheibungen"><em>FILTER-Bescheibungen</em><a class="headerlink" href="#filter-bescheibungen" title="Permanent link">#</a></h2>
+<h2 id="filter-ein-eins"><em>FILTER Ein * Eins</em><a class="headerlink" href="#filter-ein-eins" title="Permanent link">#</a></h2>
 <div class="toc">
 <ul>
-<li><a href="#filter-bescheibungen">FILTER-Bescheibungen</a></li>
+<li><a href="#filter-ein-eins">FILTER Ein * Eins</a><ul>
+<li><a href="#historie">Historie</a></li>
+</ul>
+</li>
 <li><a href="#allgemeines">Allgemeines</a><ul>
+<li><a href="#typische-frequenzen">Typische Frequenzen</a></li>
 <li><a href="#noise-vibrationen">Noise / Vibrationen</a></li>
 <li><a href="#harmonics">Harmonics</a></li>
 </ul>
 </li>
 <li><a href="#gyro-data-filtering">Gyro-Data-Filtering</a></li>
-<li><a href="#filter-arten">Filter-Arten</a><ul>
+<li><a href="#grundlage-filter-arten">Grundlage Filter-Arten</a><ul>
 <li><a href="#lowpass-filter">Lowpass-Filter</a></li>
 <li><a href="#notch-filter">Notch-Filter</a></li>
-<li><a href="#rpm-filter">RPM-Filter</a></li>
 <li><a href="#static-filter">Static-Filter</a></li>
 <li><a href="#dynamic-filter">Dynamic-Filter</a></li>
 </ul>
 </li>
 <li><a href="#betaflight-filter">Betaflight-Filter</a><ul>
+<li><a href="#rpm-filter">RPM-Filter</a></li>
 <li><a href="#bf-dynamic-lowpassfilter">BF - Dynamic-Lowpassfilter</a></li>
+<li><a href="#bf-static-notchfilter-snf">BF - Static Notchfilter {#SNF}</a></li>
 <li><a href="#bf-dynamic-notchfilter">BF - Dynamic-Notchfilter</a></li>
 <li><a href="#bf-static-lowpassfilter">BF - Static-Lowpassfilter</a><ul>
 <li><a href="#pt1">PT1</a></li>
@@ -88,16 +97,46 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </li>
 <li><a href="#bf-gyro-rpm-filter">BF - Gyro-RPM-Filter</a></li>
 <li><a href="#bf-gyro-lowpass-filter">BF - Gyro-LowPass Filter</a></li>
+<li><a href="#bf-dterm-lowpass-filter">BF - DTerm LowPass Filter</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <p>{{TOC}}</p>
+<h3 id="historie">Historie<a class="headerlink" href="#historie" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th align="center">Version</th>
+<th>Datum</th>
+<th>Inhalt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">0.1</td>
+<td>August 2020</td>
+<td>initial</td>
+</tr>
+</tbody>
+</table>
 <h2 id="allgemeines">Allgemeines<a class="headerlink" href="#allgemeines" title="Permanent link">#</a></h2>
+<h3 id="typische-frequenzen">Typische Frequenzen<a class="headerlink" href="#typische-frequenzen" title="Permanent link">#</a></h3>
+<p>Vibrationen die am Copter auftreten lassen sich in verschiede Frequenzbereiche unterteilen</p>
+<ul>
+<li>0 ~ 20Hz: normaler Frequenzbereich während des Fliegens (keine Filterung der Signale)</li>
+<li>20 ~ 80Hz: Vibrationen niedriger Frequenz (häufig Propwash)</li>
+<li>80 ~ 1000Hz: hochfrequente Vibrationen (Noise) verursacht durch<ul>
+<li>Motorvibrationen &amp; Prop-Resonanzen. Hier sieht man auch das typische Bild des Motor-Vibrations-Bandes <a href="#harmonics">Harmonics</a></li>
+<li>Frame-Resonanzen</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
 <h3 id="noise-vibrationen"><em>Noise / Vibrationen</em><a class="headerlink" href="#noise-vibrationen" title="Permanent link">#</a></h3>
-<p>Ist eine Bezeichnung für Rauschen. Also Messwerte die irreguläre sind und die Performance des Copters negativ beeinflussen. 
+<p>Ist eine Bezeichnung für Rauschen bzw. Gyro-Signale die nicht zu den gewünschten/benötigten Signalen sind, die durch den FC verarbeitet werden müssen. Also Messwerte die irreguläre sind und die Performance des Copters negativ beeinflussen. 
 Noise (Rauschen) kann ausgelöst werden durch: 
-* äußere Einflüsse (z.B. Wind, ...) 
+* äußere Einflüsse (z.B. Wind, Kontakte mit Ästen, ...) 
 * Vibrationen am Chassis (z.B. lose schrauben, dünne schwingende Arme, ...) 
 * Vibrationen durch Motoren(z.B. Lagerschäden, Unwucht, ...) 
 * Vibrationen durch Props (z.B. Unwucht, Prop-Wash, ...) 
@@ -117,76 +156,87 @@ Noise (Rauschen) kann ausgelöst werden durch:
 <p>Versuche durch Deine Filter ein maximales Gyro &amp; DTerm Delay von &lt;5ms zu erreichen. Du kannst das sehr einfach mit <code>PIDToolbox</code> erkennen.</p>
 <h3 id="harmonics"><em>Harmonics</em><a class="headerlink" href="#harmonics" title="Permanent link">#</a></h3>
 <p>Harmonics oder Harmonische sind wiederkehrende Amplituden (Vibrationen) in den gleichen Frequenzabständen.</p>
+<p>Das nachfolgende Bild zeigt deutlich drei sich im gleichen Abstand wiederholende Frequenz-Peaks von Vibrationen (Motor Vibrationen)</p>
+<p>Beginnend mit dem Motor-Noise-Peak bei 158hz, dann die erste Harmonische Amplitude bei 316hz (2x158hz) und die dritte Amplitude bei 474hz (3x158).</p>
 <p><img alt="bbe_harmonics1.png" src="../images/bbe_harmonics1.png" title="Harmonics"/></p>
 <h2 id="gyro-data-filtering">Gyro-Data-Filtering<a class="headerlink" href="#gyro-data-filtering" title="Permanent link">#</a></h2>
-<div class="mermaid">
-graph LR
-GY(Gyro)
-GY -.-&gt; DMGYR[[DebugMode-GyroRaw]]:::dbg
-GY -.-&gt; DMNF[[DebugMode-Notch]]:::dbg
-GY -.-&gt; DMFFT[[DebugMode-FFT]]:::dbg
-DMFFT &amp; DMNF &amp; DMGYR -.-&gt; DNF(DynamicNotch-Filter)
-GY--&gt;DNF
-DNF -.-&gt; DMFFT2[[DebugMode-FFT]]:::dbg
-DNF --&gt; SNF(Static Notch Filter)
-DMFFT2 -.-&gt; SNF(Static Notch Filter)
+<p>Signal &amp; Prozessfluß zur Filterung</p>
+<div class="mermaid">graph LR
+    classDef dbg fill:#ddd
 
-classDef dbg fill:#ddd
+    GY(Gyro) -.-&gt; DBG1[[DebugMode&lt;br&gt;Gyro_Raw&lt;br&gt;Notch&lt;br&gt;FFT]]
+    GY --&gt; DNF
+    DBG1 -.-&gt; DNF(Dynamic Notch Filter)
+    DNF -.-&gt; DBGFFT[[DebugMode&lt;br&gt;FFT]]
+    DNF --&gt; SNF(Static Notch Filter)
+    DBGFFT -.-&gt; SNF
 
 </div>
 <div class="mermaid">graph LR
-SNF(Static Notch Filter)
-SNF -.-&gt; DMGY[[DebugMode-Gyro]]:::dbg
-DMGY -.-&gt; SLPF(Static LowPass Filter)
-SNF --&gt; SLPF(Static LowPass Filter)
-SLPF --&gt; PID(PID-Loop)
-
-PID -.-&gt; DMDT[[DebugMode - DTerm-Filter]]:::dbg
-PID --&gt; DTLPF(DTerm LowPass Filter)
-DMDT -.-&gt; DTLPF(DTerm LowPass Filter)
-
-DTLPF --&gt; DTNF(DTerm Notch Filter)
-DTNF --&gt; M(Motors)
-
-classDef dbg fill:#ddd
+    SNF(Static Notch Filter) --&gt; GLPF
+    SNF -.-&gt; DBGGY[[DebugMode&lt;br&gt;Gyro]]
+    DBGGY -.-&gt; GLPF(Gyro LPF&lt;br&gt;LowPass Filter)
+    GLPF --&gt; PID(PID Loop)
 
 </div>
-<h2 id="filter-arten">Filter-Arten<a class="headerlink" href="#filter-arten" title="Permanent link">#</a></h2>
+<div class="mermaid">graph LR
+    PID(PID Loop) -.-&gt; DBGDF[[DebugMode&lt;br&gt;DFilter]]
+    PID --&gt; DTLPF(DTerm&lt;br&gt;LPF)
+    DBGDF -.-&gt; DTLPF
+    DTLPF --&gt; DTNF(DTerm&lt;br&gt;Notch Filter)
+</div>
+<div class="mermaid">graph LR
+    DTNF(DTerm&lt;br&gt;Notch Filter) --&gt; M(Motoren)
+
+</div>
+<h2 id="grundlage-filter-arten">Grundlage Filter-Arten<a class="headerlink" href="#grundlage-filter-arten" title="Permanent link">#</a></h2>
 <h3 id="lowpass-filter"><em>Lowpass-Filter</em><a class="headerlink" href="#lowpass-filter" title="Permanent link">#</a></h3>
 <p>Niedrige Frequenzen werden durch den Filter durchgelassen, hohe Frequenzen werden gedämpft.</p>
 <p>Hohe Frequenzen sind in der Regel im System nur Rauschen bzw. Vibrationen und werden für die Flugdaten nicht benötigt, daher versucht man sie herauszufiltern.</p>
 <p>Mit dem LOWPASS-Filter wird eine Grenzfrequenz (<code>cut-off</code>) angelegt und der FC reduziert die Signale die oberhalb dieser Grenzfrequenz liegen. </p>
 <p>Die Dämpfungskurve ist eine Steigung. d.h. je höher die Signalfrequenz desto stärker die Dämpfung </p>
-<p><img alt="Low Pass Filter" src="../images/lowpass-filter.png"/></p>
+<p><img alt="Low Pass Filter" src="../images/lowpass-filter.png" title="LowPass-Filter"/></p>
 <p>Für den Einsatzbereich des Quadcopters ist der Frequenzbereich von 0-80Hz relevant, alles darüber sollte möglichst effizient weg gefiltert werden. </p>
-<p>Ein fundamentaler Aspekt ist, je niedriger der Schwellwert für den Lowpass Filter ist - umso mehr muss gefiltert werden. Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter die andere Algorithmen verwenden und das System effizienter gestalten. </p>
+<p><strong>Beachten</strong></p>
+<blockquote>
+<p>Ein fundamentaler Aspekt ist, je niedriger der Schwellwert(Cutoff) für den Lowpass Filter ist - umso mehr muss gefiltert werden.</p>
+<p>Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter die andere Algorithmen verwenden und das System effizienter gestalten. </p>
+</blockquote>
 <h3 id="notch-filter"><em>Notch-Filter</em><a class="headerlink" href="#notch-filter" title="Permanent link">#</a></h3>
-<p>Notch-Filter eigenen sich hervorragend zur Unterdrückung von Rauschen in einem sehr spezifischen Frequenzband.</p>
+<p>Notch-Filter [^NOTCH] eigenen sich hervorragend zur Unterdrückung von Rauschen in einem sehr spezifischen Frequenzband.</p>
 <p>Notch-Filter sind in der Regel effektiver zur Reduzierung von Motorrauschen als LPF- Filter aber ggf. müssen manuelle Abstimmungen durchgeführt werden um die Bandbreite und die Mittenfrequenz zu bestimmen (Notch=Kerbe) </p>
 <p>Weiterhin können Notch-Filter zur Reduzierung von Propwash genutzt werden.</p>
-<p><a href=""><strong>todo bild einfügen</strong></a></p>
-<p>Es gibt zwei Notch-Filter für den GYRO. Einer oder beide können bei Bedarf abgestellt werden. </p>
-<p>Default-Values sind auf 200Hz-400Hz. Diese Grenzfrequenzen arbeiten sehr gut und funktionieren bei den meisten Coptern. </p>
-<p>Für eine Feinabstimmung ist es notwendig eine Blackbox- Auswertung durchzuführen (oder Plasma-Tree) </p>
+<p><img alt="NotchFilter" src="../images/classic_notchfilter_qfactor.png" title="Notch-Filter"/></p>
+<p>Der <code>Q-Faktor</code>(Quality-Factor) gibt die Güte des Notch-Filters an und beschreibt die Weite des Filters. Je größer der Q-Faktor, desto schmaler der Notch-Filter.</p>
 <p><strong>Beispiel:</strong></p>
 <p>Es wird festgestellt das wir ein Vibrationsspitze bei ca 260Hz haben (z.B. hervorgerufen durch Propwash), dann kann der Notch-Filter Cut-off bei ca. 200Hz beginnen und bei 300Hz enden</p>
-<h3 id="rpm-filter"><em>RPM-Filter</em><a class="headerlink" href="#rpm-filter" title="Permanent link">#</a></h3>
-<p>RPM-Filter basieren auf mehrere <code>Notch-Filter</code> die präzise darauf ausgerichtet sind Motorvibrationen und ihre <code>Harmonics</code> zu filtern und möglichst komplett zu elimenieren. Für jeden Motore können bis zu drei Notch-Filter (max 3 Harmonics) generiert werden (Pro Achse). Das heißt insgesamt steht eine Bank von 36 Notch-Filtern zur Verfügung. 3 Achsen * 3 <code>Harmonics</code> * 4 Motoren = 36 Notch-Filter.</p>
-<p>Die RPM-Filter basieren auf die Drehzahl der Motoren und dem bidrektionalen DShot-Protokoll in Zusammenspiel mit den Gyrodaten - daher auch <code>Gyro-RPM-Filter</code></p>
-<p><strong>BEACHTEN</strong></p>
-<blockquote>
-<p>RPM-Filter benötigen für BLHeli32 ESC die aktuellste Firmware <code>&gt;= 32.7</code></p>
-<p>Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) <a href="https://jflight.net/index.php">JFLIGHT</a></p>
-</blockquote>
 <h3 id="static-filter"><em>Static-Filter</em><a class="headerlink" href="#static-filter" title="Permanent link">#</a></h3>
-<p>Statische Filter sind an eine Frequenz gebunden</p>
+<p>Im Rahmen von Betaflight werden statische Filter als LowPass-Filter oder als Notch-Filter genutzt</p>
 <h3 id="dynamic-filter"><em>Dynamic-Filter</em><a class="headerlink" href="#dynamic-filter" title="Permanent link">#</a></h3>
 <p>Dynamic Filter reduzieren ebenfalls Rauschen, wenn die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, ... können durch die Dynamic-Filter reduziert werden. </p>
 <p>Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen kann und er kann den Notch-Filter verwenden, um ihn automatisch zu reduzieren. </p>
 <p><strong>Nachteil</strong> von Dynamic-Filters ist die Erhöhung der CPU-Last und die Delays. </p>
 <h2 id="betaflight-filter">Betaflight-Filter<a class="headerlink" href="#betaflight-filter" title="Permanent link">#</a></h2>
+<h3 id="rpm-filter"><em>RPM-Filter</em><a class="headerlink" href="#rpm-filter" title="Permanent link">#</a></h3>
+<p>RPM-Filter <a href="[RPM-Filter](https://github.com/betaflight/betaflight/wiki/Bidirectional-DSHOT-and-RPM-Filter)">^1</a> sind eine besondere Filtertechnik in Betaflight. RPM-Filter basieren auf mehreren <a href="#bf-dynamic-notchfilter">Notch-Filter</a> die präzise darauf ausgerichtet sind Motorvibrationen und ihre <code>Harmonics</code> zu filtern und möglichst komplett zu elimenieren. Für jeden Motore können bis zu drei Notch-Filter (max 3 Harmonics) generiert werden (Pro Achse). Das heißt insgesamt steht eine Bank von 36 Notch-Filtern zur Verfügung. 3 Achsen * 3 <code>Harmonics</code> * 4 Motoren = 36 Notch-Filter.</p>
+<p>Die RPM-Filter basieren auf die Drehzahl der Motoren und dem bidrektionalen DShot-Protokoll in Zusammenspiel mit den Gyrodaten - daher auch <code>Gyro-RPM-Filter</code></p>
+<p><strong>BEACHTEN</strong></p>
+<blockquote>
+<p>RPM-Filter benötigen für BLHeli32 ESC die aktuellste Firmware <code>&gt;= 32.7</code></p>
+<p>Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) [JFlight][JFLIGHT]</p>
+</blockquote>
 <h3 id="bf-dynamic-lowpassfilter"><em>BF - Dynamic-Lowpassfilter</em><a class="headerlink" href="#bf-dynamic-lowpassfilter" title="Permanent link">#</a></h3>
+<h3 id="bf-static-notchfilter-snf"><em>BF - Static Notchfilter</em> {#SNF}<a class="headerlink" href="#bf-static-notchfilter-snf" title="Permanent link">#</a></h3>
+<p>Statische Notchfilter werden explizit mit der Center-Frequenz auf auf die Herzzahl der höchsten Vibrationen (Peak) gesetzt.
+In BF kann man zwei dieser Notch-Filter aktivieren. Angegeben werden jeweils die Cutoff-Frequenz und die Center-Frequenz</p>
 <h3 id="bf-dynamic-notchfilter"><em>BF - Dynamic-Notchfilter</em><a class="headerlink" href="#bf-dynamic-notchfilter" title="Permanent link">#</a></h3>
+<p>Ab <code>BF 3.1</code> kann man auch <code>Dynamic Notch Filter</code> einsetzen. Dieser hocheffiziente Dynamasiche Notch-Filter setzt sich automatisch auf den Motor-Peak - also den aktuelle höchste Frequenz der Motor-Vibrationen, basieren auf die jeweils aktuelle FFT-Analyse. Hierdurch wirkt dieser Notch-Filter in allen Throttle-Stellungen und wandert demnach durch das Frequenzband.</p>
+<p>Dynamische Notch-Filter haben eine geringere Latzenzzeit als LP-Filter. Notch-Filter sind sehr effektiv und bei einer guten Abstimmung kann man sogar auf LPF-Filter verzichten. Dadurch steigert sich die Gesamtperformance des Copters.</p>
+<p>LP-Filter aber einfach abschalten sollte wirklich mit bedacht gemacht werden.</p>
+<p>Der Dyn-Notch-Filter ist per default eingeschaltet.</p>
+<p>Es gibt zwei Notch-Filter für den GYRO. Einer oder beide können bei Bedarf abgestellt werden. </p>
+<p>Default-Values sind auf 200Hz-400Hz. Diese Grenzfrequenzen arbeiten sehr gut und funktionieren bei den meisten Coptern. </p>
+<p>Für eine Feinabstimmung ist es notwendig eine Blackbox- Auswertung durchzuführen (oder Plasma-Tree) </p>
 <h3 id="bf-static-lowpassfilter"><em>BF - Static-Lowpassfilter</em><a class="headerlink" href="#bf-static-lowpassfilter" title="Permanent link">#</a></h3>
 <p>In Betaflight wird zwischen zwei Static-LPF Filtern unterschieden</p>
 <ul>
@@ -201,6 +251,12 @@ classDef dbg fill:#ddd
 <p>Ein mächtiges neues Feature, welches mit BF 4.0 eingeführt wurde und in den nachfolgenden Releasen weiter verbessert wurde.
 Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von Detailinformationen.</p>
 <h3 id="bf-gyro-lowpass-filter"><em>BF - Gyro-LowPass Filter</em><a class="headerlink" href="#bf-gyro-lowpass-filter" title="Permanent link">#</a></h3>
+<h3 id="bf-dterm-lowpass-filter"><em>BF - DTerm LowPass Filter</em><a class="headerlink" href="#bf-dterm-lowpass-filter" title="Permanent link">#</a></h3>
+<p>Der DTerm verstärkt alles - auch Vibrationssignale - somit können ungefilterte DTerm Werte die direkt zu den Motoren gesendet werden dazu führen, dass die Motoren heiß werden oder sogar überhitzen und zerstört werden.</p>
+<p>Hier kommen jetzt die DTerm-Lowpass Filter -&gt; Einstellung wie bei den Static-Lowpassfilter</p>
+<p>Allgemeinen ist ein Biquad-Filter das sinnvolle Minimum an Filterung mit einer Frequenz um 100 Hz bis hinunter zu 80 Hz, wenn man heiße Motoren hat.</p>
+<p>[^JFLIGHT] https://jflight.net/index.php
+[^NOTCH] </p>
 <br/>
 </div>
 <footer class="container-fluid wm-page-content">

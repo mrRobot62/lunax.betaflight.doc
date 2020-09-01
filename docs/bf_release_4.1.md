@@ -1,5 +1,10 @@
 # BF 4.1 - Neuerungen
 
+## Historie
+| Version  |  Datum |  Inhalt |
+|:-:|---|---|
+| 0.1  |  August 2020 | initial  |
+
 ## Allgemeine Anpassungen
 * **Keine Konfigurationen aus älteren Releasen importieren** Einige Default-Werte haben sich geändert
 * BF-Configurator 10.6.0 ist notwendig

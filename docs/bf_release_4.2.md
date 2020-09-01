@@ -1,5 +1,10 @@
 # BF 4.2 - Neuerungen
 
+## Historie
+| Version  |  Datum |  Inhalt |
+|:-:|---|---|
+| 0.1  |  August 2020 | initial  |
+
 ## Allgemeine Anpassungen
 * BF-Configurator 10.7.0 ist notwendig
 * Blackbox-Explorer 3.5.0 für BF 4.2

@@ -1,4 +1,8 @@
 # BF 4.0 - Neuerungen
+## Historie
+| Version  |  Datum |  Inhalt |
+|:-:|---|---|
+| 0.1  |  August 2020 | initial  |
 
 ## Allgemeine Anpassungen
 * **Keine Konfigurationen aus älteren Releasen importieren** Einige Default-Werte haben sich geändert

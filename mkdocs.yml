@@ -26,12 +26,15 @@ plugins:
   - pdf-export:
       verbose: false
       combined : true
-  
+      combined_output_path: pdf/bf_doc_all.pdf
+      enabled_if_env : ENABLE_PDF_EXPORT
+        
 markdown_extensions:
-    - toc:
+  - toc:
         baselevel: 2
         permalink: '#'
-        
+  - footnotes
+         
 extra:
    logo: images/LunaX_Font.png
    article_nav_top: false

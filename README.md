@@ -7,3 +7,4 @@ Bei Fehlern/Ungenauigkeiten oder Wünschen, erstellt bitte ein Issue.
 
 vg
 LunaX
+(C) August 2020

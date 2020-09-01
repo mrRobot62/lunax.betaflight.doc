@@ -1,5 +1,10 @@
 # DMin - Handling
+## Inhaltsverzeichnis
+[TOC]
 
+{{TOC}}
+
+## Allgemeines
 Mit DMin ist es nun möglich unterschiedliche Werte für D zu haben, je nachdem was der Copter gerade macht.
 
 Im Normalflug erlaubt uns DMin mit reduzierten D-Werten zu fliegen und der DMax-Wert wird für schnelle Bewegungen genutzt (z.B. bei Fast-Roles, Flips, Propwash)
@@ -12,7 +17,6 @@ DMin ist vom Profil abhängig (genau wie der D-Wert)
 
 `d_min_boost_gain`steuert die Empfindlichkeit des Boost-Effekts (also wenn von DMin der DMax Wert verwendet werden soll, gibt der Booster an wie schnell das gehen soll.
 
-## Allgemeines
 Was bringen geringere D-Werte
 
 **Vorteil**
