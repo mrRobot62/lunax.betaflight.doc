@@ -13,7 +13,7 @@
 _Allgemeines_
 ---------------------
 Berechnung des Fehlerwertes zwischen dem SOLL und IST-Wert
-Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)[^1] multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler PIDError
+Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)[^Kpid] multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler PIDError
 
 
 ### Soll-Wert
@@ -23,7 +23,7 @@ In Falle von Coptern ist der Sollwert, der Wert der durch die Gimbals vorgegeben
 ### IST-Wert
 Ist der Wert, der durch das Gyro über alle drei Achsen gemessen wurde 
 
-**Soll** & **IST** werden in der [PID-Loop](#pid-loop) kontinuierlich gelesen und ausgewertet. Signale werden geglättet und gefiltert. Das Endresultat entspricht für die aktuelle Zeiteinheit (d/t) den anliegenden PID-Error[^²]
+**Soll** & **IST** werden in der [PID-Loop](#pid-loop) kontinuierlich gelesen und ausgewertet. Signale werden geglättet und gefiltert. Das Endresultat entspricht für die aktuelle Zeiteinheit (d/t) den anliegenden PID-Error[^Perr]
 
 * P [proportionaler Anteil](#p-term-proportionaler-fehler)
 * I [integraler Anteil](#i-term-integraler-fehler)
@@ -152,8 +152,7 @@ Bei F7 FCs ist 8K typisch
 
 ---------------------
 
-[^1]: Fehlerkonstanten, werden pro Achse in BF eingestellt.
-[^2]: PID-Error, Summe aller anliegenden Fehlersignale.
-[^3]: Summe der Signale nach dem PID-Controller, die an den Mixer weiter gegeben werden.
+[^Kpid]: Fehlerkonstanten, werden pro Achse in BF eingestellt.
+[^Perr]: PID-Error, Summe aller anliegenden Fehlersignale.
 
 [imgPIDCtrl]: images/pidController.png "PID Controller"

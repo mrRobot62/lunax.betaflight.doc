@@ -1,4 +1,4 @@
-# _FILTER Ein * Eins_
+# _FILTER Ein mal Eins_
 ## Inhaltsverzeichnis
 
 [TOC]
@@ -31,9 +31,9 @@ Noise (Rauschen) kann ausgelöst werden durch:
 * Vibrationen durch Props (z.B. Unwucht, Prop-Wash, ...) 
 * Kombinationen aus allem •.
 
-Noise wird durch den Gyro und anschließend durch den PID- Controller verarbeitet und kann zu Fehlerhaften Verhalten führen. 
+Noise wird durch den Gyro und anschließend durch den PID- Controller verarbeitet und kann zu fehlerhaften Verhalten führen. 
 
-Eingesetzte Filter (LPF, NOTCH, ...) versuchen dieses Rauschen zu eliminieren. 
+Eingesetzte Filter [LPF](#lowpass-filter)[^LPF], [NOTCH](#notch-filter)[^NF], [RPM](#rpm-filter)[^RPM],[DTerm](#bf-dterm-lowpass-filter)[^DTF] versuchen dieses Rauschen zu eliminieren.
 
 Eine Deiner Hauptaufgabe beim Tunen Deines Copters ist, dass du diese Vibrationen in den Griff bekommst ohne deutliche Delay zu bekommen.
 
@@ -161,7 +161,7 @@ Die RPM-Filter basieren auf die Drehzahl der Motoren und dem bidrektionalen DSho
 **BEACHTEN**
 > RPM-Filter benötigen für BLHeli32 ESC die aktuellste Firmware `>= 32.7`
 
-> Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) [JFlight][JFLIGHT]
+> Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) JFlight[^JFLIGHT]
 
 
 ## _BF - Dynamic-Lowpassfilter_
@@ -192,8 +192,13 @@ In Betaflight wird zwischen zwei Static-LPF Filtern unterschieden
 * PT1
 * BIQUAD
 
+Um einen LPF-Filter zu nutzen muss grundsätzlich die untere Grenzfrequenz (cutoff)) angegeben werden. Der Filter beginnt dann ab dieser Frequenz zu arbeiten. Die Cutoff-Frequenz sollte **nicht** unter 80Hz liegen, da hier die normalen Flugfrequenzen liegen.
+
 ### PT1
 Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latzenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)
+
+**TIP**
+> verwende für den ersten LPF-Filter, denn er ist der schnellere Filter.
 
 ### BIQUAD
 Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latzenzzeit schlechter, das Filterergebniss besser.
@@ -213,6 +218,9 @@ Hier kommen jetzt die DTerm-Lowpass Filter -> Einstellung wie bei den Static-Low
 
 Allgemeinen ist ein Biquad-Filter das sinnvolle Minimum an Filterung mit einer Frequenz um 100 Hz bis hinunter zu 80 Hz, wenn man heiße Motoren hat.
 
+**Beachten:**
+> Den DTERM-LPF solltet ihr grundsätzlich **nicht** entfernen in Eurer Konfiguration!
+
 ***
 [imgLPF]: images/lowpass-filter.png "LowPass-Filter"
 [imgDNF]: images/classic_notchfilter_qfactor.png "Notch-Filter"
@@ -220,3 +228,5 @@ Allgemeinen ist ein Biquad-Filter das sinnvolle Minimum an Filterung mit einer F
 [^RPM]: [BF-RPMFilter](https://github.com/betaflight/betaflight/wiki/Bidirectional-DSHOT-and-RPM-Filter)
 [^JFLIGHT]: https://jflight.net/index.php
 [^NF]: Notch-Filter = Kerb-Filter 
+[^LPF]: Lowpass-Filter
+[^DTF]: Filter auf den DTerm-Wert
