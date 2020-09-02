@@ -243,15 +243,16 @@ Um einen LPF-Filter zu nutzen muss grundsätzlich die untere Grenzfrequenz (`cut
 Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latzenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)
 
 **TIP**
-> verwende für den ersten LPF-Filter, denn er ist der schnellere Filter.
+> verwende für den ersten LPF-Filter die Einstellung **PT1**, denn er ist der schnellere Filter.
+
 
 ### BIQUAD
 Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latzenzzeit schlechter, das Filterergebniss besser.
 
-## _BF - Gyro-RPM-Filter_
-Ein mächtiges neues Feature, welches mit BF 4.0 eingeführt wurde und in den nachfolgenden Releasen weiter verbessert wurde.
-Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von Detailinformationen.
 
+## _BF - Gyro-RPM-Filter_
+Ein mächtiges neues Feature, das mit BF 4.0 eingeführt wurde und in den nachfolgenden Releasen weiter verbessert wurde.
+Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von Detailinformationen.
 
 
 ## _BF - Gyro-LowPass Filter_

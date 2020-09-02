@@ -1,4 +1,5 @@
 site_name:  LunaX - Betaflight Docs
+use_directory_urls: true
 
 nav:
   - 'Home' : index.md
@@ -15,8 +16,14 @@ nav:
      - 'DMin' : 'bf_dmin.md'
   - 'About': about.md
   
-theme: windmill
-  
+#theme: 'windmill'
+theme:
+   name: windmill
+   custom_dir: 'mkdocs-windmill/'
+   static_templates: [404.html]
+   search_index_only: true
+   include_search_page: true  
+
 plugins:
   - search:
       lang: ['de','en']

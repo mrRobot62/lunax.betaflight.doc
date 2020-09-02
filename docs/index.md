@@ -10,11 +10,11 @@ Tja und zum Schluß - ich kann mir einfach nicht alles im Kopf behalten, daher l
 
 Die einzelnen Seiten stehen auch zum Download als PDF zur Verfügung.
 
-Alternative: Downloaded dieses Repository komplett und startet über Euren Browser `index.md`
+Alternative: Downloaded dieses Repository komplett und startet über Euren Browser `index.html`
 
 Vielleicht hilft es dem ein oder Anderen
 
-Du kannst alle Seiten als PDF downloaden über [Komplette PDF-Datei](site/pdf/combined.pdf)
+Du kannst alle Seiten als PDF downloaden über .....
 
 Viel Spass und propwash freies Fliegen
 
@@ -23,7 +23,6 @@ LunaX - August 2020
 ## Handhabung dieses Github-Repositories
 Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Seiten wurden als einfache Markdown-Dateien erstellt.
 
-[Komplette PDF-Datei](../site/pdf/combined.pdf)
 
 ```
 	mkdocs.yml (Konfigurationsdatei für MKDocs)
