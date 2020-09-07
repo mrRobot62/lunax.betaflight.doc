@@ -166,7 +166,7 @@ Bei F7 FCs ist 8K typisch.
 
 [^Kpid]: Fehlerkonstanten, werden pro Achse in BF eingestellt.
 [^Perr]: PID-Error, Summe aller anliegenden Fehlersignale.
-[^DT] 
+[^DT] : empty
 
 
 [imgPIDCtrl]: images/pidController.png "PID Controller"

@@ -1,9 +1,34 @@
 site_name:  LunaX - Betaflight Docs
 use_directory_urls: true
 
+#theme:
+#   name: material
+#   logo: images/lunax_logo.png
+#   favicon: images/lunax_logo.png
+#   features:
+#      - search.highlight   
+      
+theme:
+   name: windmill
+
+#theme: 
+#   name: 'rtd-dropdown'
+
+#theme:
+#   name: null
+#   custom_dir: 'cinder/cinder'
+#   colorscheme: github
+#   highlightjs: true
+#   hljs_languages:
+#      - yaml
+#   static_templates: [404.html]
+#   search_index_only: true
+#   include_search_page: true  
+
+
 nav:
   - 'Home' : index.md
-  - Release-Notes : 
+  - BF-Release-Notes : 
      - 'BF 4.2 Release' : 'bf_release_4.2.md'
      - 'BF 4.1 Release' : 'bf_release_4.1.md'
      - 'BF 4.0 Release' : 'bf_release_4.0.md'
@@ -14,24 +39,20 @@ nav:
      - 'Tuning' : 'bf_tuning.md'
      - 'Tunig-Parameter' : 'bf_tuning_parameters.md'
      - 'DMin' : 'bf_dmin.md'
+     - 'CLI': 'bf_cli.md'
   - 'About': about.md
   
-#theme: 'windmill'
-theme:
-   name: windmill
-   custom_dir: 'mkdocs-windmill/'
-   static_templates: [404.html]
-   search_index_only: true
-   include_search_page: true  
-
 plugins:
   - search:
       lang: ['de','en']
-  
+      separator: '[\s\-\.]+'
+      
+#  - mermaid2
   - markdownmermaid
   - pdf-export:
       verbose: false
       combined : true
+      media_type: print
       combined_output_path: pdf/bf_doc_all.pdf
       enabled_if_env : ENABLE_PDF_EXPORT
         
@@ -40,7 +61,15 @@ markdown_extensions:
         baselevel: 2
         permalink: '#'
   - footnotes
-         
+  - admonition      
+
+#  - pymdownx.superfences:
+#      # make exceptions to highlighting of code:
+#      custom_fences:
+#        - name: mermaid
+#          class: mermaid
+#          format: !!python/name:mermaid2.fence_mermaid         
+
 extra:
    logo: images/LunaX_Font.png
    article_nav_top: false
@@ -49,7 +78,7 @@ extra:
  
 extra_javascript:
    - js/mermaid.min.js
-   
+#   - https://unpkg.com/mermaid/dist/mermaid.min.js   
 
 extra_css:
    - css/pdf.css

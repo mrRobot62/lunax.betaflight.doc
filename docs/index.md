@@ -20,6 +20,12 @@ Viel Spass und propwash freies Fliegen
 
 LunaX - August 2020
 
+## Historie
+| Version  |  Datum |  Inhalt |
+|:-:|---|---|
+| 0.1  |  August 2020 | initial  |
+| 0.2 | September 2020 | Material Theme, vereinzelte Updates, Mermaid2 Plugin |
+
 ## Handhabung dieses Github-Repositories
 Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Seiten wurden als einfache Markdown-Dateien erstellt.
 

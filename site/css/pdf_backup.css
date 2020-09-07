@@ -1,0 +1,55 @@
+
+body {
+  counter-reset: chapternum figurenum;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  line-height: 1.5;
+  font-size: 11pt;
+}
+
+@page {
+    size: a4 portrait;
+    margin: 25mm 15mm 25mm 15mm;
+    counter-increment: page;
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+
+    white-space: pre;
+    color: grey;
+    @top-left {
+    	#background: url(../../docs/images/LunaX_Font.png) no-repeat bottom;
+    	background-size: 3cm;
+    	content: "";
+    	width: 3cm;    
+    }
+    @top-center {
+        content: string(chapter);
+    }
+    @top-right {
+        content: "Seite " counter(page) " / " counter(pages);
+    }
+    @bottom-left {
+        content: '© 2020 LunaX';
+    }
+   	@bottom-center {
+    	content: string(heading);
+ 	}
+ 	
+	
+	h2 {
+		page-break-before: always;
+		string-set: heading content();
+	}   
+
+	h1, h2, h3, h4, h5 {
+		page-break-after: avoid;
+	}
+	
+
+	table, figure {
+		page-break-inside: avoid;
+	}
+	
+	img {
+  		max-width: 70%;
+  		height: auto;
+	}
+}

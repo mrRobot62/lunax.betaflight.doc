@@ -4,6 +4,7 @@
 
 {{TOC}}
 
+-------------------------------------------------------------
 ## Allgemeines
 Mit DMin ist es nun möglich unterschiedliche Werte für D zu haben, je nachdem was der Copter gerade macht.
 
@@ -20,22 +21,25 @@ DMin ist vom Profil abhängig (genau wie der D-Wert)
 Was bringen geringere D-Werte
 
 **Vorteil**
-> * weniger Vibrationen, kühlere Motoren
-> * Besseres Verhalten der Motoren bei Vollgas
-> * D-Wert bezogenes Oszillieren wird verringert
 
-**Nachteil**
-> * mehr Propwash
-> * Größeres Überschießen und Bounce-Backs
-> * P Oszillation bei schnellen Mannövern
-> * Langsame und Lowlevel Oszillationen bei smoothen Flügen
+> weniger Vibrationen, kühlere Motoren
+> Besseres Verhalten der Motoren bei Vollgas
+> D-Wert bezogenes Oszillieren wird verringert
 
+!!! note "Nachteil"
+	* mehr Propwash
+	* Größeres Überschießen und Bounce-Backs
+	* P Oszillation bei schnellen Mannövern
+	* Langsame und Lowlevel Oszillationen bei smoothen Flügen
+
+-------------------------------------------------------------
 ## Setup für den Erstflug
 Default für DMin R23, P25, Y0
 
-**Beachte**
-> wenn DMin aktiviert ist, wird der reguläre DMax Wert nur dann genutzt, wenn schnelle Mannöver (z.B. Flips/Rolls) geflogen werden, in langsameren Flügen wird `DMIN`verwendet
+!!! important "Beachten"
+	wenn DMin aktiviert ist, wird der reguläre DMax Wert nur dann genutzt, wenn schnelle Mannöver (z.B. Flips/Rolls) geflogen werden, in langsameren Flügen wird `DMIN` verwendet
 
+-------------------------------------------------------------
 ## Prüfen des D Wertes im Flug
 
 * Anzeige im OSD, `set debug_mode=D_MIN`und im OSD die Anzeige `debug2 on-screen`. Die Anzeige zeigt dir den 10fachen Wert. Beispiel: Anzeige 350 = 35D
@@ -45,9 +49,10 @@ Default für DMin R23, P25, Y0
 
 `DEBUG0` zeigt die Gyro-Anteil
 
-**Hinweis**
-> Bei Verwendung von `DMin`erhöht sich die CPU-Last ein wenig. Implementiert ist ein Biquad-Filter und ein PT1-Filter.
+!!! important "Hinweis"
+	Bei Verwendung von `DMin`erhöht sich die CPU-Last ein wenig. Implementiert ist ein Biquad-Filter und ein PT1-Filter.
 
+-------------------------------------------------------------
 ## Parameter
 
 | Parameter  |BF|  Default | Bezeichnung  |

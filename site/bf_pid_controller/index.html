@@ -7,7 +7,9 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../img/favicon.ico" rel="shortcut icon"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
-<title>PID-Controller - LunaX - Betaflight Docs</title>
+<title>
+    PID-Controller - LunaX - Betaflight Docs
+   </title>
 <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
 <link href="../css/font-awesome-4.7.0.css" rel="stylesheet"/>
 <link href="../css/base.css" rel="stylesheet"/>
@@ -18,12 +20,15 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-<script src="../js/jquery-3.2.1.min.js"></script>
-<script src="../js/bootstrap-3.3.7.min.js"></script>
-<script src="../js/highlight.pack.js"></script>
+<script src="../js/jquery-3.2.1.min.js">
+</script>
+<script src="../js/bootstrap-3.3.7.min.js">
+</script>
+<script src="../js/highlight.pack.js">
+</script>
 <base target="_top"/>
 <script>
-      var base_url = '..';
+    var base_url = '..';
       var is_top_frame = false;
         
         var pageToc = [
@@ -38,73 +43,229 @@
               {title: "Looptime (d/t)", url: "#looptime-dt" },
           ]},
         ];
-
-    </script>
-<script src="../js/base.js"></script>
-<script src="../js/mermaid.min.js"></script>
-<link href="../pdf/bf_doc_all.pdf" rel="alternate" title="PDF Export" type="application/pdf"/></head>
+   </script>
+<script src="../js/base.js">
+</script>
+<script src="../js/mermaid.min.js">
+</script>
+</head>
 <body>
 <script>
-if (is_top_frame) { $('body').addClass('wm-top-page'); }
-</script>
+   if (is_top_frame) { $('body').addClass('wm-top-page'); }
+  </script>
 <div class="container-fluid wm-page-content">
-<a name="_top"></a>
-<h2 id="pid-controller">PID - Controller<a class="headerlink" href="#pid-controller" title="Permanent link">#</a></h2>
-<h3 id="inhaltsverzeichnis">Inhaltsverzeichnis<a class="headerlink" href="#inhaltsverzeichnis" title="Permanent link">#</a></h3>
+<a name="_top">
+</a>
+<h2 id="pid-controller">
+    PID - Controller
+    <a class="headerlink" href="#pid-controller" title="Permanent link">
+     #
+    </a>
+</h2>
+<h3 id="inhaltsverzeichnis">
+    Inhaltsverzeichnis
+    <a class="headerlink" href="#inhaltsverzeichnis" title="Permanent link">
+     #
+    </a>
+</h3>
 <div class="toc">
 <ul>
-<li><a href="#pid-controller">PID - Controller</a><ul>
-<li><a href="#inhaltsverzeichnis">Inhaltsverzeichnis</a></li>
-<li><a href="#historie">Historie</a></li>
-<li><a href="#allgemeines">Allgemeines</a><ul>
-<li><a href="#soll-wert">Soll-Wert</a></li>
-<li><a href="#ist-wert">IST-Wert</a></li>
+<li>
+<a href="#pid-controller">
+       PID - Controller
+      </a>
+<ul>
+<li>
+<a href="#inhaltsverzeichnis">
+         Inhaltsverzeichnis
+        </a>
+</li>
+<li>
+<a href="#historie">
+         Historie
+        </a>
+</li>
+<li>
+<a href="#allgemeines">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#soll-wert">
+           Soll-Wert
+          </a>
+</li>
+<li>
+<a href="#ist-wert">
+           IST-Wert
+          </a>
+</li>
 </ul>
 </li>
-<li><a href="#pid-loop">PID-Loop</a></li>
-<li><a href="#p-term-proportionaler-fehler">P-Term (Proportionaler Fehler)</a></li>
-<li><a href="#i-term-integraler-fehler">I-Term (Integraler Fehler)</a></li>
-<li><a href="#d-term-derivativer-wert-vorhersage">D-Term Derivativer-Wert (Vorhersage)</a></li>
-<li><a href="#looptime-dt">Looptime (d/t)</a></li>
+<li>
+<a href="#pid-loop">
+         PID-Loop
+        </a>
+</li>
+<li>
+<a href="#p-term-proportionaler-fehler">
+         P-Term (Proportionaler Fehler)
+        </a>
+</li>
+<li>
+<a href="#i-term-integraler-fehler">
+         I-Term (Integraler Fehler)
+        </a>
+</li>
+<li>
+<a href="#d-term-derivativer-wert-vorhersage">
+         D-Term Derivativer-Wert (Vorhersage)
+        </a>
+</li>
+<li>
+<a href="#looptime-dt">
+         Looptime (d/t)
+        </a>
+</li>
 </ul>
 </li>
 </ul>
 </div>
-<p>{{TOC}}</p>
-<h3 id="historie">Historie<a class="headerlink" href="#historie" title="Permanent link">#</a></h3>
+<p>
+    {{TOC}}
+   </p>
+<h3 id="historie">
+    Historie
+    <a class="headerlink" href="#historie" title="Permanent link">
+     #
+    </a>
+</h3>
 <table>
 <thead>
 <tr>
-<th align="center">Version</th>
-<th>Datum</th>
-<th>Inhalt</th>
+<th align="center">
+       Version
+      </th>
+<th>
+       Datum
+      </th>
+<th>
+       Inhalt
+      </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">0.1</td>
-<td>August 2020</td>
-<td>initial</td>
+<td align="center">
+       0.1
+      </td>
+<td>
+       August 2020
+      </td>
+<td>
+       initial
+      </td>
 </tr>
 </tbody>
 </table>
-<h3 id="allgemeines"><em>Allgemeines</em><a class="headerlink" href="#allgemeines" title="Permanent link">#</a></h3>
-<p>Berechnung des Fehlerwertes zwischen dem SOLL und IST-Wert
-Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)<sup id="fnref:Kpid"><a class="footnote-ref" href="#fn:Kpid">1</a></sup> multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler PIDError</p>
-<h4 id="soll-wert">Soll-Wert<a class="headerlink" href="#soll-wert" title="Permanent link">#</a></h4>
-<p>In Falle von Coptern ist der Sollwert, der Wert der durch die Gimbals vorgegeben wird (RC-Command). Entspricht also dem Zielwert, den der Copter erreichen soll (z.B. der Copter soll ein Rolle mit 700deg/sec durchführen.</p>
-<h4 id="ist-wert">IST-Wert<a class="headerlink" href="#ist-wert" title="Permanent link">#</a></h4>
-<p>Ist der Wert, der durch das Gyro über alle drei Achsen gemessen wurde </p>
-<p><strong>Soll</strong> &amp; <strong>IST</strong> werden in der <a href="#pid-loop">PID-Loop</a> kontinuierlich gelesen und ausgewertet. Signale werden geglättet und gefiltert. Das Endresultat entspricht für die aktuelle Zeiteinheit (d/t) den anliegenden PID-Error<sup id="fnref:Perr"><a class="footnote-ref" href="#fn:Perr">2</a></sup></p>
+<h3 id="allgemeines">
+<em>
+     Allgemeines
+    </em>
+<a class="headerlink" href="#allgemeines" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    Berechnung des Fehlerwertes zwischen dem SOLL und IST-Wert
+Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)
+    <sup id="fnref:Kpid">
+<a class="footnote-ref" href="#fn:Kpid">
+      1
+     </a>
+</sup>
+    multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler PIDError
+   </p>
+<h4 id="soll-wert">
+    Soll-Wert
+    <a class="headerlink" href="#soll-wert" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    In Falle von Coptern ist der Sollwert, der Wert der durch die Gimbals vorgegeben wird (RC-Command). Entspricht also dem Zielwert, den der Copter erreichen soll (z.B. der Copter soll ein Rolle mit 700deg/sec durchführen.
+   </p>
+<h4 id="ist-wert">
+    IST-Wert
+    <a class="headerlink" href="#ist-wert" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Ist der Wert, der durch das Gyro über alle drei Achsen gemessen wurde
+   </p>
+<p>
+<strong>
+     Soll
+    </strong>
+    &amp;
+    <strong>
+     IST
+    </strong>
+    werden in der
+    <a href="#pid-loop">
+     PID-Loop
+    </a>
+    kontinuierlich gelesen und ausgewertet. Signale werden geglättet und gefiltert. Das Endresultat entspricht für die aktuelle Zeiteinheit (d/t) den anliegenden PID-Error
+    <sup id="fnref:Perr">
+<a class="footnote-ref" href="#fn:Perr">
+      2
+     </a>
+</sup>
+</p>
 <ul>
-<li>P <a href="#p-term-proportionaler-fehler">proportionaler Anteil</a></li>
-<li>I <a href="#i-term-integraler-fehler">integraler Anteil</a></li>
-<li>D <a href="#d-term-derivativer-wert-vorhersage">derivativer Anteil</a></li>
+<li>
+     P
+     <a href="#p-term-proportionaler-fehler">
+      proportionaler Anteil
+     </a>
+</li>
+<li>
+     I
+     <a href="#i-term-integraler-fehler">
+      integraler Anteil
+     </a>
+</li>
+<li>
+     D
+     <a href="#d-term-derivativer-wert-vorhersage">
+      derivativer Anteil
+     </a>
+</li>
 </ul>
-<p><img alt="PIDController" src="../images/pidController.png" title="PID Controller"/></p>
-<h3 id="pid-loop"><em>PID-Loop</em><a class="headerlink" href="#pid-loop" title="Permanent link">#</a></h3>
-<p>Die PID-Loop in Betaflight beinhaltet (für <strong>alle</strong> Achsen) folgende Punkte (vereinfachte Darstellung und nicht 100% vollständig). Die PID-Loop beschreibt auch die maximale <a href="#looptime-dt">Looptime</a></p>
-<div class="mermaid">graph LR
+<p>
+<img alt="PIDController" src="../images/pidController.png" title="PID Controller"/>
+</p>
+<h3 id="pid-loop">
+<em>
+     PID-Loop
+    </em>
+<a class="headerlink" href="#pid-loop" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    Die PID-Loop in Betaflight beinhaltet (für
+    <strong>
+     alle
+    </strong>
+    Achsen) folgende Punkte (vereinfachte Darstellung und nicht 100% vollständig). Die PID-Loop beschreibt auch die maximale
+    <a href="#looptime-dt">
+     Looptime
+    </a>
+</p>
+<div class="mermaid">
+    graph LR
     classDef LP fill:#f96
 
 
@@ -135,34 +296,84 @@ Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)<sup id="fnref:Kp
     PSUM --&gt; MIX
     MIX --&gt; MOT
     MOT --&gt; le
-
-</div>
-<h3 id="p-term-proportionaler-fehler"><em>P-Term (Proportionaler Fehler)</em><a class="headerlink" href="#p-term-proportionaler-fehler" title="Permanent link">#</a></h3>
-<p>Der PTerm versucht den proportionalen Fehler möglichst schnell auf 0 zu reduzieren. </p>
-<p>Vereinfacht gesagt: Wie hart der FC daran arbeitet den Fehler zu korrigieren. Je höher der PTerm um so schärfer ist die Reaktion. Ein zu hoher PTerm führt aber zu Oszillation und Überschwingen.</p>
-<p>Eingabewerte:</p>
+   </div>
+<h3 id="p-term-proportionaler-fehler">
+<em>
+     P-Term (Proportionaler Fehler)
+    </em>
+<a class="headerlink" href="#p-term-proportionaler-fehler" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    Der PTerm versucht den proportionalen Fehler möglichst schnell auf 0 zu reduzieren.
+   </p>
+<p>
+    Vereinfacht gesagt: Wie hart der FC daran arbeitet den Fehler zu korrigieren. Je höher der PTerm um so schärfer ist die Reaktion. Ein zu hoher PTerm führt aber zu Oszillation und Überschwingen.
+   </p>
+<p>
+    Eingabewerte:
+   </p>
 <ul>
-<li>SOLL ist der RC-Command Wert (Stick) </li>
-<li>IST ist der GYRO Wert </li>
+<li>
+     SOLL ist der RC-Command Wert (Stick)
+    </li>
+<li>
+     IST ist der GYRO Wert
+    </li>
 </ul>
-<p><strong>Beispiel:</strong></p>
+<p>
+<strong>
+     Beispiel:
+    </strong>
+</p>
 <pre><code>    Kp = 0.2
     Input = 100
     GYRO = 60   
     Perr = Kp * (60-100) =&gt; 8
 
 </code></pre>
-<h3 id="i-term-integraler-fehler"><em>I-Term (Integraler Fehler)</em><a class="headerlink" href="#i-term-integraler-fehler" title="Permanent link">#</a></h3>
-<p>Ist eine Aufsummierung aller bis dato aufgetretenen Fehler über die Zeit (d/t). </p>
-<p>Mit dem ITerm wird eingestellt wie hart/schnell der FC reagieren soll gegen Umwelteinflüsse (z.B. Wind) um eine definierte Lage/Höhe beizubehalten. </p>
-<p>Somit wird ein stetiger Fehler, der anliegt und durch den P-Wert nicht korrigiert werden konnte, durch den I-Wert kompensiert, um den Gesamtfehler möglichst schnell auf 0 zu bringen. </p>
-<p><strong>ITerm:</strong> Driftet der Copter ohne Steuerbefehl, dann den ITerm erhöhen. </p>
-<p>Musst man sehr häufig die Flugbahn korrigieren (besonderen bei höheren Throttle) dann ist der ITerm zu niedrig </p>
-<p><strong>Beispiel:</strong></p>
+<h3 id="i-term-integraler-fehler">
+<em>
+     I-Term (Integraler Fehler)
+    </em>
+<a class="headerlink" href="#i-term-integraler-fehler" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    Ist eine Aufsummierung aller bis dato aufgetretenen Fehler über die Zeit (d/t).
+   </p>
+<p>
+    Mit dem ITerm wird eingestellt wie hart/schnell der FC reagieren soll gegen Umwelteinflüsse (z.B. Wind) um eine definierte Lage/Höhe beizubehalten.
+   </p>
+<p>
+    Somit wird ein stetiger Fehler, der anliegt und durch den P-Wert nicht korrigiert werden konnte, durch den I-Wert kompensiert, um den Gesamtfehler möglichst schnell auf 0 zu bringen.
+   </p>
+<p>
+<strong>
+     ITerm:
+    </strong>
+    Driftet der Copter ohne Steuerbefehl, dann den ITerm erhöhen.
+   </p>
+<p>
+    Musst man sehr häufig die Flugbahn korrigieren (besonderen bei höheren Throttle) dann ist der ITerm zu niedrig
+   </p>
+<p>
+<strong>
+     Beispiel:
+    </strong>
+</p>
 <blockquote>
-<p>Wenn bei schnellen Throttle-Bewegungen der Copter nicht stabil bleibt, ist häufig der ITerm zu niedrig. </p>
+<p>
+     Wenn bei schnellen Throttle-Bewegungen der Copter nicht stabil bleibt, ist häufig der ITerm zu niedrig.
+    </p>
 </blockquote>
-<p><code>d/t = Zeiteinheit - im Beispiel gehen wir von 1 aus (einfacher zu rechnen)</code></p>
+<p>
+<code>
+     d/t = Zeiteinheit - im Beispiel gehen wir von 1 aus (einfacher zu rechnen)
+    </code>
+</p>
 <pre><code>Im Beispiel gehen wir davon aus, dass IerrSum = -1 ist
     Ki = 0.02
     Input = 100
@@ -173,12 +384,29 @@ Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)<sup id="fnref:Kp
     Ierr = -1,05
 
 </code></pre>
-<h3 id="d-term-derivativer-wert-vorhersage"><em>D-Term Derivativer-Wert (Vorhersage)</em><a class="headerlink" href="#d-term-derivativer-wert-vorhersage" title="Permanent link">#</a></h3>
-<p>Der DTerm ist im Prinzip der Gegenpart zum PTerm und versucht eine Vorhersage zu treffen, wie der Fehlerwert in der Zukunft ist und versucht diesem entgegen zu wirken. </p>
-<p>P &amp; D hängen eng beieinander. </p>
-<p>Der DTerm ist ein Dämpfungsglied für ein Überkorrigieren des P-Reglers und versucht „Overshoots“ zu minimieren. Ähnlich einem Schock-Absorber. </p>
-<p>Den DTerm erhöhen kann eine Oszillation mehr glätten. Zu hohe DTerm führen aber zu heißen Motoren und können bis zur Zerstörung des ESCs oder des Motors führen. </p>
-<p>Extensive D-Werte führen auch zu einer Vermindung des Anspruchverhaltens des Copters. </p>
+<h3 id="d-term-derivativer-wert-vorhersage">
+<em>
+     D-Term Derivativer-Wert (Vorhersage)
+    </em>
+<a class="headerlink" href="#d-term-derivativer-wert-vorhersage" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    Der DTerm ist im Prinzip der Gegenpart zum PTerm und versucht eine Vorhersage zu treffen, wie der Fehlerwert in der Zukunft ist und versucht diesem entgegen zu wirken.
+   </p>
+<p>
+    P &amp; D hängen eng beieinander.
+   </p>
+<p>
+    Der DTerm ist ein Dämpfungsglied für ein Überkorrigieren des P-Reglers und versucht „Overshoots“ zu minimieren. Ähnlich einem Schock-Absorber.
+   </p>
+<p>
+    Den DTerm erhöhen kann eine Oszillation mehr glätten. Zu hohe DTerm führen aber zu heißen Motoren und können bis zur Zerstörung des ESCs oder des Motors führen.
+   </p>
+<p>
+    Extensive D-Werte führen auch zu einer Vermindung des Anspruchverhaltens des Copters.
+   </p>
 <pre><code>Im Beispiel gehen wir davon aus, dass DerrAlt = -4 ist
     Kd = 0.1
     Input = 100
@@ -188,35 +416,75 @@ Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)<sup id="fnref:Kp
     Derr = -1.6
 
 </code></pre>
-<h3 id="looptime-dt"><em>Looptime (d/t)</em><a class="headerlink" href="#looptime-dt" title="Permanent link">#</a></h3>
-<p>Den Zyklus den der PID-Controller benötigt das Eingangssignal (Eingangswert) und der daraus resultierenden Kalkulation und einen Ausgabewert zu berechnen bezeichnet man als „Loop“. </p>
-<p>Die dazu benötigte Zeit wird „Looptime“ genannt Looptime wird in ms (Millisekunden) berechnet bzw. in Hz </p>
+<h3 id="looptime-dt">
+<em>
+     Looptime (d/t)
+    </em>
+<a class="headerlink" href="#looptime-dt" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    Den Zyklus den der PID-Controller benötigt das Eingangssignal (Eingangswert) und der daraus resultierenden Kalkulation und einen Ausgabewert zu berechnen bezeichnet man als „Loop“.
+   </p>
+<p>
+    Die dazu benötigte Zeit wird „Looptime“ genannt Looptime wird in ms (Millisekunden) berechnet bzw. in Hz
+   </p>
 <pre><code>1sek = 1000ms = 1Hz = 1 Zyklus 
 1ms = 0.001sek = 1KHz 
 
 4k Looptime = 4000x die Loop durchlaufen pro Sekunde
 </code></pre>
-<p>Daher ist es auch wichtig, dass man in BF die Looptime so einstellt das der FC dies auch verarbeiten kann ohne Fehlberechnungen durchzuführen </p>
-<p><strong>Beispiel FC F405</strong>
-4KHz = 4000 Loops pro Sekunde - das schafft der FC problemlos 8KHz = 8000 Loops ist für einige F4 FCs zu viel, wenn zusätzliche Filter eingeschaltet wurden.
-Bei F7 FCs ist 8K typisch.</p>
+<p>
+    Daher ist es auch wichtig, dass man in BF die Looptime so einstellt das der FC dies auch verarbeiten kann ohne Fehlberechnungen durchzuführen
+   </p>
+<p>
+<strong>
+     Beispiel FC F405
+    </strong>
+    4KHz = 4000 Loops pro Sekunde - das schafft der FC problemlos 8KHz = 8000 Loops ist für einige F4 FCs zu viel, wenn zusätzliche Filter eingeschaltet wurden.
+Bei F7 FCs ist 8K typisch.
+   </p>
 <hr/>
 <div class="footnote">
 <hr/>
 <ol>
 <li id="fn:Kpid">
-<p>Fehlerkonstanten, werden pro Achse in BF eingestellt. <a class="footnote-backref" href="#fnref:Kpid" title="Jump back to footnote 1 in the text">↩</a></p>
+<p>
+       Fehlerkonstanten, werden pro Achse in BF eingestellt.
+       <a class="footnote-backref" href="#fnref:Kpid" title="Jump back to footnote 1 in the text">
+        ↩
+       </a>
+</p>
 </li>
 <li id="fn:Perr">
-<p>PID-Error, Summe aller anliegenden Fehlersignale.
-[^DT] <a class="footnote-backref" href="#fnref:Perr" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>
+       PID-Error, Summe aller anliegenden Fehlersignale.
+[^DT] : empty
+       <a class="footnote-backref" href="#fnref:Perr" title="Jump back to footnote 2 in the text">
+        ↩
+       </a>
+</p>
 </li>
 </ol>
 </div>
 <br/>
 </div>
-<footer class="container-fluid wm-page-content">
-<p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+<footer class="container-fluid wm-page-content"><small><a class="pdf-download" download href="../pdf/bf_doc_all.pdf" title="PDF Export">Download PDF</a></small>
+<p>
+    Documentation built with
+    <a href="http://www.mkdocs.org/">
+     MkDocs
+    </a>
+    using
+    <a href="https://github.com/gristlabs/mkdocs-windmill">
+     Windmill
+    </a>
+    theme by Grist Labs.
+   </p>
 </footer>
-<script>mermaid.initialize();</script></body>
+<script>
+   mermaid.initialize();
+  </script>
+</body>
 </html>
