@@ -52,7 +52,7 @@ plugins:
   - markdownmermaid
   - pdf-export:
       verbose: false
-      combined : true
+      combined : false
       media_type: print
       combined_output_path: pdf/bf_doc_all.pdf
       enabled_if_env : ENABLE_PDF_EXPORT

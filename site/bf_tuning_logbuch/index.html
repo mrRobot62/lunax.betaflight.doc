@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+<title>
+    Tuning-Logbuch - LunaX - Betaflight Docs
+   </title>
+<link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../css/base.css" rel="stylesheet"/>
+<link href="../css/highlight.css" rel="stylesheet"/>
+<link href="../css/pdf.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.2.1.min.js">
+</script>
+<script src="../js/bootstrap-3.3.7.min.js">
+</script>
+<script src="../js/highlight.pack.js">
+</script>
+<base target="_top"/>
+<script>
+    var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Tuning-Logbuch", url: "#_top", children: [
+              {title: "Hier ein Beispiel:", url: "#hier-ein-beispiel" },
+          ]},
+          {title: "Appendix", url: "#appendix", children: [
+          ]},
+          {title: "Logbuch-Template", url: "#logbuch-template", children: [
+          ]},
+        ];
+   </script>
+<script src="../js/base.js">
+</script>
+<script src="../js/mermaid.min.js">
+</script>
+</head>
+<body>
+<script>
+   if (is_top_frame) { $('body').addClass('wm-top-page'); }
+  </script>
+<div class="container-fluid wm-page-content">
+<a name="_top">
+</a>
+<h2 id="tuning-logbuch">
+    Tuning-Logbuch
+    <a class="headerlink" href="#tuning-logbuch" title="Permanent link">
+     #
+    </a>
+</h2>
+<p>
+    Wenn Du dich intensiver mit dem tunen Deines Copters beschäftigen möchtest empfiehlt es sich, dass du dir Setup-Einstellungen, Videos, etc. speicherst und dann später analysierst.
+   </p>
+<p>
+    Besonders bei Blackbox-Logfiles ist das Problem, dass diese zwar auf einer SD-Karte (oder im Flash) gespeichert werden aber durch das Fehlen einer RTC
+    <sup id="fnref:RTC">
+<a class="footnote-ref" href="#fn:RTC">
+      1
+     </a>
+</sup>
+    weder Datum noch Uhrzeigt im Dateinamen erfasst werde. Das mach später es häufig schwierig ein Setup einem Logfile zuzuordnen
+   </p>
+<p>
+    Ähnliches kann auch bei Videos geschehen
+   </p>
+<p>
+    Ich habe mir angewöhnt folgendes Logbuch pro Copter pro Flug (während der Tuning-Maßnahmen) zu führen und verwende dort auch die Markdown-Syntax
+    <sup id="fnref:Markdown">
+<a class="footnote-ref" href="#fn:Markdown">
+      2
+     </a>
+</sup>
+</p>
+<h4 id="hier-ein-beispiel">
+    Hier ein Beispiel:
+    <a class="headerlink" href="#hier-ein-beispiel" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+<img alt="" src="../images/bf_tuning-logbuch1.png"/>
+<img alt="" src="../images/bf_tuning-logbuch2.png"/>
+</p>
+<h2 id="appendix">
+    Appendix
+    <a class="headerlink" href="#appendix" title="Permanent link">
+     #
+    </a>
+</h2>
+<h2 id="logbuch-template">
+    Logbuch-Template
+    <a class="headerlink" href="#logbuch-template" title="Permanent link">
+     #
+    </a>
+</h2>
+<pre><code># Tuning-Loguch - &lt;copter&gt;
+
+## Copter
+
+## Grundkonfiguration
+
+# Flights
+
+------------------------------
+## &lt;dd.mm.yyyy hh:mm&gt; &lt;logfile&gt;
+&lt;Flugempfindung&gt;
+Video: &lt;filename&gt;
+
+Anpassungen an der Configuration
+\```
+...
+...
+\```
+
+------------------------------
+## &lt;dd.mm.yyyy hh:mm&gt;
+
+
+</code></pre>
+<p>
+    ![Baustelle][imgInWork]
+   </p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:RTC">
+<p>
+       Real-Time-Clock
+       <a class="footnote-backref" href="#fnref:RTC" title="Jump back to footnote 1 in the text">
+        ↩
+       </a>
+</p>
+</li>
+<li id="fn:Markdown">
+<p>
+       https://markdown.de/ oder https://www.markdownguide.org/
+       <a class="footnote-backref" href="#fnref:Markdown" title="Jump back to footnote 2 in the text">
+        ↩
+       </a>
+</p>
+</li>
+</ol>
+</div>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content"><small><a class="pdf-download" download href="bf_tuning_logbuch.pdf" title="PDF Export">Download PDF</a></small>
+<p>
+    Documentation built with
+    <a href="http://www.mkdocs.org/">
+     MkDocs
+    </a>
+    using
+    <a href="https://github.com/gristlabs/mkdocs-windmill">
+     Windmill
+    </a>
+    theme by Grist Labs.
+   </p>
+</footer>
+</body>
+</html>
