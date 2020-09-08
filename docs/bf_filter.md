@@ -1,3 +1,14 @@
+<script>
+if(window.location.search.match(pdf/))
+{
+	setTimeout(() =>
+	{
+		mermaid.init(null, document.getElementsByClassName('mermaid'));
+	}, 1000);
+}
+</script>
+
+
 # _FILTER Ein mal Eins_
 ## Inhaltsverzeichnis
 
@@ -45,10 +56,10 @@ Eine Deiner Hauptaufgabe beim Tunen Deines Copters ist, dass du diese Vibratione
 ![Noise1][imgNoise1]
 
 !!! note "Hinweis"
-	Der DTerm-Anteil des PID-Controllers verstärkt Vibrationen deutlich. Daher ist eine Abstimmung der Filter mit dem DTerm gut abzustimmen.
+	Der DTerm-Anteil des PID-Controllers verstärkt Vibrationen deutlich. Daher ist eine Abstimmung der Filter mit dem DTerm[^DTF] gut abzustimmen.
 
 
-Um Vibrationen zu analysieren musst du eine Blackbox-Analyse durchführen oder Tools wie `Blackbox-Explorer`, `PIDToolbox`oder `Plasmatree` verwenden.
+Um Vibrationen zu analysieren musst du eine Blackbox-Analyse durchführen oder Tools wie `Blackbox-Explorer`, `PIDToolbox` oder `Plasmatree` verwenden.
 
 Um einen ersten Eindruck von Vibrationen zu erhalten empfehle ich eine [Spektral-Analyse](https://github.com/mrRobot62/PIDtoolbox/wiki/SpectralAnalyzer).  Hier sieht man sehr deutlich in welchem Frequenzband Vibrationen an Deinem Copter auftreten.
 
@@ -81,12 +92,15 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
 
 Nachfolgende Bildfolge zeigt die obigen beschriebenen Vibrationen der Motoren bei einem Punch. Analyse über PIDToolbox[^PDT]
 
-|Roll | Info |
-:---:|:---:|
-| ![][imgPDTNoise1] | Snap-Roll, deutlich sieht man die Oszillation beim Erreichen des Setpoints. Interessant sind auch die Ausschläge kurz vor der Snap-Roll. Diese Ausschläge sind vermutlich durch Vibrationen der Motoren indiziert|
-| ![ ][imgPDTNoise2] | Dieses Bild zeigt Motor1 beim Punch kurz vor der Snap-Roll, man sieht das Vibrationen den PTerm und DTerm beeinflussen, was in Schwankungen der Motordrehzahl zeigt. Dadurch entstehen auch Vibrationen. Weiterhin führen unsaubere Motor-Signale zur Wärmeentwicklung des Motors das bis zur Zerstörung des Motors führen kann. Also immer die Motor-Temperatur im Auge behalten. |
+|<div style="width:400px">Roll</div> | Info |
+|---|---|
+| ![][imgPDTNoise1l] | Diese Ansicht zeigt den Verlauf kurz vor einer Snap-Roll. Der obere Graph zeigt die Roll-Achse. Der untere Graph zeigt zeitgleich Throttle. Man sieht auch, das ich meine Roll-Rates auf 700deg/sec stehen|
+| ![][imgPDTNoise2l] | Dieser Graph zeigt Details der Roll-Daten. Die schwarze Linie entspricht den Gyro-Daten, die rote Linie ist der Setpoint, die grün Line zeigt den PTerm und die blaue Linie den DTerm. Hier sieht man das PTerm und DTerm gegenläufig arbeiten. Weiterhin erkennt man am die Oszillation des Gyros beim Erreichen des Setpoints. |
+| ![][imgPDTNoise3l] | Nun eine noch genauere Darstellung der Roll-Daten beim Erreichen des Setpoints. Deutliche Oszillation des Gypros was darauf hindeutet, dass der PID-Controller noch nicht optimiert ist. |
+| ![][imgPDTNoise4l] | Hier nun die Motordaten kurz bei Full-Throttle am Beispiel von Motor 1. Schwarze Linie ist Throttle, rote Linie ist Motor1. Die Vibrationen die man vor der Snap-Roll im Bild 2 deutlich sieht, sieht man auch hier in den Motordaten. Diese Motor-Signale können zu den Vibrationen führen und auch zur Motor-Überhizung. Wichtig ist, das man die Motor-Temperatur nach einem Flug überprüft - erst recht, wenn man versucht seinen Copter zu tunen. Zwischen Throttle reduzieren und Beginn der Snap-Roll liegen ca. 500ms|
 
-<div style="page-break-after: always;"></div>
+
+
 
 -------------------------------------------------------------
 ## _Harmonics_
@@ -166,7 +180,7 @@ Die Dämpfungskurve ist eine Steigung. d.h. je höher die Signalfrequenz desto s
 Für den Einsatzbereich des Quadcopters ist der Frequenzbereich von 0-80Hz relevant, alles darüber sollte möglichst effizient weg gefiltert werden. 
 
 !!! note "Beachten"
-	Ein fundamentaler Aspekt ist, je niedriger der Schwellwert(`cutoff`) für den Lowpass Filter ist - umso mehr muss gefiltert werden. Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter die andere Algorithmen verwenden und das System effizienter gestalten. 
+	Ein fundamentaler Aspekt ist, je niedriger der die Grenzfrequenz (`cutoff frequency`) für den Lowpass Filter ist - umso mehr muss gefiltert werden. Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter, die andere Algorithmen verwenden und das System effizienter gestalten.  
 
 
 -------------------------------------------------------------
@@ -182,7 +196,7 @@ Weiterhin können Notch-Filter zur Reduzierung von Propwash genutzt werden.
 Der `Q-Faktor`(Quality-Factor) gibt die Güte des Notch-Filters an und beschreibt die Weite des Filters. Je größer der Q-Faktor, desto schmaler der Notch-Filter.
 
 !!! note "Beispiel"
-	Es wird festgestellt das wir ein Vibrationsspitze bei ca 260Hz haben (z.B. hervorgerufen durch Propwash), dann kann der Notch-Filter `cutoff` bei ca. 200Hz beginnen und bei 300Hz enden
+	Du stellst fest, dass eine Vibrationsspitze bei ca 260Hz auftritt (z.B. hervorgerufen durch Propwash), dann kann der Notch-Filter `cutoff` bei ca. 200Hz beginnen und bei 300Hz enden. Der Peak soll in der Mitte des Notch-Filters liegen, somit werden auch Frequenzen etwas unter und über dieses Peaks gefiltert.
 
 
 -------------------------------------------------------------
@@ -191,7 +205,7 @@ Im Rahmen von Betaflight werden statische Filter als LowPass-Filter oder als Not
 
 -------------------------------------------------------------
 ## _Dynamic-Filter_
-Dynamic Filter reduzieren ebenfalls Rauschen, wenn die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, ... können durch die Dynamic-Filter reduziert werden. 
+Dynamic Filter reduzieren ebenfalls Rauschen, vorausgesetzt die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, etc. können durch die Dynamic-Filter reduziert werden. 
 
 Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen kann und er kann den Notch-Filter verwenden, um ihn automatisch zu reduzieren. 
 
@@ -201,19 +215,22 @@ Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen 
 Betaflight-Filter
 =========================================================
 ## _RPM-Filter_
-RPM-Filter [^RPM] sind eine besondere Filtertechnik in Betaflight und können über eine Vielzahl an Parameter[^RPMPARAM] konfiguriert werden. Eine detaillierte Beschreibung findet man im BF-Wiki [BF-RPMFilter](https://github.com/betaflight/betaflight/wiki/Bidirectional-DSHOT-and-RPM-Filter). 
+RPM-Filter [^RPM] sind eine besondere Filtertechnik in Betaflight und wurden mit [BF 4.0]() eingeführt. Die RPM-Filter können über eine Vielzahl an Parameter[^RPMPARAM] konfiguriert werden. Eine detaillierte Beschreibung findet man im BF-Wiki [BF-RPMFilter](https://github.com/betaflight/betaflight/wiki/Bidirectional-DSHOT-and-RPM-Filter). 
 
-RPM-Filter basieren auf mehreren [Notch-Filter](#bf-dynamic-notchfilter) die präzise darauf ausgerichtet sind Motorvibrationen und ihre `Harmonics` zu filtern und möglichst komplett zu elimenieren. Für jeden Motore können bis zu drei Notch-Filter (max 3 Harmonics) generiert werden (Pro Achse). Das heißt insgesamt steht eine Bank von 36 Notch-Filtern zur Verfügung. 3 Achsen * 3 `Harmonics` * 4 Motoren = 36 Notch-Filter.
+RPM-Filter basieren auf mehreren [Notch-Filter](#bf-dynamic-notchfilter) die präzise darauf ausgerichtet sind Motorvibrationen und ihre `Harmonics` zu filtern und möglichst komplett zu elimenieren. Für jeden Motor können bis zu drei Notch-Filter (max 3 Harmonics) generiert werden (Pro Achse). Das heißt insgesamt steht eine Bank von 36 Notch-Filtern zur Verfügung. 3 Achsen * 3 `Harmonics` * 4 Motoren = 36 Notch-Filter.
 
 Die RPM-Filter basieren auf die Drehzahl der Motoren und dem bidrektionalen DShot-Protokoll in Zusammenspiel mit den Gyrodaten - daher auch `Gyro-RPM-Filter`
 
-!!! note "Beachten"
+!!! danger "Wichtig"
 	RPM-Filter benötigen für BLHeli32 ESC die aktuellste Firmware `>= 32.7`. Für BLHeli_S ESCs empfehle ich die FW von (auch wenn sie Geld kosten) JFlight[^JFLIGHT]
+
+!!! note "Tip"
+	Durch die Einführung der RPM-Filter ist es möglich andere Filter (z.B. LPF) zu reduzieren bzw. komplett auszuschalten, dies geht zu Gunsten der Gesamtperformance des Copters und die Delays können dadurch weiter reduziert werden.
 
 
 -------------------------------------------------------------
 ## _BF - Dynamic-Lowpassfilter_
-Neu ab [BF 4.0] (https://github.com/betaflight/betaflight/wiki/4.0-Tuning-Notes#Dynamic-lowpass-filtering).
+Neu ab [BF 4.0 - DLPF] (https://github.com/betaflight/betaflight/wiki/4.0-Tuning-Notes#Dynamic-lowpass-filtering).
 BF bietet nun die Möglichkeit, die Grenzfrequenz des LPF[^LPF] bei Vollgas im Vergleich zu 0-Throttle sanft auf einen höheren Wert zu verschieben. Die dem ersten Gyro und dem D-Lowpass-Filter zugewiesene Grenzfrequenz steigt nun dynamisch mit zunehmender Drosselung entlang einer Kurve an, die effektiv die Motordrehzahl beeinflusst. Dadurch wird die Verzögerung bei Vollgas verringert, und der Dynamische-Notch Filter [^NF] kann die Motor-Vibrations-Peaks besser verfolgen.
 
 -------------------------------------------------------------
@@ -225,7 +242,7 @@ In BF kann man zwei dieser Notch-Filter aktivieren. Angegeben werden jeweils die
 ## _BF - Dynamic-Notchfilter_
 Ab `BF 3.1` kann man auch `Dynamic Notch Filter`[^NF]  einsetzen. Dieser hocheffiziente Dynamische Notch-Filter setzt sich automatisch auf den Motor-Peak - also den aktuelle höchste Frequenz der Motor-Vibrationen, basieren auf die jeweils aktuelle FFT-Analyse. Hierdurch wirkt dieser Notch-Filter in allen Throttle-Stellungen und wandert demnach durch das Frequenzband.
 
-Dynamische Notch-Filter haben eine geringere Latzenzzeit als LP-Filter. Notch-Filter sind sehr effektiv und bei einer guten Abstimmung kann man sogar auf LPF-Filter verzichten. Dadurch steigert sich die Gesamtperformance des Copters.
+Dynamische Notch-Filter haben eine geringere Latenzzeit als LP-Filter. Notch-Filter sind sehr effektiv und bei einer guten Abstimmung kann man sogar auf LPF-Filter verzichten. Dadurch steigert sich die Gesamtperformance des Copters.
 
 LP-Filter aber einfach abschalten sollte wirklich mit bedacht gemacht werden.
 
@@ -248,14 +265,14 @@ In Betaflight wird zwischen zwei Static-LPF Filtern unterschieden
 Um einen LPF-Filter zu nutzen muss grundsätzlich die untere Grenzfrequenz (`cutoff`)) angegeben werden. Der Filter beginnt dann ab dieser Frequenz zu arbeiten. Die Cutoff-Frequenz sollte **nicht** unter 80Hz liegen, da hier die normalen Flugfrequenzen liegen.
 
 ### PT1
-Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latzenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)
+Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)
 
 !!! note "Tip"
 	verwende für den ersten LPF-Filter die Einstellung **PT1**, denn er ist der schnellere Filter.
 
 
 ### BIQUAD
-Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latzenzzeit schlechter, das Filterergebniss besser.
+Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latenzzeit schlechter, das Filterergebniss besser.
 
 
 -------------------------------------------------------------
@@ -279,15 +296,39 @@ Allgemeinen ist ein Biquad-Filter das sinnvolle Minimum an Filterung mit einer F
 !!! note "Beachten"
 	Den DTERM-LPF solltet ihr grundsätzlich **nicht** in Eurem Setup entfernen!
 
+-------------------------------------------------------------
+# Appendix
+
+## Bilder in größerem Format
+![][imgPDTNoise1h]
+![][imgPDTNoise2h]
+![][imgPDTNoise3h]
+![][imgPDTNoise4h]
+-------------------------------------------------------------
+
+
 ***
 [imgLPF]: images/lowpass-filter.png "LowPass-Filter"
 [imgDNF]: images/classic_notchfilter_qfactor.png "Notch-Filter"
 [imgOszi0]: images/oszillation0.png "Oszillation - Schaubild"
 [imgOszi1]: images/oszillation1.png "Blackbox-Explorer - Oszillation"
 [imgOszi2]: images/oszillation2.png "Blackbox-Explorer - Oszillation unruhige Motoren"
+
 [imgNoise1]: images/noise1.png "PIDToolbox - Vibrationen (Motor-Noise-Band)"
 [imgPDTNoise1]: images/pidtoolbox_snaproll_oszillation1.png
+[imgPDTNoise1l]: images/oszillation_lres_0b.png
+[imgPDTNoise1h]: images/oszillation_hres_0b.png
+
 [imgPDTNoise2]: images/pidtoolbox_snaproll_vibration_m1.png
+[imgPDTNoise2l]: images/pidtoolbox_snaproll_vibration_m1.png
+[imgPDTNoise2h]: images/oszillation_hres_1.png
+[imgPDTNoise2l]: images/oszillation_lres_1.png
+[imgPDTNoise3h]: images/oszillation_hres_1b.png
+[imgPDTNoise3l]: images/oszillation_lres_1b.png
+[imgPDTNoise4h]: images/oszillation_hres_2a.png
+[imgPDTNoise4l]: images/oszillation_lres_2a.png
+
+
 
 [^RPM]: [BF-Wiki RPM-Filter](https://github.com/betaflight/betaflight/wiki/Bidirectional-DSHOT-and-RPM-Filter)
 [^RPMPARAM]: siehe bf_tuning_parameters

@@ -37,7 +37,8 @@ nav:
      - 'Blackbox-Analyse' : 'bf_bb_analyse.md'
      - 'PID-Controller' : 'bf_pid_controller.md'
      - 'Tuning' : 'bf_tuning.md'
-     - 'Tunig-Parameter' : 'bf_tuning_parameters.md'
+     - 'Tuning-Parameter' : 'bf_tuning_parameters.md'
+     - 'Tuning-Logbuch' : 'bf_tuning_logbuch.md'
      - 'DMin' : 'bf_dmin.md'
      - 'CLI': 'bf_cli.md'
   - 'About': about.md
@@ -61,7 +62,8 @@ markdown_extensions:
         baselevel: 2
         permalink: '#'
   - footnotes
-  - admonition      
+  - admonition
+  - attr_list
 
 #  - pymdownx.superfences:
 #      # make exceptions to highlighting of code:

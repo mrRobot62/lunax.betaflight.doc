@@ -74,6 +74,15 @@
 <div class="container-fluid wm-page-content">
 <a name="_top">
 </a>
+<script>
+    if(window.location.search.match(pdf/))
+{
+    setTimeout(() =>
+    {
+        mermaid.init(null, document.getElementsByClassName('mermaid'));
+    }, 1000);
+}
+   </script>
 <h2 id="filter-ein-mal-eins">
 <em>
      FILTER Ein mal Eins
@@ -386,12 +395,18 @@ Motor-Vibrations-Bandes
 <p>
 <img alt="Noise1" src="../images/noise1.png" title="PIDToolbox - Vibrationen (Motor-Noise-Band)"/>
 </p>
-<div class="admonition important">
+<div class="admonition note">
 <p class="admonition-title">
      Hinweis
     </p>
 <p>
-     Der DTerm-Anteil des PID-Controllers verstärkt Vibrationen deutlich. Daher ist eine Abstimmung der Filter mit dem DTerm gut abzustimmen.
+     Der DTerm-Anteil des PID-Controllers verstärkt Vibrationen deutlich. Daher ist eine Abstimmung der Filter mit dem DTerm
+     <sup id="fnref2:DTF">
+<a class="footnote-ref" href="#fn:DTF">
+       6
+      </a>
+</sup>
+     gut abzustimmen.
     </p>
 </div>
 <p>
@@ -499,35 +514,51 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
 <table>
 <thead>
 <tr>
-<th align="center">
-       Roll
-      </th>
-<th align="center">
+<th>
+<div style="width:400px">
+        Roll
+       </div>
+</th>
+<th>
        Info
       </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">
-<img alt="" src="../images/pidtoolbox_snaproll_oszillation1.png"/>
+<td>
+<img alt="" src="../images/oszillation_lres_0b.png"/>
 </td>
-<td align="center">
-       Snap-Roll, deutlich sieht man die Oszillation beim Erreichen des Setpoints. Interessant sind auch die Ausschläge kurz vor der Snap-Roll. Diese Ausschläge sind vermutlich durch Vibrationen der Motoren indiziert
+<td>
+       Diese Ansicht zeigt den Verlauf kurz vor einer Snap-Roll. Der obere Graph zeigt die Roll-Achse. Der untere Graph zeigt zeitgleich Throttle. Man sieht auch, das ich meine Roll-Rates auf 700deg/sec stehen
       </td>
 </tr>
 <tr>
-<td align="center">
-<img alt=" " src="../images/pidtoolbox_snaproll_vibration_m1.png"/>
+<td>
+<img alt="" src="../images/oszillation_lres_1.png"/>
 </td>
-<td align="center">
-       Dieses Bild zeigt Motor1 beim Punch kurz vor der Snap-Roll, man sieht das Vibrationen den PTerm und DTerm beeinflussen, was in Schwankungen der Motordrehzahl zeigt. Dadurch entstehen auch Vibrationen. Weiterhin führen unsaubere Motor-Signale zur Wärmeentwicklung des Motors das bis zur Zerstörung des Motors führen kann. Also immer die Motor-Temperatur im Auge behalten.
+<td>
+       Dieser Graph zeigt Details der Roll-Daten. Die schwarze Linie entspricht den Gyro-Daten, die rote Linie ist der Setpoint, die grün Line zeigt den PTerm und die blaue Linie den DTerm. Hier sieht man das PTerm und DTerm gegenläufig arbeiten. Weiterhin erkennt man am die Oszillation des Gyros beim Erreichen des Setpoints.
+      </td>
+</tr>
+<tr>
+<td>
+<img alt="" src="../images/oszillation_lres_1b.png"/>
+</td>
+<td>
+       Nun eine noch genauere Darstellung der Roll-Daten beim Erreichen des Setpoints. Deutliche Oszillation des Gypros was darauf hindeutet, dass der PID-Controller noch nicht optimiert ist.
+      </td>
+</tr>
+<tr>
+<td>
+<img alt="" src="../images/oszillation_lres_2a.png"/>
+</td>
+<td>
+       Hier nun die Motordaten kurz bei Full-Throttle am Beispiel von Motor 1. Schwarze Linie ist Throttle, rote Linie ist Motor1. Die Vibrationen die man vor der Snap-Roll im Bild 2 deutlich sieht, sieht man auch hier in den Motordaten. Diese Motor-Signale können zu den Vibrationen führen und auch zur Motor-Überhizung. Wichtig ist, das man die Motor-Temperatur nach einem Flug überprüft - erst recht, wenn man versucht seinen Copter zu tunen. Zwischen Throttle reduzieren und Beginn der Snap-Roll liegen ca. 500ms
       </td>
 </tr>
 </tbody>
 </table>
-<div style="page-break-after: always;">
-</div>
 <hr/>
 <h3 id="harmonics">
 <em>
@@ -639,16 +670,16 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
 <p>
     Für den Einsatzbereich des Quadcopters ist der Frequenzbereich von 0-80Hz relevant, alles darüber sollte möglichst effizient weg gefiltert werden.
    </p>
-<div class="admonition important">
+<div class="admonition note">
 <p class="admonition-title">
      Beachten
     </p>
 <p>
-     Ein fundamentaler Aspekt ist, je niedriger der Schwellwert(
+     Ein fundamentaler Aspekt ist, je niedriger der die Grenzfrequenz (
      <code>
-      cutoff
+      cutoff frequency
      </code>
-     ) für den Lowpass Filter ist - umso mehr muss gefiltert werden. Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter die andere Algorithmen verwenden und das System effizienter gestalten.
+     ) für den Lowpass Filter ist - umso mehr muss gefiltert werden. Das wirkt sich auf dem Gesamtperformance aus. Daher gibt es mehrere andere Filter, die andere Algorithmen verwenden und das System effizienter gestalten.
     </p>
 </div>
 <hr/>
@@ -690,11 +721,11 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
      Beispiel
     </p>
 <p>
-     Es wird festgestellt das wir ein Vibrationsspitze bei ca 260Hz haben (z.B. hervorgerufen durch Propwash), dann kann der Notch-Filter
+     Du stellst fest, dass eine Vibrationsspitze bei ca 260Hz auftritt (z.B. hervorgerufen durch Propwash), dann kann der Notch-Filter
      <code>
       cutoff
      </code>
-     bei ca. 200Hz beginnen und bei 300Hz enden
+     bei ca. 200Hz beginnen und bei 300Hz enden. Der Peak soll in der Mitte des Notch-Filters liegen, somit werden auch Frequenzen etwas unter und über dieses Peaks gefiltert.
     </p>
 </div>
 <hr/>
@@ -719,7 +750,7 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
     </a>
 </h3>
 <p>
-    Dynamic Filter reduzieren ebenfalls Rauschen, wenn die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, ... können durch die Dynamic-Filter reduziert werden.
+    Dynamic Filter reduzieren ebenfalls Rauschen, vorausgesetzt die entsprechenden Parameter richtig eingestellt sind. Schwingungen, Motorgeräusche, etc. können durch die Dynamic-Filter reduziert werden.
    </p>
 <p>
     Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen kann und er kann den Notch-Filter verwenden, um ihn automatisch zu reduzieren.
@@ -753,7 +784,11 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
       1
      </a>
 </sup>
-    sind eine besondere Filtertechnik in Betaflight und können über eine Vielzahl an Parameter
+    sind eine besondere Filtertechnik in Betaflight und wurden mit
+    <a href="">
+     BF 4.0
+    </a>
+    eingeführt. Die RPM-Filter können über eine Vielzahl an Parameter
     <sup id="fnref:RPMPARAM">
 <a class="footnote-ref" href="#fn:RPMPARAM">
       2
@@ -774,7 +809,7 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
     <code>
      Harmonics
     </code>
-    zu filtern und möglichst komplett zu elimenieren. Für jeden Motore können bis zu drei Notch-Filter (max 3 Harmonics) generiert werden (Pro Achse). Das heißt insgesamt steht eine Bank von 36 Notch-Filtern zur Verfügung. 3 Achsen * 3
+    zu filtern und möglichst komplett zu elimenieren. Für jeden Motor können bis zu drei Notch-Filter (max 3 Harmonics) generiert werden (Pro Achse). Das heißt insgesamt steht eine Bank von 36 Notch-Filtern zur Verfügung. 3 Achsen * 3
     <code>
      Harmonics
     </code>
@@ -786,9 +821,9 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
      Gyro-RPM-Filter
     </code>
 </p>
-<div class="admonition important">
+<div class="admonition danger">
 <p class="admonition-title">
-     Beachten
+     Wichtig
     </p>
 <p>
      RPM-Filter benötigen für BLHeli32 ESC die aktuellste Firmware
@@ -803,6 +838,14 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
 </sup>
 </p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">
+     Tip
+    </p>
+<p>
+     Durch die Einführung der RPM-Filter ist es möglich andere Filter (z.B. LPF) zu reduzieren bzw. komplett auszuschalten, dies geht zu Gunsten der Gesamtperformance des Copters und die Delays können dadurch weiter reduziert werden.
+    </p>
+</div>
 <hr/>
 <h3 id="bf-dynamic-lowpassfilter">
 <em>
@@ -813,7 +856,7 @@ Dies läßt sich nur bedingt durch Filter bereinigen, sondern über die PID-Eins
     </a>
 </h3>
 <p>
-    Neu ab [BF 4.0] (https://github.com/betaflight/betaflight/wiki/4.0-Tuning-Notes#Dynamic-lowpass-filtering).
+    Neu ab [BF 4.0 - DLPF] (https://github.com/betaflight/betaflight/wiki/4.0-Tuning-Notes#Dynamic-lowpass-filtering).
 BF bietet nun die Möglichkeit, die Grenzfrequenz des LPF
     <sup id="fnref3:LPF">
 <a class="footnote-ref" href="#fn:LPF">
@@ -867,7 +910,7 @@ In BF kann man zwei dieser Notch-Filter aktivieren. Angegeben werden jeweils die
     einsetzen. Dieser hocheffiziente Dynamische Notch-Filter setzt sich automatisch auf den Motor-Peak - also den aktuelle höchste Frequenz der Motor-Vibrationen, basieren auf die jeweils aktuelle FFT-Analyse. Hierdurch wirkt dieser Notch-Filter in allen Throttle-Stellungen und wandert demnach durch das Frequenzband.
    </p>
 <p>
-    Dynamische Notch-Filter haben eine geringere Latzenzzeit als LP-Filter. Notch-Filter sind sehr effektiv und bei einer guten Abstimmung kann man sogar auf LPF-Filter verzichten. Dadurch steigert sich die Gesamtperformance des Copters.
+    Dynamische Notch-Filter haben eine geringere Latenzzeit als LP-Filter. Notch-Filter sind sehr effektiv und bei einer guten Abstimmung kann man sogar auf LPF-Filter verzichten. Dadurch steigert sich die Gesamtperformance des Copters.
    </p>
 <p>
     LP-Filter aber einfach abschalten sollte wirklich mit bedacht gemacht werden.
@@ -922,9 +965,9 @@ In BF kann man zwei dieser Notch-Filter aktivieren. Angegeben werden jeweils die
     </a>
 </h4>
 <p>
-    Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latzenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)
+    Dieser Filter hat eine etwas sanftere Kurve und ist ein LPF-Filter 1. Ordnung und hat dadurch eine geringere Latenzzeit. Der Nachteil dieses Filters, er filtert nicht so stark Vibrationen aus dem Signal (bedingt durch seine Kurvenausprägung)
    </p>
-<div class="admonition important">
+<div class="admonition note">
 <p class="admonition-title">
      Tip
     </p>
@@ -943,7 +986,7 @@ In BF kann man zwei dieser Notch-Filter aktivieren. Angegeben werden jeweils die
     </a>
 </h4>
 <p>
-    Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latzenzzeit schlechter, das Filterergebniss besser.
+    Dieser Filter hat eine deutliche steilere Kurve und filtert besser als ein PT1. Er ist ein Filter 2. Ordnung. Dadurch ist die Latenzzeit schlechter, das Filterergebniss besser.
    </p>
 <hr/>
 <h3 id="bf-gyro-rpm-filter">
@@ -991,7 +1034,7 @@ Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von 
 <p>
     Allgemeinen ist ein Biquad-Filter das sinnvolle Minimum an Filterung mit einer Frequenz um 100 Hz bis hinunter zu 80 Hz, wenn man heiße Motoren hat.
    </p>
-<div class="admonition important">
+<div class="admonition note">
 <p class="admonition-title">
      Beachten
     </p>
@@ -1071,6 +1114,9 @@ Die RPM Filter wurden weiter oben schon beschrieben, nachfolgend eine Reihe von 
 <p>
        Filter auf den DTerm-Wert
        <a class="footnote-backref" href="#fnref:DTF" title="Jump back to footnote 6 in the text">
+        ↩
+       </a>
+<a class="footnote-backref" href="#fnref2:DTF" title="Jump back to footnote 6 in the text">
         ↩
        </a>
 </p>

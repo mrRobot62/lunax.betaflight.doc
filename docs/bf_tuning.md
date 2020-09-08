@@ -22,11 +22,17 @@ Funktioniert das nicht - so kann man es prüfen:
 5. **Motordrehrichtung prüfen** 
 	* Motor 2+3 müssen CCW[^CWCCW] drehen
 	* Motor 1+4 müssen CW drehen
-
-![][imgMOTOREN]
+	
+!!! note "Hinweis"
+	Manchmal findet man im Internet Schaubilder mit Motoren-Beschriftungen, die abweichend sind. Meine Empfehlung: **wenn ihr Betaflight nutzt, nutzt auch die Default-Bezeichnungen, die für die Motoren in Betaflight vorgesehen sind**
+	
+<br>
+![][imgMOTOREN]{: style="height:300px; width:300px"}
+<br>
 6. Prop-Montage, darauf achten, dass die Props in der korrekten weise montiert werden. Grundsätzlich gilt: Motor 1+3 und Motor 2+4 haben immer die gleichen Props montiert.
+<br>
+![][imgProps]{: style="height:300px; width:300px"}
 
-![][imgProps]
 ## Filter reduzieren
 Eigentlich votiere ich zu filtern, das heißt aber nicht "einfach alle Filter einschalten" sondern Filter mit bedacht aktivieren und andere Filter deaktivieren.
 
@@ -45,19 +51,19 @@ Meine Setups die ich für meine Copter einstelle sind eher direkter - als Freest
 Ich lebe mit Propwash und kleineren anderen Vibrationen. Filtere mich daher nicht "zu Tode" und vielleicht sind meine PID-Werte auch nicht optimal - aber ich fühle mich wohl mit meinen Coptern.
 
 ## Tuning in a Nutshell
-> * 1: fliegen ist es was wir wollen
+> * 1: **fliegen ist es was wir wollen**
 
-> * 2: Konfiguriere Dicht nicht zu Tode
+> * 2: **Konfiguriere dich nicht zu Tode** 
 
-> * 3: Baue so gut und sauber wie möglich
+> * 3: Baue so gut und sauber wie möglich, vermeide lose Schrauben, Kabel oder andere Dinge die rumflattern. All das erzeugt Vibrationen
 
-> * 4: Das Setup sollte wenn möglich für Deine Copter gleicher Klasse mehr oder minder "kopierbar" sein. 
+> * 4: Das Setup sollte wenn möglich für Deine Copter gleicher Klasse mehr oder minder "kopierbar" sein. Mir ist bewußt das dies nur bedingt machbar ist.
 
-> * 5: beginne mit den Default-Einstellungen von PIDs und Filter
+> * 5: Beginne mit den Default-Einstellungen von PIDs und Filter - noch **keine** Anpassungen vornehmen.
 
-> * 6: Erstflug - und prüfen wie das Setup ist.
+> * 6: Erstflug mit Blackboxlogging (2K) - und prüfen wie das Setup ist.
 
-> * 7: Erstelle dir ein Tuning-Logbuch indem du pro Flug dir die Einstellungen/Änderungen merkst.
+> * 7: Erstelle dir ein Tuning-Logbuch indem du pro Flug dir die Einstellungen/Änderungen merkst [^Tuning_Logbuch]
 
 > * 8: zum Tunen ist der Blackbox-Explorer, PIDToolbox unerläßlich.
 
@@ -78,7 +84,7 @@ Mit diesen Punkten baue und fliege ich meine 5"er
 
 
 ## Heiße Motoren
-Im allgemeinen gilt **warme Motoren** sind in Ordnung, werden sie heiß, dann muss etwas am Setup geändert werden.
+Im allgemeinen gilt **kühle/laufwarme Motoren** sind perfekt, **warme Motoren** sind in Ordnung, werden sie heiß, dann muss etwas am Setup geändert werden.
 
 Heiße Motoren sind ein Indiz dafür, das hohe Anteile an Rauschen(Noise)[^NOISE] Signale an die Motoren gesendet werden. Das sollte unter allen Umständen vermieden werden.
 
@@ -104,17 +110,127 @@ Temperatur prüfen, prüfen prüfen
 !!! danger "Beachten"
 	**Ohne Sinn & Verstand am DTerm rumspielen oder an DTerm-LPF Änderungen durchführen, kann zur vollständigen Zerstörung der Motoren führen**
 
-![Baustelle][imgInWork]
 
+## Spectogramm-Analyse
+Die Spectogramm-Analyse [^PDT_Wiki_de] ist sehr hilfreich, denn sie zeigt uns in drei Dimensionen. `PIDToolBox` zeigt die Daten in
+
+* X-Achse : Throttle
+* Y-Achse : Frequenz in Hz
+* Z-Achse : (Helligkeit) : ist die Höhe der Amplitude eines Ausschlags. Je heller, je intensiver. 
+
+Das nachfolgende Spektogramm zeigt zwei Blackboxauswertungen einer meiner 5"Copter und zeigt nach der Anpassung der Filter leichte Verbesserungen.
+
+![][ImgSpAn1]
+
+Wie interpretiert man dieses Diagramm?
+Zur Unterscheidung der beiden Logdateien sind diese in grün (Log1) und blau (Log2) umrahmt.
+
+Die Diagramme liest man von oben nach unten und von links nach rechts
+
+* Spalte 1 + 3 : **ungefilterte Gyro-Daten** (Spalte1 = Log1, Spalte2 = Log2)
+* Spalte 2 + 4 : **gefilterte Gyro-Daten** (Spalte1 = Log1, Spalte2 = Log2)
+* Zeile : oben : Roll
+* Zeile : mitte: Pitch
+* Zeile : unten: Yaw
+
+Spalten 1+3 zeigen die ungefilterten Gyro-Werte, die hellen Bereiche zeigen deutliche Vibrationen. Das Gelbe band, welches sich leicht diagonal von unten links nach oben rechts zieht ist das Motor-Band. Je höher der Throttle-Wert je mehr Vibrationen treten auf. Dies ist in der Regel bei den meisten Coptern in dieser Art sichtbar.
+
+
+### Detailbetrachtungen
+
+|<div style="width:400px">Roll</div> | Info |
+|---|---|
+| **Gyro-Prefilterd**<br>**Log 1**<br>![][ImgSpAn3a]<br>**Log 2**<br>![][ImgSpAn3b] |<br><br>Die blauen Bereiche zeigen weitere Vibrationen. Die pinkfarbene Bereich zeigt die normalen Flugfrequenzen allerdings sieht man hier schon dass sich im bereich ab 80-100Hz und aufwärts weitere Vibrationen befinden. <br><br>Im zweiten Log sieht man das die Vibrationen geringfügig weniger geworden sind. Dies wird auch in den beiden Zahlen oben rechts gezeigt<br>`mean` = der Durchschnitt `peak` = das Maximum<br><br>Je kleiner die Zahlen desto "besser". Was man sieht ist `mean` ist geringer geworden, das heißt die Gesamtvibrationen sind weniger, allerdings hat das Maximum zugenommen. Diese Vibrationen sind aber in den Gyro-Rohwerten zu sehen und noch kein Filter hat diese eliminiert, das nun unterschiedliche Werte auftreten liegt vermutlich an einem unterschiedlichen Flugverhalten und/oder ggf. äußeren Einflüssen (z.B. Wind)|
+|  **Gyro-Filtered**<br>**Log 1**<br>![][ImgSpAn4a]<br>**Log 2**<br>![][ImgSpAn4b]  | <br><br> Hier sieht man nun was die eingestellten Filter erreicht haben, der größte Teil der Störungen sind beseitigt worden, lediglich einen leichten "Flimmer" kann man nocht sehen. Interessant ist das zweite Bild des Log2, hier sieht man nochmals eine leichte Verbesserung, sowohl der Durchschnitt (`mean`) als auch das Maximum (`peak`) haben sich verringert.|
+| **Gyro-Prefilterd <100Hz**<br>**Log 1**<br>![][ImgSpAn5a]<br>**Log 2**<br>![][ImgSpAn5b] | <br><br>Hier sieht man vergrößert den Bereich <100hz - also dort wo Propwash auftritt. Die untere gestrichelte Linie gibt liegt bei 20hz - also alles darunter ist normal im Flugbetrieb, alles darüber bis zur oberen gelben Linie ist der Bereich zw. 20-100hz - Propwash - Frequenzen. Auch hier sieht man an den Zahlen und an am Graphen selbst, dass sich die Vibrationen verringert haben. Das kann aber auch am Flugstil selbst gelegen haben.|
+| **Filter-Delay**<br>![][ImgPDTFltDelay] | <br><br>Hier zeigt sich, dass die Änderungen an den Filtern sich auch unmittelbar auf die Delays positiv gezeigt hat. Warum der `DTerm-Delay` noch über 3ms ist, muss geprüft werden. Vielleicht ist es aber auch ok so. |
+
+### Auszug aus dem Tuning-Logbuch
+
+Und bei diesen Files steht folgendes im Tuning-Logbuch: (Logfile 1 = T09 und Logfile 2 = T07)
+```
+### log_20200719_t07.bbl
+- Retest, wegen Vibrationsproblemen, die erst einmal nicht erklärbar sind
+- based on t05
+
+CLI get gyro_rpm
++ gyro_rpm_notch_harmonics = 3
++ gyro_rpm_notch_q = 1000
++ gyro_rpm_notch_min = 150
++ dyn_notch_width_percent = 0
++ dyn_notch_q = 500
++ dyn_notch_min_hz = 150
++ dyn_notch_max_hz = 350
+	
+Kaum bis keine Vibrationen, Motoren lauwarm
+	
+### logxxxxxxx_t08.bbl
+gyro_rpm_notch_min = 100
+dyn_notch_min_hz = 100
+
+deutlich mehr Vibrationen beim Abfangen aus schnellen figuren. Motoren wärmer als vorher
+Delay bei Gyro auf 2ms angestiegen.
+
+### logxxxxxxx_t09.bbl
+dyn_notch_max_hz=300
+gyro_rpm_notch_min=150
+Vibrationen haben wieder nachgelassen aber irgendwie rauer. T07 ist vermutlich das bessere Setup
+```
+ 
+### DTerm Spectrogramm
+Wie man sieht, wurde lediglich der `dyn_notch_max_hz` Parameter verändert und wirkt sich aber auf den DTerm aus - logisch - mehr Vibrationen höhere DTerm-Aktiviät sowohl im ungefilterten als auch im gefilterten Signal
+
+|<div style="width:400px">DTerm</div> |
+|---|
+| Was sieht man? | 
+| **Spalte 1:** Gyro pre-filtert, **Spalte 2:** Gyro gefiltert, **Spalte 3:** DTerm pre-filtert, **Spalte 4:** DTerm gefiltert |
+| **Log 1 : logxxxxxxx_t09.bbl**<br>![][ImgSpAn6a] <br><br> ![][ImgSpAn6b] |
+| Auswertung aus dem vermeintlich schlechterem Setup, das untere Bild zeigt Gyro-gefiltert und DTerm-gefiltern im Bereich <100hz. Durch das verringern des `dyn_notch_max_hz` auf 300hz führt zu einem größeren Filterbereich, das sich zusätzlich zu einer verschlechtertem Delay  |
+| **Log 2 : log_20200719_t07.bbl**<br>![][ImgSpAn7a] <br><br> ![][ImgSpAn7b]  |
+| Deutlich sieht man, das die DTerm Filterung besser ist, das untere Bild zeigt Gyro-gefiltert und DTerm-gefiltern im Bereich <100hz - Deutlich sieht man das die Filterung des DTerms in den unteren Frequenzen. Der `dyn_notch_max_hz` ist auf  350hz. Im Gyro-Signal sieht man die Verbesserung, dies wirkt sich auch auf den DTerm aus.|
+
+
+-----------------------------------
+# Appendix
+## Bilder in besserer Auflösung
+
+Ein Klick auf das Bild öffnet die Vergrößerung 
+
+| | |
+|:---:|:---:|
+| Übersicht Spektogramm<br>[![][ImgSpAn1]{: style="height:152px; width:256px"}][ImgSpAn1] | Gyro Detail<br>[![][ImgSpAn3a]{: style="height:152px; width:256px"}][ImgSpAn3a]|
+| Gyro gefiltert Log 1<br>[![][ImgSpAn4a]{: style="height:152px; width:256px"}][ImgSpAn4a] | Gyro gefiltert Log 2<br>[![][ImgSpAn4b]{: style="height:152px; width:256px"}][ImgSpAn4b] |
+| Gyro gefiltert <100hz Log 1<br>[![][ImgSpAn5a]{: style="height:152px; width:256px"}][ImgSpAn5a] | Gyro gefiltert <100hz Log 2<br>[![][ImgSpAn5b]{: style="height:152px; width:256px"}][ImgSpAn5b] |
+| DTerm Log 1<br>[![][ImgSpAn7a]{: style="height:152px; width:256px"}][ImgSpAn7a] | DTerm Log 2<br>[![][ImgSpAn7b]{: style="height:152px; width:256px"}][ImgSpAn7b] ||
+
+
+
+![Baustelle][imgInWork]
 
 [imgInWork]: images/inwork.png "In-Arbeit"
 [imgMOTOREN]: images/quadcopter_top.png "Motor-Drehrichtungen"
 [imgProps]: images/prop_direction.jpg "Prop Drehrichtugn"
+[ImgSpAn1]: images/pdt_specto_2flights_hres_gt100hz_info2.png
+[ImgSpAn2]: images/pdt_specto_2flights_hres_lt100hz_info.png
+[ImgSpAn3a]: images/pdt_specto_2flights_hres_gt100hz_detail1.png
+[ImgSpAn3b]: images/pdt_specto_2flights_hres_gt100hz_detail1.png
+[ImgSpAn4a]: images/pdt_specto_2flights_hres_gt100hz_gefiltert_detail1.png
+[ImgSpAn4b]: images/pdt_specto_2flights_hres_gt100hz_gefiltert_detail2.png
+[ImgSpAn5a]: images/pdt_specto_2flights_hres_lt100hz_gefiltert_detail1.png
+[ImgSpAn5b]: images/pdt_specto_2flights_hres_lt100hz_gefiltert_detail2.png
+[ImgPDTFltDelay]: images/pdt_filter_delays1.png
+[ImgSpAn6a]: images/pdt_specto_2flights_hres_gt100hz_A_DTerm1.png
+[ImgSpAn6b]: images/pdt_specto_2flights_hres_gt100hz_A_DTerm2.png
+[ImgSpAn7a]: images/pdt_specto_2flights_hres_gt100hz_B_DTerm1.png
+[ImgSpAn7b]: images/pdt_specto_2flights_hres_gt100hz_B_DTerm2.png
+
 
 
 [^CWCCW]: CW = clockwise = rechts, CCW = counter clockwise = links
 [^FC]: Flight-Controller
-[^DNF]: siehe : bf_filter.md#notch-filter
-[^LPF]: [Lowpass-Filter](bf_filter.md#lowpass-filter)
-[^LPF2]: siehe : bf_filter.md#bf-static-lowpassfilter
+[^DNF]: siehe : bf_filter.md # notch-filter
+[^LPF]: siehe : bf_filter.md # lowpass-filter
+[^LPF2]: siehe : bf_filter.md # bf-static-lowpassfilter
 [^NOISE]: [Noise/Vibrationen]()
+[^PDT_Wiki_de]: [PDT Wiki in Deutsch](https://github.com/mrRobot62/PIDtoolbox)
+[^Tuning_Logbuch]: siehe bf_tuning_logbuch

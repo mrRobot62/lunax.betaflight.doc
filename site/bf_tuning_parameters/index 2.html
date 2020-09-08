@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+<title>
+    Tunig-Parameter - LunaX - Betaflight Docs
+   </title>
+<link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../css/base.css" rel="stylesheet"/>
+<link href="../css/highlight.css" rel="stylesheet"/>
+<link href="../css/pdf.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.2.1.min.js">
+</script>
+<script src="../js/bootstrap-3.3.7.min.js">
+</script>
+<script src="../js/highlight.pack.js">
+</script>
+<base target="_top"/>
+<script>
+    var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Betaflight BF4.x Tuning-Parameters", url: "#_top", children: [
+          ]},
+          {title: "Inhaltsverzeichnis", url: "#inhaltsverzeichnis", children: [
+          ]},
+          {title: "Historie", url: "#historie", children: [
+          ]},
+          {title: "Tuning-Parameter", url: "#tuning-parameter", children: [
+              {title: "Betaflight - Tuning-Tips", url: "#betaflight-tuning-tips" },
+          ]},
+          {title: "DSHOT RPM Telemetrie-Daten", url: "#dshot-rpm-telemetrie-daten", children: [
+              {title: "Allgemeines", url: "#allgemeines" },
+              {title: "Parameter", url: "#parameter" },
+          ]},
+          {title: "Gyro Filter", url: "#gyro-filter", children: [
+              {title: "Allgemeines", url: "#allgemeines_1" },
+              {title: "Gyro Filter =&gt; GYRO-RPM Notch Filter", url: "#gyro-filter-gyro-rpm-notch-filter" },
+              {title: "Gyro Filter =&gt; Dynamic-Notch Filter", url: "#gyro-filter-dynamic-notch-filter" },
+              {title: "Gyro Filter =&gt; Static Gyro-Notch Filter (1 und 2)", url: "#gyro-filter-static-gyro-notch-filter-1-und-2" },
+              {title: "Gyro Filter =&gt; Dynamic Gyro LowPass Filter", url: "#gyro-filter-dynamic-gyro-lowpass-filter" },
+              {title: "Gyro Filter =&gt; Static Gyro LowPass Filter", url: "#gyro-filter-static-gyro-lowpass-filter" },
+          ]},
+          {title: "DTerm Filter", url: "#dterm-filter", children: [
+              {title: "Allgemeines", url: "#allgemeines_7" },
+              {title: "DTerm =&gt; Dynamic D lowpass", url: "#dterm-dynamic-d-lowpass" },
+              {title: "DTerm =&gt; Static D notch", url: "#dterm-static-d-notch" },
+          ]},
+          {title: "Feedforward", url: "#feedforward", children: [
+              {title: "Allgemeines", url: "#allgemeines_8" },
+              {title: "Parameter", url: "#parameter_8" },
+          ]},
+          {title: "VBat", url: "#vbat", children: [
+              {title: "Allgemeines", url: "#allgemeines_9" },
+              {title: "Parameter", url: "#parameter_9" },
+          ]},
+          {title: "RC-Command", url: "#rc-command", children: [
+              {title: "Allgemeines", url: "#allgemeines_10" },
+              {title: "Parameter", url: "#parameter_10" },
+              {title: "rc_smoothing_auto_smoothness (Default:10)", url: "#rc_smoothing_auto_smoothness-default10" },
+          ]},
+          {title: "Setpoint", url: "#setpoint", children: [
+              {title: "Allgemeines", url: "#allgemeines_11" },
+              {title: "Parameter", url: "#parameter_11" },
+          ]},
+          {title: "ITerm Parameter", url: "#iterm-parameter", children: [
+              {title: "Allgemeines", url: "#allgemeines_12" },
+          ]},
+        ];
+   </script>
+<script src="../js/base.js">
+</script>
+<script src="../js/mermaid.min.js">
+</script>
+</head>
+<body>
+<script>
+   if (is_top_frame) { $('body').addClass('wm-top-page'); }
+  </script>
+<div class="container-fluid wm-page-content">
+<a name="_top">
+</a>
+<h2 id="betaflight-bf4x-tuning-parameters">
+    Betaflight BF4.x Tuning-Parameters
+    <a class="headerlink" href="#betaflight-bf4x-tuning-parameters" title="Permanent link">
+     #
+    </a>
+</h2>
+<p>
+<img alt="LunaX" src="../images/LunaX_Font.png"/>
+</p>
+<h2 id="inhaltsverzeichnis">
+    Inhaltsverzeichnis
+    <a class="headerlink" href="#inhaltsverzeichnis" title="Permanent link">
+     #
+    </a>
+</h2>
+<div class="toc">
+<ul>
+<li>
+<a href="#betaflight-bf4x-tuning-parameters">
+       Betaflight BF4.x Tuning-Parameters
+      </a>
+</li>
+<li>
+<a href="#inhaltsverzeichnis">
+       Inhaltsverzeichnis
+      </a>
+</li>
+<li>
+<a href="#historie">
+       Historie
+      </a>
+</li>
+<li>
+<a href="#tuning-parameter">
+       Tuning-Parameter
+      </a>
+<ul>
+<li>
+<a href="#betaflight-tuning-tips">
+         Betaflight - Tuning-Tips
+        </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#dshot-rpm-telemetrie-daten">
+       DSHOT RPM Telemetrie-Daten
+      </a>
+<ul>
+<li>
+<a href="#allgemeines">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#in">
+           IN
+          </a>
+</li>
+<li>
+<a href="#out">
+           OUT
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#parameter">
+         Parameter
+        </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#gyro-filter">
+       Gyro Filter
+      </a>
+<ul>
+<li>
+<a href="#allgemeines_1">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#in_1">
+           IN
+          </a>
+</li>
+<li>
+<a href="#out_1">
+           OUT
+          </a>
+</li>
+<li>
+<a href="#gyro-filterarten">
+           Gyro Filterarten
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#gyro-filter-gyro-rpm-notch-filter">
+         Gyro Filter =&gt; GYRO-RPM Notch Filter
+        </a>
+<ul>
+<li>
+<a href="#allgemeines_2">
+           Allgemeines
+          </a>
+</li>
+<li>
+<a href="#parameter_1">
+           Parameter
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#gyro-filter-dynamic-notch-filter">
+         Gyro Filter =&gt; Dynamic-Notch Filter
+        </a>
+<ul>
+<li>
+<a href="#allgemeines_3">
+           Allgemeines
+          </a>
+</li>
+<li>
+<a href="#parameter_2">
+           Parameter
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#gyro-filter-static-gyro-notch-filter-1-und-2">
+         Gyro Filter =&gt; Static Gyro-Notch Filter (1 und 2)
+        </a>
+<ul>
+<li>
+<a href="#allgemeines_4">
+           Allgemeines
+          </a>
+</li>
+<li>
+<a href="#parameter_3">
+           Parameter
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#gyro-filter-dynamic-gyro-lowpass-filter">
+         Gyro Filter =&gt; Dynamic Gyro LowPass Filter
+        </a>
+<ul>
+<li>
+<a href="#allgemeines_5">
+           Allgemeines
+          </a>
+</li>
+<li>
+<a href="#parameter_4">
+           Parameter
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#gyro-filter-static-gyro-lowpass-filter">
+         Gyro Filter =&gt; Static Gyro LowPass Filter
+        </a>
+<ul>
+<li>
+<a href="#allgemeines_6">
+           Allgemeines
+          </a>
+<ul>
+<li>
+<a href="#in_2">
+             IN
+            </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#parameter_5">
+           Parameter
+          </a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#dterm-filter">
+       DTerm Filter
+      </a>
+<ul>
+<li>
+<a href="#allgemeines_7">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#in_3">
+           IN
+          </a>
+</li>
+<li>
+<a href="#out_2">
+           OUT
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#dterm-dynamic-d-lowpass">
+         DTerm =&gt; Dynamic D lowpass
+        </a>
+<ul>
+<li>
+<a href="#allgemein">
+           Allgemein
+          </a>
+</li>
+<li>
+<a href="#parameter_6">
+           Parameter
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#dterm-static-d-notch">
+         DTerm =&gt; Static D notch
+        </a>
+<ul>
+<li>
+<a href="#allgemeihz">
+           AllgemeiHz
+          </a>
+</li>
+<li>
+<a href="#parameter_7">
+           Parameter
+          </a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#feedforward">
+       Feedforward
+      </a>
+<ul>
+<li>
+<a href="#allgemeines_8">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#in_4">
+           IN
+          </a>
+</li>
+<li>
+<a href="#out_3">
+           OUT
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#parameter_8">
+         Parameter
+        </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#vbat">
+       VBat
+      </a>
+<ul>
+<li>
+<a href="#allgemeines_9">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#in_5">
+           IN
+          </a>
+</li>
+<li>
+<a href="#out_4">
+           OUT
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#parameter_9">
+         Parameter
+        </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#rc-command">
+       RC-Command
+      </a>
+<ul>
+<li>
+<a href="#allgemeines_10">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#in_6">
+           IN
+          </a>
+</li>
+<li>
+<a href="#out_5">
+           OUT
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#parameter_10">
+         Parameter
+        </a>
+</li>
+<li>
+<a href="#rc_smoothing_auto_smoothness-default10">
+         rc_smoothing_auto_smoothness (Default:10)
+        </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#setpoint">
+       Setpoint
+      </a>
+<ul>
+<li>
+<a href="#allgemeines_11">
+         Allgemeines
+        </a>
+<ul>
+<li>
+<a href="#in_7">
+           IN
+          </a>
+</li>
+<li>
+<a href="#out_6">
+           OUT
+          </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#parameter_11">
+         Parameter
+        </a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#iterm-parameter">
+       ITerm Parameter
+      </a>
+<ul>
+<li>
+<a href="#allgemeines_12">
+         Allgemeines
+        </a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="historie">
+    Historie
+    <a class="headerlink" href="#historie" title="Permanent link">
+     #
+    </a>
+</h2>
+<table>
+<thead>
+<tr>
+<th align="center">
+       Version
+      </th>
+<th>
+       Datum
+      </th>
+<th>
+       Inhalt
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">
+       0.1
+      </td>
+<td>
+       August 2020
+      </td>
+<td>
+       initial
+      </td>
+</tr>
+<tr>
+<td align="center">
+       0.2
+      </td>
+<td>
+       August 2020
+      </td>
+<td>
+       neu strukturiert
+      </td>
+</tr>
+</tbody>
+</table>
+<h2 id="tuning-parameter">
+    Tuning-Parameter
+    <a class="headerlink" href="#tuning-parameter" title="Permanent link">
+     #
+    </a>
+</h2>
+<p>
+    Nachfolgende eine Reihe der wichtigsten Tuning-Variablen.
+   </p>
+<p>
+    Viel mehr Details findet man hier:
+    <a href="https://github.com/betaflight/betaflight/wiki/4.2-Tuning-Notes">
+     BF4.2-Tuning-Notes
+    </a>
+</p>
+<blockquote>
+<p>
+<code>
+      ACHTUNG
+     </code>
+</p>
+<blockquote>
+<p>
+      Bei einem Update von BF &lt;4.2 bitte
+      <strong>
+<em>
+        KEIN
+       </em>
+</strong>
+      Restore von alten Werten die durch
+      <code>
+       diff all
+      </code>
+      gespeichert wurden, importieren. Fangt bei
+      <strong>
+       NULL
+      </strong>
+      an
+     </p>
+</blockquote>
+</blockquote>
+<h3 id="betaflight-tuning-tips">
+    Betaflight - Tuning-Tips
+    <a class="headerlink" href="#betaflight-tuning-tips" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    Weitere Tuning-Tips findest du im BF-Wiki der jeweiligen Versionen:
+*
+    <a href="https://github.com/betaflight/betaflight/wiki/4.2-Tuning-Notes">
+     BF4.2-Tuning-Notes
+    </a>
+    *
+    <a href="https://github.com/betaflight/betaflight/wiki/4.1-Tuning-Notes">
+     BF4.1-Tuning-Notes
+    </a>
+    *
+    <a href="https://github.com/betaflight/betaflight/wiki/4.0-Tuning-Notes">
+     BF4.0-Tuning-Notes
+    </a>
+    *
+    <a href="https://github.com/betaflight/betaflight/wiki/3.5-tuning-notes">
+     BF4.0-Tuning-Notes
+    </a>
+</p>
+<h2 id="dshot-rpm-telemetrie-daten">
+    DSHOT RPM Telemetrie-Daten
+    <a class="headerlink" href="#dshot-rpm-telemetrie-daten" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Ab BF 4.0 werden Telemetriedaten des ESCs ausgelesen und analysiert. Diese Informationen sind elementar wichtig für viele nachgelagerte Filtertechniken und für den PID-Controller. Voraussetzung ist, dass man für den ESC ein DSHOT-Protokoll ausgewählt hat
+   </p>
+<h5 id="in">
+    IN
+    <a class="headerlink" href="#in" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    ESC -
+    <strong>
+     Beachten:
+    </strong>
+    die aktuelle Firmware des ESCs muss RPM-Telemetrie-Daten verarbeiten können.
+   </p>
+<h5 id="out">
+    OUT
+    <a class="headerlink" href="#out" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    RPM-Daten pro Motor
+   </p>
+<h4 id="parameter">
+    Parameter
+    <a class="headerlink" href="#parameter" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Diese Parameter können nicht direkt beeinflußt werden. Zu beachten sind welches
+    <strong>
+     DSHOT
+    </strong>
+    Protokoll verwendet wird.
+   </p>
+<p>
+<strong>
+     Bedenke:
+    </strong>
+    bei DSHOT300 und einer 8k PIDLoop erhältst du nur jede zweite PID-Loop Daten zugesendet. Daraus folgt, du solltest das passende
+    <strong>
+     DSHOT-Protokoll
+    </strong>
+    auf Deine PID-Loop auswählen
+   </p>
+<ul>
+<li>
+<strong>
+      DSHOT150
+     </strong>
+     : empfohlen bei 2k PIDLoop
+    </li>
+<li>
+<strong>
+      DSHOT300
+     </strong>
+     : empfohlen bei 4k PIDLoop
+    </li>
+<li>
+<strong>
+      DSHOT600
+     </strong>
+     : empfohlen bei 8k PIDLoop
+    </li>
+<li>
+<strong>
+      DSHOT1200
+     </strong>
+     : 8k PIDLoop
+    </li>
+</ul>
+<h2 id="gyro-filter">
+    Gyro Filter
+    <a class="headerlink" href="#gyro-filter" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines_1">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_1" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Der Gyro ist das zentrale Bauelement auf dem FC und stellt die aktuellen
+    <strong>
+     IST
+    </strong>
+    Flugdaten zur Verfügung. Diese Daten werden dann bezogen auf die
+    <strong>
+     SOLL
+    </strong>
+    Daten (Die RC-Commands) verrechnet, gefiltert dem PIDController zur Verfügung gestellt. Anschließend gemixt und den Motoren als neue.
+   </p>
+<p>
+    Jeder GYRO besitzt werkseitig einen internen LowPass-Filter. Je nach Bautyp des Gyros unterscheiden sich wie gut dieser interne Filter tatsächlich ist.
+   </p>
+<p>
+    Die Gyro-Filter Parameter umfassen folgende Filterarten
+   </p>
+<p>
+<strong>
+     Bei den weiteren beschriebenen
+     <code>
+      Gyro Filtern
+     </code>
+     wird nicht nochmals auf ÌN/OUT`eingegangen.
+    </strong>
+</p>
+<h5 id="in_1">
+    IN
+    <a class="headerlink" href="#in_1" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+<code>
+     gyro_scaled
+    </code>
+    Daten direkt aus dem Gyro.
+   </p>
+<h5 id="out_1">
+    OUT
+    <a class="headerlink" href="#out_1" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Bereitstellung der Daten für nachgelagerte
+    <code>
+     DTerm-Filter
+    </code>
+    und als Mix-Daten für den
+    <code>
+     P-Controller
+    </code>
+    =&gt;
+    <code>
+     Vorab-Fehler P-Berechnung
+    </code>
+</p>
+<h5 id="gyro-filterarten">
+    Gyro Filterarten
+    <a class="headerlink" href="#gyro-filterarten" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Es wird unterschieden zwischen den Gyro-RPM Filtern, einem Dynamic NotchFilter und Statich Notichfilter 1+2, einem Dynamsiche LowPassfilter und einem statischen Lowpassfilter.
+   </p>
+<ul>
+<li>
+<p>
+      Gyro-RPM-Notch Filter
+     </p>
+<p>
+<code>
+       gyro_rpm_notch_harmonics=3
+gyro_rpm_notch_q=500
+gyro_rpm_notch_min=100
+      </code>
+</p>
+</li>
+<li>
+<p>
+      Dynamic-Notch Filter
+      <code>
+       dyn_notch_min_hz
+    dyn_notch_max_hz
+    dyn_notch_width_percent
+    dyn_notch_q
+      </code>
+</p>
+</li>
+<li>
+<p>
+      Static Gyro-Notch Filter (1 und 2)
+      <code>
+       gyro_notch1_hz
+    gyro_notch1_cutoff
+    gyro_notch2_hz
+    gyro_notch2_cutoff
+      </code>
+</p>
+</li>
+<li>
+<p>
+      Dynamic Gyro LowPass Filter
+      <code>
+       gyro_lowpass_type
+    gyro_lowpass_hz
+    dyn_lpf_gyro_min_hz
+    dyn_lpf_gyro_max_hz
+      </code>
+</p>
+</li>
+<li>
+     Static Gyro LowPass Filter
+     <code>
+      gyro_lowpass2_type
+    gyro_lowpass2_hz
+     </code>
+</li>
+</ul>
+<h3 id="gyro-filter-gyro-rpm-notch-filter">
+    Gyro Filter =&gt; GYRO-RPM Notch Filter
+    <a class="headerlink" href="#gyro-filter-gyro-rpm-notch-filter" title="Permanent link">
+     #
+    </a>
+</h3>
+<h4 id="allgemeines_2">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_2" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Der Gyro-RPM Notch Filter nutzt die vom ESC zurückgegeben RPM-Daten und liegt als erste Filterstufe direkt hinter dem
+    <code>
+     gyro_scaled
+    </code>
+    Daten.
+   </p>
+<p>
+<a href="https://github.com/betaflight/betaflight/wiki/Bidirectional-DSHOT-and-RPM-Filter#Tuning">
+     BF 4.1/4.2 Bidirectional DSHOT and RPM Filter Guide
+    </a>
+</p>
+<h4 id="parameter_1">
+    Parameter
+    <a class="headerlink" href="#parameter_1" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        gyro_rpm_notch_harmonics
+       </code>
+</td>
+<td>
+</td>
+<td>
+       3
+      </td>
+<td>
+       Schwingungen treten in wiederkehrenden Amplituden auf. Eine harmonische Schwingung kann durch eine Sinusfunktion beschrieben werden (https://de.wikipedia.org/wiki/Schwingung#Harmonische_Schwingung).
+       <strong>
+        Das bedeutet, dass eine Vibration sich alle xHz wiederholt!
+       </strong>
+       Betaflight generiert somit pro Motor 3 (Anzahl Harmonics) Notch-Filter, somit werden alle Motordaten durch 12 individuellen RPM-Notch-Filter analyisiert und schon vorgefiltert. Diesen Sachverhalt kann man in einer Blackboxauswertung sehr gut sehen (FFT-Spektrogram).
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        gyro_rpm_notch_q
+       </code>
+</td>
+<td>
+</td>
+<td>
+       500
+      </td>
+<td>
+       Der Q-Faktor des Notchfilters gibt die Breite der Kerbe (Notch=Kerbe) an. Je größer die Zahl (max 1000) umso schmaler wird der Notchfilter. Der
+       <code>
+        Q-Faktor
+       </code>
+       wird auch als Güte-Faktur  bezeichnet. Je höher die Güte-Faktor (
+       <code>
+        Q-Faktor
+       </code>
+       ) desto geringer die Dämpfung, desto schmaler der Notch-Filter. Kleine Q-Faktoren vergrößern den RPM-Filter Delay - was unerwünscht ist
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        gyro_rpm_notch_min
+       </code>
+</td>
+<td>
+</td>
+<td>
+       100
+      </td>
+<td>
+       Beschreibt die untere Grenzfrequenz des Notch-Filters
+      </td>
+</tr>
+</tbody>
+</table>
+<h3 id="gyro-filter-dynamic-notch-filter">
+    Gyro Filter =&gt; Dynamic-Notch Filter
+    <a class="headerlink" href="#gyro-filter-dynamic-notch-filter" title="Permanent link">
+     #
+    </a>
+</h3>
+<h4 id="allgemeines_3">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_3" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Dieser Filter ist dem RPM-Filter nachgelagert und filtern nochmals bestimmte Frequenzen aus. Ohne RPM-Filter wird der Filter als Doppel-Notch Filter betrieben, dies wird über
+    <code>
+     dyn_notch_width_percent
+    </code>
+    &gt; 0 definiert. Ist dieser Wert 0, wird nur ein Notch-Filter erzeugt.
+   </p>
+<p>
+    Das besondere an dynamic-notch-Filter ist, dass sie dynamisch sich an der aktuellen
+    <em>
+     RPM
+    </em>
+    des Systems orientieren und so laufend rund um den höchsten Frequenzbereich der Motor-Vibrationen arbeiten.
+   </p>
+<p>
+    Grundsätzlich gilt, dynamische Notch-Filter haben eine geringere Latenzzeit als statische Notch-Filter. Bei einem gut abgestimmten Copter können andere Low-Pass Filter deaktiviert werden.
+   </p>
+<h4 id="parameter_2">
+    Parameter
+    <a class="headerlink" href="#parameter_2" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        dyn_notch_min_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       Beschreibt die untere Grenzfrequenz dieses Notch-Filters in Hz
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        dyn_notch_max_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       Beschreibt die obere Grenzfrequenz dieses Notch-Filters in Hz
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        dyn_notch_width_percent
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       Beschreibt (wenn &gt; 0), wie weit beide Notch-Filter voneinander getrennt sind. Der Prozentsatz berechnet sich aus der Breite des Notch-Filters.
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        dyn_notch_q
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       Q-Faktor des Notch-Filters. (siehe hierzu Beschreibung weiter oben
+      </td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gyro-filter-static-gyro-notch-filter-1-und-2">
+    Gyro Filter =&gt; Static Gyro-Notch Filter (1 und 2)
+    <a class="headerlink" href="#gyro-filter-static-gyro-notch-filter-1-und-2" title="Permanent link">
+     #
+    </a>
+</h3>
+<h4 id="allgemeines_4">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_4" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Zwei statische Notch-Filter für ein bestimmtes Frequenzband. Dieses Frequenzband wird während des Fluges nicht mehr angepasst (statisch).
+   </p>
+<h4 id="parameter_3">
+    Parameter
+    <a class="headerlink" href="#parameter_3" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        gyro_notch1_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       Center-Frequenz des Notch-Filters
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        gyro_notch1_cutoff
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+<strong>
+        todo
+       </strong>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        gyro_notch2_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       Center-Frequenz des Notch-Filters
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        gyro_notch2_cutoff
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+<strong>
+        todo
+       </strong>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gyro-filter-dynamic-gyro-lowpass-filter">
+    Gyro Filter =&gt; Dynamic Gyro LowPass Filter
+    <a class="headerlink" href="#gyro-filter-dynamic-gyro-lowpass-filter" title="Permanent link">
+     #
+    </a>
+</h3>
+<h4 id="allgemeines_5">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_5" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Die Auswahl den Dyn-Notchfilters Frequenzbereiches kann über drei Auswahlmöglichkeiten voreingestellt werden
+*
+    <strong>
+     LOW
+    </strong>
+    :
+    <code>
+     dyn_lpf_gyro_max_hz
+    </code>
+    liegt bei  334hz oder ist 0 (deaktiviert)
+*
+    <strong>
+     MEDIUM
+    </strong>
+    :
+    <code>
+     dyn_lpf_gyro_max_hz
+    </code>
+    liegt bei 610hz
+*
+    <strong>
+     HIGH
+    </strong>
+    :
+    <code>
+     dyn_lpf_gyro_max_hz
+    </code>
+    liegt bei &gt; 610hz
+   </p>
+<p>
+    Die durchschnittlichen Werte für optimale Werte für diese Ranges liegen 
+*
+    <strong>
+     LOW
+    </strong>
+    : 80-330hz (für Copter mit niedrigen Drehzahlen oder wenn Resonanzen in niedrigen Frequenzen auftreten
+*
+    <strong>
+     MEDIUM
+    </strong>
+    : 140-550hz (für gut eingestellte 5" Copter
+*
+    <strong>
+     HIGH
+    </strong>
+    : 230-800hz (für Copter mit hohen Drehzahlen 2,5" - 3")
+   </p>
+<p>
+    Ab BF 4.0 wird zusätzlicher
+    <code>
+     dyn_notch_min_hz
+    </code>
+    Parameter zur Verfügung gestellt. Dieser Wert fängt den Bereich unterhalb des Dyn-LPF ab und hat seinen Default bei 150Hz.
+   </p>
+<p>
+    Um 100Hz Peaks heraus zu filtern muss
+    <code>
+     LOW
+    </code>
+    aktiviert werden und der
+   </p>
+<h4 id="parameter_4">
+    Parameter
+    <a class="headerlink" href="#parameter_4" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        dyn_notch_min_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+<todo>
+</todo>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        gyro_lowpass_type
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       LOW/MEDIUM/HIGH (siehe Beschreibung)
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        gyro_lowpass_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       Static Gyro LPF, sind dyn_lpf gesetzt, dann ist der Static LPF deaktiviert
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        dyn_lpf_gyro_min_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       untere Grenzfrequenz es DynLPF
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        dyn_lpf_gyro_max_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+       obere Grenzfrequenz des DynLPF
+      </td>
+</tr>
+</tbody>
+</table>
+<h3 id="gyro-filter-static-gyro-lowpass-filter">
+    Gyro Filter =&gt; Static Gyro LowPass Filter
+    <a class="headerlink" href="#gyro-filter-static-gyro-lowpass-filter" title="Permanent link">
+     #
+    </a>
+</h3>
+<h4 id="allgemeines_6">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_6" title="Permanent link">
+     #
+    </a>
+</h4>
+<h5 id="in_2">
+    IN
+    <a class="headerlink" href="#in_2" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Throttle-Daten
+   </p>
+<h4 id="parameter_5">
+    Parameter
+    <a class="headerlink" href="#parameter_5" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+       gyro_lowpass2_type
+      </td>
+<td>
+       4.0
+      </td>
+<td>
+       PT1/BIQUAD
+      </td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+       gyro_lowpass2_hz
+      </td>
+<td>
+       4.0
+      </td>
+<td>
+</td>
+<td>
+       unter Grenzfrequenz des LPF in Hz, wenn auf 0, dann ist der LPF deaktiviert
+      </td>
+</tr>
+</tbody>
+</table>
+<p>
+<x------------------------------------------------>
+</x------------------------------------------------>
+</p>
+<h2 id="dterm-filter">
+    DTerm Filter
+    <a class="headerlink" href="#dterm-filter" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines_7">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_7" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Der DTerm-Filter besitzt eine Reihe von Parametern die dazu genutzt werden, das DTerm-Ausgangssignal zu bearbeiten und von Störungen (Vibrations-Frequenzen zu befreien).
+    <strong>
+     Wichtig:
+    </strong>
+    : Der DTerm des PID-Controllers verstärkt Vibrationen, daher ist es wichtig, dass dieses Signal möglichst frei von Störungs- / Vibrationssignalen ist.
+   </p>
+<p>
+    D verstärkt höhere Frequenzen, der D-Anteil wird aber dringend benöigt um Vibrationen zwischen 30-80hz (Z.B. Propwash) auszugleichen. Das bedeutet wir benötigen soviel wie möglich D-Anteil bis 100hz und so wenig wie möglich über 100hz.
+DTerm-Filter sollten immer in der ersten Stufe als BIQUAD und in der zweiten Stufe als PT eingestellt werden.
+   </p>
+<p>
+    DTerm Filter Daten sind zeitabhängig (
+    <code>
+     d/dt
+    </code>
+    )
+   </p>
+<p>
+    Folgende DTerm-Filter werden genutzt:
+*
+    <strong>
+     Dynamic D lowpass
+    </strong>
+</p>
+<pre><code>```
+dterm_lowpass_type
+dyn_lpf_dterm_min_hz
+dyn_lpf_dterm_max_hz
+dyn_lpf_dterm_curve_expo
+```
+</code></pre>
+<ul>
+<li>
+<p>
+<strong>
+       Static D lowpass
+      </strong>
+<code>
+       dterm_lowpass2_type
+    dterm_lowpass2_hz
+      </code>
+</p>
+</li>
+<li>
+<p>
+<strong>
+       Static D notch
+      </strong>
+<code>
+       dterm_notch_hz
+    dterm_notch_cutoff
+      </code>
+</p>
+</li>
+</ul>
+<h5 id="in_3">
+    IN
+    <a class="headerlink" href="#in_3" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Daten kommen aus den
+    <code>
+     Gyro Filter
+    </code>
+    Berechnungen
+   </p>
+<h5 id="out_2">
+    OUT
+    <a class="headerlink" href="#out_2" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Daten gehen direkt an den
+    <code>
+     D-Controller
+    </code>
+</p>
+<h3 id="dterm-dynamic-d-lowpass">
+    DTerm =&gt; Dynamic D lowpass
+    <a class="headerlink" href="#dterm-dynamic-d-lowpass" title="Permanent link">
+     #
+    </a>
+</h3>
+<h4 id="allgemein">
+    Allgemein
+    <a class="headerlink" href="#allgemein" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Dynamischer Lowpass filter für den DTerm
+   </p>
+<h4 id="parameter_6">
+    Parameter
+    <a class="headerlink" href="#parameter_6" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        dterm_lowpass_type
+       </code>
+</td>
+<td>
+       4.0
+      </td>
+<td>
+</td>
+<td>
+       PT1 / BIQUAD, sollte auf BIQUAD für LPF 1 stehen, LPF2 = PT1
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        dyn_lpf_dterm_min_hz
+       </code>
+</td>
+<td>
+       4.0
+      </td>
+<td>
+</td>
+<td>
+       LowPass min Hz
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        dterm_lowpass2_hz
+       </code>
+</td>
+<td>
+       4.0
+      </td>
+<td>
+</td>
+<td>
+       LowPass2 min Hz
+      </td>
+</tr>
+</tbody>
+</table>
+<h3 id="dterm-static-d-notch">
+    DTerm =&gt; Static D notch
+    <a class="headerlink" href="#dterm-static-d-notch" title="Permanent link">
+     #
+    </a>
+</h3>
+<h4 id="allgemeihz">
+    AllgemeiHz
+    <a class="headerlink" href="#allgemeihz" title="Permanent link">
+     #
+    </a>
+</h4>
+<h4 id="parameter_7">
+    Parameter
+    <a class="headerlink" href="#parameter_7" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        dterm_notch_hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        dterm_notch_cutoff
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="feedforward">
+    Feedforward
+    <a class="headerlink" href="#feedforward" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines_8">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_8" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Feedforward ist dem PID-Controller nachgelagert und unabhängig vom PID. FF verstärkt bzw. wirkt auf Deine Stickbewegung und hilft den Motoren schneller zu reagieren.
+   </p>
+<p>
+<strong>
+     Mehr Infos zu Feedforward
+    </strong>
+</p>
+<ul>
+<li>
+<a href="https://github.com/betaflight/betaflight/wiki/4.1-Tuning-Notes#feed-forward-boost">
+      Feedforward BF 4.1
+     </a>
+</li>
+<li>
+<a href="https://github.com/betaflight/betaflight/wiki/Feed-Forward-2.0">
+      Feedforward 2.0 BF 4.2
+     </a>
+</li>
+</ul>
+<h5 id="in_4">
+    IN
+    <a class="headerlink" href="#in_4" title="Permanent link">
+     #
+    </a>
+</h5>
+<h5 id="out_3">
+    OUT
+    <a class="headerlink" href="#out_3" title="Permanent link">
+     #
+    </a>
+</h5>
+<h4 id="parameter_8">
+    Parameter
+    <a class="headerlink" href="#parameter_8" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        ff_boost
+       </code>
+</td>
+<td>
+       4.1
+      </td>
+<td>
+       15
+      </td>
+<td>
+       Der Booster verstärkt den gesamten FF-Wert aber zu einem sehr frühen Zeitpunkt und veringert damit ein Delay
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        ff_interpolate_sp
+       </code>
+</td>
+<td>
+       4.1
+      </td>
+<td>
+       2 (Average_2)
+      </td>
+<td>
+       siehe Anhang der Tabelle
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        ff_spike_limit
+       </code>
+</td>
+<td>
+       4.1
+      </td>
+<td>
+       50
+      </td>
+<td>
+       Es wird eine effiziente verzögerungsfreie Dämpfungsmethode verwendet, die Erhöhung des boosts durch Spikes verringert bzw. vermeidet. Liegt der normale Boost-Wert unter dem limit wird er durchgelassen, alles weitere, hohe Boosts die durch Spikes verursacht werden, werden gedämpft.
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        ff_max_rate_limit
+       </code>
+</td>
+<td>
+       4.1
+      </td>
+<td>
+       100
+      </td>
+<td>
+<code>
+        ff_max_rate_limit
+       </code>
+       unterbricht den Feedforward, wenn die Geschwindigkeit mit dem der Stick bewegt wird wahrscheinlich sein Ende des  mechanischen Verfahrensweges erreicht. Dadurch wird ein Überschwingen gerade bei Beginn von Flips reduziert.
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        ff_smooth_factor
+       </code>
+</td>
+<td>
+       4.2
+      </td>
+<td>
+       37
+      </td>
+<td>
+       Glättungsfaktor für einkommende Signale. Funktioniert wie ein LowPassfilter. 0 = keine Glättung, höhere Werte wie der Defaultwert, erhöhen auch die Latzenzeit und wirkt dem eigentlich FF-Forward entgegen
+      </td>
+</tr>
+</tbody>
+</table>
+<p>
+<strong>
+<code>
+      ff_interpolate_sp
+     </code>
+     Ausprägung
+    </strong>
+    * OFF
+* ON
+* AVERAGE-2 : passt für die meisten Copter &amp; Freestyler
+* AVERAGE-3 :
+* AVERAGE-4 :
+   </p>
+<h2 id="vbat">
+    VBat
+    <a class="headerlink" href="#vbat" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines_9">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_9" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Ab BF 4.2 wir mit VBAT-SAG-Kompensation
+    <a href="https://github.com/betaflight/betaflight/wiki/4.2-Tuning-Notes#dynamic-battery-sag-compensation">
+     Weitere Informationen:
+    </a>
+</p>
+<h5 id="in_5">
+    IN
+    <a class="headerlink" href="#in_5" title="Permanent link">
+     #
+    </a>
+</h5>
+<h5 id="out_4">
+    OUT
+    <a class="headerlink" href="#out_4" title="Permanent link">
+     #
+    </a>
+</h5>
+<h4 id="parameter_9">
+    Parameter
+    <a class="headerlink" href="#parameter_9" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+       vbat_sag_compensation
+      </td>
+<td>
+       4.2
+      </td>
+<td>
+       100
+      </td>
+<td>
+       100% Kompensation der Batterieentladung
+      </td>
+</tr>
+<tr>
+<td>
+       vbat_pid_gain
+      </td>
+<td>
+       ?
+      </td>
+<td>
+       OFF
+      </td>
+<td>
+       alte Version sollte immer OFF sein
+      </td>
+</tr>
+</tbody>
+</table>
+<h2 id="rc-command">
+    RC-Command
+    <a class="headerlink" href="#rc-command" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines_10">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_10" title="Permanent link">
+     #
+    </a>
+</h4>
+<h5 id="in_6">
+    IN
+    <a class="headerlink" href="#in_6" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Receiver-Daten Signal
+   </p>
+<h5 id="out_5">
+    OUT
+    <a class="headerlink" href="#out_5" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Daten werden mit den eingstellten
+    <code>
+     Rates
+    </code>
+    verrechnet und gelten dann als das angewendete
+    <code>
+     RCCommand-Eingangs-Signal
+    </code>
+</p>
+<h4 id="parameter_10">
+    Parameter
+    <a class="headerlink" href="#parameter_10" title="Permanent link">
+     #
+    </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        rc_interpolation
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        rc_interp
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        rc_inter_ch
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        rc_inter_int
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rc_smoothing_auto_smoothness-default10">
+    rc_smoothing_auto_smoothness (Default:10)
+    <a class="headerlink" href="#rc_smoothing_auto_smoothness-default10" title="Permanent link">
+     #
+    </a>
+</h3>
+<p>
+    rc-smoothing-auto-smoothness setzt wie glatt der die RC-Signale sein sollen.
+Größere Werte erhöhen die Glättung vergrößern aber das RC-Delay. 10 ist optimal für die meisten allgemeinen Flüge. Racer bevorzugen 8 oder sogar 5. Das RC-Delay nimmt zwar ab, dafür können die Motor-Signale etwas unruhiger werden.
+   </p>
+<h2 id="setpoint">
+    Setpoint
+    <a class="headerlink" href="#setpoint" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines_11">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_11" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    In der weiteren Berarbietung der Eingangssignale werden diese als
+    <code>
+     Setpoint
+    </code>
+    bezeichnet und spiegeln das RC-Signal wieder allerdings durch eine Reihe von Parametern geglättet
+   </p>
+<h5 id="in_7">
+    IN
+    <a class="headerlink" href="#in_7" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Aufbereitetes RC-Command Signal
+   </p>
+<h5 id="out_6">
+    OUT
+    <a class="headerlink" href="#out_6" title="Permanent link">
+     #
+    </a>
+</h5>
+<p>
+    Daten die mittels
+    <code>
+     setpoint_smoothing
+    </code>
+    nochmals geglättet werden werden an 
+*
+    <code>
+     Vorab-Fehler P-Berechnung
+    </code>
+    *
+    <code>
+     d/dt
+    </code>
+</p>
+<h4 id="parameter_11">
+    Parameter
+    <a class="headerlink" href="#parameter_11" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    Setpoint/Setpoint smoothing beinhaltet eine Reihe von Parametern die das eigentlich Signal nochmals aufbereiten.
+   </p>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        rc_smoothing_type
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        rc_smoothing_auto_smoothness
+       </code>
+</td>
+<td>
+</td>
+<td>
+       10
+      </td>
+<td>
+       setzt wie glatt der die RC-Signale sein sollen. Größere Werte erhöhen die Glättung vergrößern aber das RC-Delay. 10 ist optimal für die meisten allgemeinen Flüge. Racer bevorzugen 8 oder sogar 5. Das RC-Delay nimmt zwar ab, dafür können die Motor-Signale etwas unruhiger werden
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        rc_smoothing_input_Hz
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        rc_smoothing_input_type
+       </code>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="iterm-parameter">
+    ITerm Parameter
+    <a class="headerlink" href="#iterm-parameter" title="Permanent link">
+     #
+    </a>
+</h2>
+<h4 id="allgemeines_12">
+    Allgemeines
+    <a class="headerlink" href="#allgemeines_12" title="Permanent link">
+     #
+    </a>
+</h4>
+<p>
+    ITerm Parameter dienen dazu das I-Signal die PID-Controllers entweder vor der Bearbeitung von ITerm oder nach ITerm zu beeinflußen.
+   </p>
+<p>
+    Insbesondere sollen hier Peaks im ITerm eliminiert werden.
+   </p>
+<p>
+    Die Nachfolgende Tabelle beinhaltet zwei zusätzliche Spalten
+    <strong>
+     IN
+    </strong>
+    und
+    <strong>
+     OUT
+    </strong>
+    sie bezeichnen woher die Daten kommen (
+    <code>
+     IN
+    </code>
+    ) und wer sie verwertet (
+    <code>
+     OUT
+    </code>
+    )
+   </p>
+<table>
+<thead>
+<tr>
+<th>
+       Parameter
+      </th>
+<th>
+       BF
+      </th>
+<th>
+       IN
+      </th>
+<th>
+       OUT
+      </th>
+<th>
+       Default
+      </th>
+<th>
+       Bezeichnung
+      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>
+        iterm_windup
+       </code>
+</td>
+<td>
+</td>
+<td>
+       MIXER
+      </td>
+<td>
+       ITerm
+      </td>
+<td>
+</td>
+<td>
+       iterm_windup ist eine alte Methode zur Unterdrückung der iTerm-Akkumulation, wenn das Motordifferential einen benutzerdefinierten Schwellenwert überschreitet. In BF 4.2 wirkt
+       <code>
+        iterm_windup
+       </code>
+       nur noch auf YAW
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        iterm_relax
+       </code>
+</td>
+<td>
+</td>
+<td>
+       ITERM
+      </td>
+<td>
+       PID_SUM
+      </td>
+<td>
+</td>
+<td>
+<code>
+        iterm_relax
+       </code>
+       hat
+       <code>
+        iterm_windup
+       </code>
+       zur Vermeidung  von I-Anhäufungen auf Mini-Quads weitgehend ersetzt.
+       <code>
+        iterm_relax
+       </code>
+       ist hauptsächlich zur Vermeidung von bounce-backs
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        iterm_relax_type
+       </code>
+</td>
+<td>
+</td>
+<td>
+       ITERM
+      </td>
+<td>
+       PID_SUM
+      </td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>
+        iterm_relax_cutoff
+       </code>
+</td>
+<td>
+</td>
+<td>
+       ITERM
+      </td>
+<td>
+       PID_SUM
+      </td>
+<td>
+</td>
+<td>
+       Wenn der Pilot eine Änderung der Drehgeschwindigkeit anfordert, die für das Quad zu schnell ist, eilt das Gyrosignal dem Sollwert (SetPoint) hinterher und daraus entsteht ein mehr oder minder großes Fehlersignal. Der I-Term versucht nun diesen Fehler zu akkumulieren (aufsummieren) und versucht diese zu korrigieren.
+       <code>
+        iterm_relax
+       </code>
+       versucht nun diese Akkumulation zu kontrollieren. Reicht der
+       <code>
+        iterm_relax
+       </code>
+       nicht aus, sammeln sich die ITerm Fehler immer mehr an. Stoppt nun der Pilot seine Stickbewegung (z.B. in einem Flip), dann wird all der angesammelte ITerm-Fehler eine Gegenbewegung des Copters verursachen (BounceBack), der dann langsam ausklingen wird bis er wieder auf 0 ist.
+       <code>
+        iterm_relax
+       </code>
+       für Flip &amp; Rolls und
+       <code>
+        item_windup
+       </code>
+       für YAW, versuchen diese Bouncebacks zu kontrollieren und abzumildern.
+       <code>
+        item_relax_cutoff begrennzt die ITerm
+       </code>
+       Akkumulation.
+      </td>
+</tr>
+<tr>
+<td>
+<code>
+        iterm_rotation
+       </code>
+</td>
+<td>
+</td>
+<td>
+       GYRO-Filter
+      </td>
+<td>
+       ITerm
+      </td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content"><small><a class="pdf-download" download href="../pdf/bf_doc_all.pdf" title="PDF Export">Download PDF</a></small>
+<p>
+    Documentation built with
+    <a href="http://www.mkdocs.org/">
+     MkDocs
+    </a>
+    using
+    <a href="https://github.com/gristlabs/mkdocs-windmill">
+     Windmill
+    </a>
+    theme by Grist Labs.
+   </p>
+</footer>
+</body>
+</html>
