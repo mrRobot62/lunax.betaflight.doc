@@ -1,6 +1,12 @@
 # **Betaflight / Deutsch**
-
-Dies hier ist eine Sammlung an Dokumenten die im Laufe meiner kurzen FPV-Fliegerei entstanden sind und auch weiter entstehen.
+## Historie
+| Version  |  Datum |  Inhalt |
+|:-:|---|---|
+| 0.1  |  August 2020 | initial  |
+| 0.2 | September 2020 | Material Theme, vereinzelte Updates, Mermaid2 Plugin |
+| 0.3 | September 2020 | Mermaid Extension für Chrome, zusätzliche Installations-Informationen rund um MKDocs |
+## Info
+Dies hier ist eine Sammlung an Dokumenten die im Laufe meiner kurzen FPV-Fliegerei entstanden sind und auch weiter entstehen bzw weiter fortgeschrieben werden.
 
 Hintergrund für diese Ansammlung der Dokumente ist, dass ich mehr Verständnis für mich selbst schaffen möchte und dadurch ein besseres Verständnis über die Zusammenhänge und dem Flugverhalten von FPV-Coptern zu erhalten.
 
@@ -10,7 +16,14 @@ Tja und zum Schluß - ich kann mir einfach nicht alles im Kopf behalten, daher l
 
 Die einzelnen Seiten stehen auch zum Download als PDF zur Verfügung.
 
-Alternative: Downloaded dieses Repository komplett und startet über Euren Browser `index.html`
+Leider habe ich keine Extension für Markdown gefunden, mit der man einfach ein Wort-Index aufbauen kann aber es gibt eine gute Alternative über [MKDocs]() und dem Theme welches ich nutzte.
+
+Hier kann man über die Suchfunktion Wörter im Gesamten repository suchen -** sehr sehr hilfreich** -
+
+**TIP**
+Installatiert Euch lokal MKDocs und cloned dieses Repository und startet dann die dokumente über `mkdocs serve`.
+
+Aufruf über Euren Browser über `http:127.0.0.1:8000`
 
 Vielleicht hilft es dem ein oder Anderen
 
@@ -20,12 +33,6 @@ Viel Spass und propwash freies Fliegen
 
 LunaX - August 2020
 
-## Historie
-| Version  |  Datum |  Inhalt |
-|:-:|---|---|
-| 0.1  |  August 2020 | initial  |
-| 0.2 | September 2020 | Material Theme, vereinzelte Updates, Mermaid2 Plugin |
-| 0.3 | September 2020 | Mermaid Extension für Chrome, zusätzliche Installations-Informationen rund um MKDocs |
 
 
 ## Handhabung dieses Github-Repositories
@@ -36,6 +43,9 @@ Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Sei
 	mkdocs.yml (Konfigurationsdatei für MKDocs)
 	docs/
 		xxxx.md Dateien (einzelne Markdown-Dateien zu den Themen)
+		css/ CSS Dateien
+		js/ Javascript Dateien
+		images/ Bilder die verwendet wurden
 		
 	sites/
 		pdf/combined.pdf (hier liegt die Gesamt-PDF-Datei)
