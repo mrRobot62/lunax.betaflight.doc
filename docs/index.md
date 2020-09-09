@@ -53,9 +53,12 @@ Wenn alles sauber funktioniert solltet ihr hier ein Diagramm sehen
 ```mermaid
 graph LR
 	GY(Gyro) --> FLT[Filter]
+	RC(RC-Command) -->FLT
 	FLT --> PID(PID-Controller)
 	PID --> MIX(Mixer)
 	MIX --> MOT((Motoren))
+	MOT --> RPM[RPM-Filter BF 4.x]
+	RPM --> FLT
 
 ```
 
