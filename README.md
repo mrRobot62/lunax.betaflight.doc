@@ -86,13 +86,15 @@ graph LR
 ## via MKDocs
 Du möchtest Dir gerne alles lokal auf Deine Rechner installieren, somit hast du immer Zugriff auf alle Daten selbst wenn Du den Rechner mit zum Fliegen nimmst und "mal eben" was nachschauen möchtest?
 
-**Tip**
+**Tip 1**
 
 	Mach Dir die Mühe und installiere [MKDocs](), dann hast du eine perfekte Übersicht und es funktioniert einwandfrei. MKDocs funktioniert auf MacOS, Linux und Windows (leider nicht auf iOS)
 	
 
-Installation 
+**Tip 2**
 
+	Getestet habe ich unter Python 3.6, sollte aber auch unter 3.7 funktionieren.
+	Ich empfehle Dir die Installation in einer virtuellen Python-Umgebung (z.B. virtualenv oder über Anaconda.
 
 ## via static HTML-Sites
 Clone dieses Repository und kopiere es irgendwo auf Deinen Rechner.
