@@ -78,9 +78,10 @@ graph LR
 
 # Offline-Lesen
 ## via MKDocs
-Du möchtest Dir gerne alles lokal auf Deine Rechner installieren, somit hast du immer Zugriff auf alle Daten selbst wenn Du den Rechner mit zum Fliegen nimmst und "mal eben" was nachschauen möchtest
+Du möchtest Dir gerne alles lokal auf Deine Rechner installieren, somit hast du immer Zugriff auf alle Daten selbst wenn Du den Rechner mit zum Fliegen nimmst und "mal eben" was nachschauen möchtest?
 
-!!! note "Tip"
+**Tip**
+
 	Mach Dir die Mühe und installiere [MKDocs](), dann hast du eine perfekte Übersicht und es funktioniert einwandfrei. MKDocs funktioniert auf MacOS, Linux und Windows (leider nicht auf iOS)
 	
 
@@ -90,7 +91,7 @@ Installation
 ## via static HTML-Sites
 Clone dieses Repository und kopiere es irgendwo auf Deinen Rechner.
 
-Im Verzeichnis `site`und in den Unterverzeichnissen sind alle `HTML`und `PDF`Seiten vorhanden.
+Im Verzeichnis `site` und in den Unterverzeichnissen sind alle `HTML`und `PDF`Seiten vorhanden.
 
 Die Navigation ist allerdings nicht so möglich wie unter MKDocs.
 
