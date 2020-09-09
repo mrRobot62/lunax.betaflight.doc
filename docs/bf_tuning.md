@@ -102,8 +102,8 @@ Bei zwei DTerm-Filter setze den ersten auf eine minimale Grenzfrequenz von 100Hz
 
 Immer wieder 20-30sec Fliegen und die Motor-Temperatur prüfen.
 
-1. DTerm-LPF[^LPF2] Filter auf PT1 setzen
-2. DTerm-LPF Filter auf BIQUAD setzen
+Den 1. DTerm-LPF[^LPF2] Filter auf PT1 setzen
+Den 2. DTerm-LPF Filter auf BIQUAD setzen
 
 Temperatur prüfen, prüfen prüfen
 
@@ -186,6 +186,11 @@ Vibrationen haben wieder nachgelassen aber irgendwie rauer. T07 ist vermutlich d
  
 ### DTerm Spectrogramm
 Wie man sieht, wurde lediglich der `dyn_notch_max_hz` Parameter verändert und wirkt sich aber auf den DTerm aus - logisch - mehr Vibrationen höhere DTerm-Aktiviät sowohl im ungefilterten als auch im gefilterten Signal
+
+!!! danger "ACHTUNG"
+
+	Niemals den DTerm LPF Filter deaktivieren, selbst im absolut sauber gebauten Copter.
+	Den DTerm LPF auf PT1 setzen
 
 |<div style="width:400px">DTerm</div> |
 |---|
