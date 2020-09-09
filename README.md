@@ -26,6 +26,9 @@ Hier kann man über die Suchfunktion Wörter im Gesamten repository suchen -** s
 	
 	Aufruf über Euren Browser über `http:127.0.0.1:8000`
 
+Sieht dann wie folgt aus:
+![](docs/images/mkdocs_overview1.png)
+
 Vielleicht hilft es dem ein oder Anderen
 
 Du kannst alle Seiten als PDF downloaden über .....
