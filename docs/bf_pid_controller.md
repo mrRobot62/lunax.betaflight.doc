@@ -12,7 +12,7 @@
 
 _Allgemeines_
 ---------------------
-Ein PID-Controller (PID-Regler) berechnet und reagiert auf den Fehlerwert der zwischen dem SOLL und dem IST-Wert. Jeweils für `P`, Ì` und `D`wird dieser Fehler mit einer internen Konstanten (Kp, Ki, Kd)[^Kpid] multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler frn PIDError
+Ein PID-Controller (PID-Regler) berechnet und reagiert auf den Fehlerwert der zwischen dem SOLL und dem IST-Wert. Jeweils für `P`, `I` und `D` wird dieser Fehler mit einer internen Konstanten (Kp, Ki, Kd)[^Kpid] multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler frn PIDError
 
 Übrigens, diese Konstanten sind die Werte die man in Betaflight pro Achse erfasst.
 
