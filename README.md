@@ -21,9 +21,10 @@ Leider habe ich keine Extension für Markdown gefunden, mit der man einfach ein 
 Hier kann man über die Suchfunktion Wörter im Gesamten repository suchen -** sehr sehr hilfreich** -
 
 **TIP**
-Installatiert Euch lokal MKDocs und cloned dieses Repository und startet dann die dokumente über `mkdocs serve`.
 
-Aufruf über Euren Browser über `http:127.0.0.1:8000`
+	Installiert Euch lokal MKDocs und cloned dieses Repository und startet dann die Dokumente über `mkdocs serve`. 
+	
+	Aufruf über Euren Browser über `http:127.0.0.1:8000`
 
 Vielleicht hilft es dem ein oder Anderen
 
