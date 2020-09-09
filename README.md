@@ -1,4 +1,5 @@
-# **Betaflight / Deutsch**
+# **Betaflight / Deutsch - als Ascii-Markdown Dateien**
+
 ## Historie
 | Version  |  Datum |  Inhalt |
 |:-:|---|---|
@@ -6,7 +7,7 @@
 | 0.2 | September 2020 | Material Theme, vereinzelte Updates, Mermaid2 Plugin |
 | 0.3 | September 2020 | Mermaid Extension für Chrome, zusätzliche Installations-Informationen rund um MKDocs |
 ## Info
-Dies hier ist eine Sammlung an Dokumenten die im Laufe meiner kurzen FPV-Fliegerei entstanden sind und auch weiter entstehen bzw weiter fortgeschrieben werden.
+Dies hier ist eine Sammlung an Dokumenten, die im Laufe meiner kurzen FPV-Fliegerei entstanden sind und auch weiter entstehen bzw. weiter fortgeschrieben werden.
 
 Hintergrund für diese Ansammlung der Dokumente ist, dass ich mehr Verständnis für mich selbst schaffen möchte und dadurch ein besseres Verständnis über die Zusammenhänge und dem Flugverhalten von FPV-Coptern zu erhalten.
 
@@ -22,7 +23,8 @@ Hier kann man über die Suchfunktion Wörter im Gesamten repository suchen -** s
 
 **TIP**
 
-	Installiert Euch lokal MKDocs und cloned dieses Repository und startet dann die Dokumente über `mkdocs serve`. 
+	Installiert Euch lokal MKDocs und cloned dieses Repository und 
+	startet dann die Dokumente über `mkdocs serve`. 
 	
 	Aufruf über Euren Browser über `http:127.0.0.1:8000`
 
@@ -37,7 +39,7 @@ Viel Spass und propwash freies Fliegen
 
 LunaX - August 2020
 
-
+P.S. Einige Kapitel sind noch in der Entstehung :-O und enthalten noch keinen Text
 
 ## Handhabung dieses Github-Repositories
 Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Seiten wurden als einfache Markdown-Dateien erstellt.
@@ -88,12 +90,15 @@ Du möchtest Dir gerne alles lokal auf Deine Rechner installieren, somit hast du
 
 **Tip 1**
 
-	Mach Dir die Mühe und installiere [MKDocs](), dann hast du eine perfekte Übersicht und es funktioniert einwandfrei. MKDocs funktioniert auf MacOS, Linux und Windows (leider nicht auf iOS)
+	Mach Dir die Mühe und installiere [MKDocs](), dann hast du eine perfekte Übersicht und es funktioniert einwandfrei.
+	
+	MKDocs funktioniert auf MacOS, Linux und Windows (leider nicht auf iOS)
 	
 
 **Tip 2**
 
 	Getestet habe ich unter Python 3.6, sollte aber auch unter 3.7 funktionieren.
+	
 	Ich empfehle Dir die Installation in einer virtuellen Python-Umgebung (z.B. virtualenv oder über Anaconda.
 
 ## via static HTML-Sites
