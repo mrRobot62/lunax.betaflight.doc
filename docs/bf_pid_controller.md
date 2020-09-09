@@ -12,16 +12,17 @@
 
 _Allgemeines_
 ---------------------
-Berechnung des Fehlerwertes zwischen dem SOLL und IST-Wert
-Der jeweilige Fehlerwert wird mit einer Konstanten (Kp, Ki, Kd)[^Kpid] multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler PIDError
+Ein PID-Controller (PID-Regler) berechnet und reagiert auf den Fehlerwert der zwischen dem SOLL und dem IST-Wert. Jeweils für `P`, Ì` und `D`wird dieser Fehler mit einer internen Konstanten (Kp, Ki, Kd)[^Kpid] multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler frn PIDError
 
+Übrigens, diese Konstanten sind die Werte die man in Betaflight pro Achse erfasst.
 
 ### Soll-Wert
-In Falle von Coptern ist der Sollwert, der Wert der durch die Gimbals vorgegeben wird (RC-Command). Entspricht also dem Zielwert, den der Copter erreichen soll (z.B. der Copter soll ein Rolle mit 700deg/sec durchführen.
+In Bezug auf Copter ist der Sollwert der Wert, der durch die Gimbals vorgegeben wird (RC-Command). Entspricht also dem Zielwert, den der Copter erreichen soll (z.B. der Copter soll ein Rolle mit 700deg/sec durchführen.
 
 
 ### IST-Wert
-Ist der Wert, der durch das Gyro über alle drei Achsen gemessen wurde 
+Der `IST-Wert` wird durch das verbaute Gyro über alle drei Achsen gemessen und repräsentiert den aktuellen Zustand des Copters.
+
 
 **Soll** & **IST** werden in der [PID-Loop](#pid-loop) kontinuierlich gelesen und ausgewertet. Signale werden geglättet und gefiltert. Das Endresultat entspricht für die aktuelle Zeiteinheit (d/t) den anliegenden PID-Error[^Perr]
 
@@ -69,12 +70,14 @@ graph LR
 	MOT --> le
 	
 ```
-_P-Term (Proportionaler Fehler)_
----------------------
+--------------------------------
+## _P-Term (Proportionaler Fehler)_
 
 Der PTerm versucht den proportionalen Fehler möglichst schnell auf 0 zu reduzieren. 
 
-Vereinfacht gesagt: Wie hart der FC daran arbeitet den Fehler zu korrigieren. Je höher der PTerm um so schärfer ist die Reaktion. Ein zu hoher PTerm führt aber zu Oszillation und Überschwingen.
+Vereinfacht gesagt: Wie hart der FC daran arbeitet den Fehler zu korrigieren. Je höher der PTerm um so schärfer ist die Reaktion. 
+
+**Ein zu hoher PTerm führt aber zu Oszillation und Überschwingen.**
 
 Eingabewerte:
 
