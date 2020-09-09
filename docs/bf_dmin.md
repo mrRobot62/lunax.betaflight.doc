@@ -36,7 +36,7 @@ Was bringen geringere D-Werte
 ## Setup für den Erstflug
 Default für DMin R23, P25, Y0
 
-!!! important "Beachten"
+!!! note "Beachten"
 	wenn DMin aktiviert ist, wird der reguläre DMax Wert nur dann genutzt, wenn schnelle Mannöver (z.B. Flips/Rolls) geflogen werden, in langsameren Flügen wird `DMIN` verwendet
 
 -------------------------------------------------------------

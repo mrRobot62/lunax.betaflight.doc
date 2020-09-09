@@ -27,13 +27,23 @@ Groß/Kleinschreibung wird nicht beachtet (bzw. ignoriert)
 
 | Befehle | Beispiel | Info |
 |:---:|---|---|
+|version|`version`|Zeigt die aktuelle BF-Version auf dem FC|
+|status|`status`|Zeigt den aktuellen Status des FC|
 | save | `save` | speichert die aktuellen Änderungen im Speicher des FC und führt einen Reboot durch. **WICHTIG:** sämtliche Änderungen müssen explizit mit `save`gespeichert werden, ansonsten gehen alle Änderungen verloren (Häufig gemachter Fehler) |
 |diff all|`diff all`|Auflistung aller Konfiguraitonsparameter, welche vom Default-BF Setup abweichen.|
 |dump |`dump`|Ausgabe sämtlicher Konfigurationsparameter.|
 |set |`set tpa_rate = 10`| setzt einen Konfigurationsparameter auf einen Wert |
 |get |`get rc_smooting_type=`| Liest den angegebenen Konfigurationsparameter. **TIP**: wenn nur ein Fragment des Konfigurationsparameters angegeben wird, zeigt BF eine Liste an Parametern an, die mit dem angegebenen Parameter beginnen.|
 |resource|||
+|tasks|`tasks`|Zeigt eine Übersicht der laufenden Prozesse im FC. Hier kannst du abschätzen warum Deine CPU x% ausgelastet ist.|
 ||||
 ||||
-||||
+
+
+
+![Baustelle][imgInWork]
+
+
+
+[imgInWork]: images/inwork.png "In-Arbeit"
 

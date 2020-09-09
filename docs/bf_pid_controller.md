@@ -136,9 +136,10 @@ Der DTerm ist ein Dämpfungsglied für ein Überkorrigieren des P-Reglers und ve
 	Stelle dir die Federung Deines Autos vor. Die Felder ist der PTerm und der Stoßdämpfer ist der DTerm. 
 	Ohne den Stoßdämpfer (oder ein kaputer Stossdämpfer) führt zu einem Aufschwingen Deines Autos. (Oszillation).
 	Der Stoßdämpfer dämpft dieses Aufschwingen und ist daher der Gegenpart zur Feder
-	(das ist eine vereinfachte Darstellung, die lediglich ein plastisches Beispiel zeigen soll. Physikalisch stimmt das nicht mit unserem PID-Controller über ein.
+	(das ist eine vereinfachte Darstellung, die lediglich ein plastisches Beispiel zeigen soll. 
+	Physikalisch stimmt das nicht mit unserem PID-Controller über ein.)
 
-Den DTerm erhöhen kann eine Oszillation mehr glätten. Zu hohe DTerm führen aber zu heißen Motoren und können bis zur Zerstörung des ESCs oder des Motors führen. 
+Den DTerm erhöhen kann eine Oszillation mehr glätten. Zu hohe DTerm-Werte führen aber zu heißen Motoren und können bis zur Zerstörung des ESCs oder des Motors führen. 
 
 Extensive D-Werte führen auch zu einer Vermindung des Anspruchverhaltens des Copters. 
 
