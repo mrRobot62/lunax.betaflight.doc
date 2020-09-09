@@ -60,6 +60,12 @@ Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Sei
 # Online-Lesen in GitHub
 Wer online lesen möchte sollte sich für Chrome folgende Extension [Mermaid](https://github.com/Redisrupt/mermaid-diagrams) installieren, dann werden auch Diagramme generiert und nicht nur der Mermaid-Code wird angezeigt.
 
+**Beachten**
+
+	**Fehler:** Beim Erstladen einer Markdown-Datei die Mermaid Code enthält kommt es häufig vor, dass nicht sofort das gerenderte Bild angezeigt wird - man sieht den Code 
+	
+	**Lösung:** Refresh der Seite, dann klappt es
+
 In einigen Dokumenten werden solche Diagramme genutzt (z.B. Filter)
 
 Wenn alles sauber funktioniert solltet ihr hier ein Diagramm sehen
