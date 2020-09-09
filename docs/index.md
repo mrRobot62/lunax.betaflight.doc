@@ -25,6 +25,8 @@ LunaX - August 2020
 |:-:|---|---|
 | 0.1  |  August 2020 | initial  |
 | 0.2 | September 2020 | Material Theme, vereinzelte Updates, Mermaid2 Plugin |
+| 0.3 | September 2020 | Mermaid Extension für Chrome, zusätzliche Installations-Informationen rund um MKDocs |
+
 
 ## Handhabung dieses Github-Repositories
 Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Seiten wurden als einfache Markdown-Dateien erstellt.
@@ -37,12 +39,37 @@ Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Sei
 		
 	sites/
 		pdf/combined.pdf (hier liegt die Gesamt-PDF-Datei)
-		<folder> (diverse Subfolder, enthalten HTML-Seiten zum Offline-Lesen)
+		<folder> (diverse Subfolder, enthalten HTML-Seiten und PDF (Einzeldateien) zum Offline-Lesen)
 
 ```
 
+# Online-Lesen in GitHub
+Wer online lesen möchte sollte sich für Chrome folgende Extension [Mermaid](https://github.com/Redisrupt/mermaid-diagrams) installieren, dann werden auch Diagramme generiert und nicht nur der Mermaid-Code wird angezeigt.
 
-[TOC]
+In einigen Dokumenten werden solche Diagramme genutzt (z.B. Filter)
+
+Wenn alles sauber funktioniert solltet ihr hier ein Diagramm sehen
+
+```mermaid
+graph LR
+	GY(Gyro) --> FLT[Filter]
+	FLT --> PID(PID-Controller)
+	PID --> MIX(Mixer)
+	MIX --> MOT((Motoren))
+
+```
+
+# Offline-Lesen
+## via MKDocs
+Du möchtest Dir gerne alles lokal auf Deine Rechner installieren, somit hast du immer Zugriff auf alle Daten selbst wenn Du den Rechner mit zum Fliegen nimmst und "mal eben" was nachschauen möchtest
+
+!!! note "Tip"
+	Mach Dir die Mühe und installiere [MKDocs](), dann hast du eine perfekte Übersicht und es funktioniert einwandfrei. MKDocs funktioniert auf MacOS, Linux und Windows (leider nicht auf iOS)
+	
+
+Installation 
 
 
+## via static HTML-Sites
+<todo>
 

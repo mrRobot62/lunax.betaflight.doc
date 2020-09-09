@@ -112,8 +112,9 @@ Temperatur prüfen, prüfen prüfen
 
 
 ## Spectogramm-Analyse
-Die Spectogramm-Analyse [^PDT_Wiki_de] ist sehr hilfreich, denn sie zeigt uns in drei Dimensionen. `PIDToolBox` zeigt die Daten in
+Die Spectogramm-Analyse [^PDT_Wiki_de] ist sehr hilfreich, denn sie zeigt uns in zwei oder drei Dimensionen. `PIDToolBox` zeigt die Daten sowohl als 2D als auch in 3D an
 
+### 3D-Analyse
 * X-Achse : Throttle
 * Y-Achse : Frequenz in Hz
 * Z-Achse : (Helligkeit) : ist die Höhe der Amplitude eines Ausschlags. Je heller, je intensiver. 
@@ -122,28 +123,34 @@ Das nachfolgende Spektogramm zeigt zwei Blackboxauswertungen einer meiner 5"Copt
 
 ![][ImgSpAn1]
 
-Wie interpretiert man dieses Diagramm?
-Zur Unterscheidung der beiden Logdateien sind diese in grün (Log1) und blau (Log2) umrahmt.
+### 2D-Analyse
+![][ImgSpAn2D]
+Die 2D-Darstellung ist sehr hilfreich um einen klaren schnellen überblick zu erhalten. Kleiner Hinweis, der Spot bei Gyro-gefiltert bei Log 2 (rechts oben), sieht man als kleinen hellen Spot im gleichen Graphen in der 3D-Darstellung. Ca. 130Hz, bei 20% Throttle
+
+### Interpretation der Daten
+Wie interpretiert man dieses Diagramm? Zur Unterscheidung der beiden Logdateien sind diese in grün (Log1) und blau (Log2) umrahmt (siehe vorherige 3D-Darstellung)
 
 Die Diagramme liest man von oben nach unten und von links nach rechts
 
-* Spalte 1 + 3 : **ungefilterte Gyro-Daten** (Spalte1 = Log1, Spalte2 = Log2)
-* Spalte 2 + 4 : **gefilterte Gyro-Daten** (Spalte1 = Log1, Spalte2 = Log2)
+* Spalte 1 + 3 : **ungefilterte Gyro-Daten** (Spalte1 = Log1, Spalte3 = Log2)
+* Spalte 2 + 4 : **gefilterte Gyro-Daten** (Spalte2 = Log1, Spalte4 = Log2)
 * Zeile : oben : Roll
 * Zeile : mitte: Pitch
 * Zeile : unten: Yaw
 
-Spalten 1+3 zeigen die ungefilterten Gyro-Werte, die hellen Bereiche zeigen deutliche Vibrationen. Das Gelbe band, welches sich leicht diagonal von unten links nach oben rechts zieht ist das Motor-Band. Je höher der Throttle-Wert je mehr Vibrationen treten auf. Dies ist in der Regel bei den meisten Coptern in dieser Art sichtbar.
+Spalten 1+3 zeigen die ungefilterten Gyro-Werte, die hellen Bereiche zeigen deutliche Vibrationen. Das Gelbe band, welches sich leicht diagonal von unten links nach oben rechts zieht ist das Motor-Band. Je höher der Thrott-Wert, je mehr Vibrationen treten auf. Dies ist in der Regel bei den meisten Coptern in dieser Art sichtbar.
+
+Starke Motorvibrationen können durch Lagerschäden, defekte Props, defekter Motor, Schwingungen in den Armen verursacht werden. Ggf. kann man mit Anti-Vibrations-Matten unter den Motoren experimentieren. Ich habe das noch nicht ausprobiert, werde es aber testen und prüfen ob es Veränderungen gibt.
 
 
 ### Detailbetrachtungen
 
-|<div style="width:400px">Roll</div> | Info |
+|<div style="width:300px">Roll</div> | Info |
 |---|---|
-| **Gyro-Prefilterd**<br>**Log 1**<br>![][ImgSpAn3a]<br>**Log 2**<br>![][ImgSpAn3b] |<br><br>Die blauen Bereiche zeigen weitere Vibrationen. Die pinkfarbene Bereich zeigt die normalen Flugfrequenzen allerdings sieht man hier schon dass sich im bereich ab 80-100Hz und aufwärts weitere Vibrationen befinden. <br><br>Im zweiten Log sieht man das die Vibrationen geringfügig weniger geworden sind. Dies wird auch in den beiden Zahlen oben rechts gezeigt<br>`mean` = der Durchschnitt `peak` = das Maximum<br><br>Je kleiner die Zahlen desto "besser". Was man sieht ist `mean` ist geringer geworden, das heißt die Gesamtvibrationen sind weniger, allerdings hat das Maximum zugenommen. Diese Vibrationen sind aber in den Gyro-Rohwerten zu sehen und noch kein Filter hat diese eliminiert, das nun unterschiedliche Werte auftreten liegt vermutlich an einem unterschiedlichen Flugverhalten und/oder ggf. äußeren Einflüssen (z.B. Wind)|
-|  **Gyro-Filtered**<br>**Log 1**<br>![][ImgSpAn4a]<br>**Log 2**<br>![][ImgSpAn4b]  | <br><br> Hier sieht man nun was die eingestellten Filter erreicht haben, der größte Teil der Störungen sind beseitigt worden, lediglich einen leichten "Flimmer" kann man nocht sehen. Interessant ist das zweite Bild des Log2, hier sieht man nochmals eine leichte Verbesserung, sowohl der Durchschnitt (`mean`) als auch das Maximum (`peak`) haben sich verringert.|
-| **Gyro-Prefilterd <100Hz**<br>**Log 1**<br>![][ImgSpAn5a]<br>**Log 2**<br>![][ImgSpAn5b] | <br><br>Hier sieht man vergrößert den Bereich <100hz - also dort wo Propwash auftritt. Die untere gestrichelte Linie gibt liegt bei 20hz - also alles darunter ist normal im Flugbetrieb, alles darüber bis zur oberen gelben Linie ist der Bereich zw. 20-100hz - Propwash - Frequenzen. Auch hier sieht man an den Zahlen und an am Graphen selbst, dass sich die Vibrationen verringert haben. Das kann aber auch am Flugstil selbst gelegen haben.|
-| **Filter-Delay**<br>![][ImgPDTFltDelay] | <br><br>Hier zeigt sich, dass die Änderungen an den Filtern sich auch unmittelbar auf die Delays positiv gezeigt hat. Warum der `DTerm-Delay` noch über 3ms ist, muss geprüft werden. Vielleicht ist es aber auch ok so. |
+| **Gyro-Prefilterd**<br>**Log 1**<br>![][ImgSpAn3a]{:style="height:196px; width:256px"}<br>**Log 2**<br>![][ImgSpAn3b]{:style="width:256px"} |<br><br>Die blauen Bereiche zeigen weitere Vibrationen. Die pinkfarbene Bereich zeigt die normalen Flugfrequenzen allerdings sieht man hier schon dass sich im bereich ab 80-100Hz und aufwärts weitere Vibrationen befinden. <br><br>Im zweiten Log sieht man das die Vibrationen geringfügig weniger geworden sind. Dies wird auch in den beiden Zahlen oben rechts gezeigt<br>`mean` = zeight den Durchschnitt `peak` = das Maximum<br><br>Je kleiner die Zahlen desto "besser". Was man sieht ist `mean` ist geringer geworden, das heißt die Gesamtvibrationen sind weniger, allerdings hat das Maximum zugenommen. <br><br>Diese Vibrationen sind aber in den Gyro-Rohwerten zu sehen und noch kein Filter hat diese eliminiert, das nun unterschiedliche Werte auftreten liegt vermutlich an einem unterschiedlichen Flugverhalten und/oder ggf. äußeren Einflüssen (z.B. Wind)|
+| **Gyro-Filtered**<br>**Log 1**<br>![][ImgSpAn4a]{:style="height:196px; width:256px"}<br>**Log 2**<br>![][ImgSpAn4b]{:style="height:196px; width:256px"}  | <br><br> Hier sieht man nun was die eingestellten Filter erreicht haben, der größte Teil der Störungen sind beseitigt worden, lediglich einen leichten "Flimmer" kann man nocht sehen. Interessant ist das zweite Bild des Log2, hier sieht man nochmals eine leichte Verbesserung, der Durchschnitt (`mean`) ist geringer als im Log 1, dies führt auch zu weniger Vibrationen. <br><br>Der `peak`ist allerdings höher als im Log ein, verursacht durch den kleinen hellen Spot bei ca 20% Throttle und bei ca 130hz, kann sein, dass dies eine durch Propwash verursachte Vibrationspitze war.|
+| **Gyro-Prefilterd <100Hz**<br>**Log 1**<br>![][ImgSpAn5a]{:style="height:196px; width:256px"}<br>**Log 2**<br>![][ImgSpAn5b]{:style="height:196px; width:256px"} | <br><br>Hier sieht man vergrößert den Bereich <100hz - also dort wo Propwash auftritt. Die untere gestrichelte Linie gibt liegt bei 20hz - also alles darunter ist normal im Flugbetrieb, alles darüber bis zur oberen gelben Linie ist der Bereich zw. 20-100hz - Propwash - Frequenzen. <br><br>Auch hier sieht man an den Zahlen und an am Graphen selbst, dass sich die Vibrationen verringert haben. Das kann aber auch am Flugstil selbst gelegen haben.|
+| **Filter-Delay**<br>![][ImgPDTFltDelay]{:style="height:127ox; width:256px"} | <br><br>Hier zeigt sich, dass die Änderungen an den Filtern sich auch unmittelbar auf die Delays positiv gezeigt hat. Warum der `DTerm-Delay` noch über 3ms ist, muss geprüft werden. Vielleicht ist es aber auch ok so. |
 
 ### Auszug aus dem Tuning-Logbuch
 
@@ -189,6 +196,11 @@ Wie man sieht, wurde lediglich der `dyn_notch_max_hz` Parameter verändert und w
 | **Log 2 : log_20200719_t07.bbl**<br>![][ImgSpAn7a] <br><br> ![][ImgSpAn7b]  |
 | Deutlich sieht man, das die DTerm Filterung besser ist, das untere Bild zeigt Gyro-gefiltert und DTerm-gefiltern im Bereich <100hz - Deutlich sieht man das die Filterung des DTerms in den unteren Frequenzen. Der `dyn_notch_max_hz` ist auf  350hz. Im Gyro-Signal sieht man die Verbesserung, dies wirkt sich auch auf den DTerm aus.|
 
+!!! note "Hinweis"
+	* Gyro-Prefiltert: ist wichtig um einen Überblick zu erhalten wie stark die Vibrationen am Copter sind und wo sie hauptsächlich auftreten. Je mehr helle Spots um so mehr Vibrationen sind vorhanden
+	* Gyro-gefiltert: hier sieht man das Ergebnis der aktuellen Filter und wie gut (oder noch nicht so gut) sie arbeiten
+	* DTerm gefiltert: Da es auch noch DTerm-Filter gibt, kann man hier auch nochmals prüfen ob die Filter gut eingestellt sind
+
 
 -----------------------------------
 # Appendix
@@ -211,9 +223,11 @@ Ein Klick auf das Bild öffnet die Vergrößerung
 [imgMOTOREN]: images/quadcopter_top.png "Motor-Drehrichtungen"
 [imgProps]: images/prop_direction.jpg "Prop Drehrichtugn"
 [ImgSpAn1]: images/pdt_specto_2flights_hres_gt100hz_info2.png
+[ImgSpAn2D]: images/pdt_specto_2flights_2D_hres_gt100hz_info.png
+
 [ImgSpAn2]: images/pdt_specto_2flights_hres_lt100hz_info.png
 [ImgSpAn3a]: images/pdt_specto_2flights_hres_gt100hz_detail1.png
-[ImgSpAn3b]: images/pdt_specto_2flights_hres_gt100hz_detail1.png
+[ImgSpAn3b]: images/pdt_specto_2flights_hres_gt100hz_detail2.png
 [ImgSpAn4a]: images/pdt_specto_2flights_hres_gt100hz_gefiltert_detail1.png
 [ImgSpAn4b]: images/pdt_specto_2flights_hres_gt100hz_gefiltert_detail2.png
 [ImgSpAn5a]: images/pdt_specto_2flights_hres_lt100hz_gefiltert_detail1.png
