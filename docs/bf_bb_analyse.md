@@ -1,8 +1,11 @@
 # BF Blackbox-Analysen
-## Inhaltsverzeichnis
-[TOC]
 
-{{TOC}}
+![LunaX](./images/lunax_logo.png)
+
+## Inhaltsverzeichnis
+- [BF Blackbox-Analysen](#bf-blackbox-analysen)
+  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Allgemeines](#allgemeines)
 
 ## Allgemeines
 
