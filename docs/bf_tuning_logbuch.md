@@ -1,5 +1,16 @@
 # Tuning-Logbuch
 
+![LunaX](./images/lunax_logo.png)
+
+## Inhaltsverzeichnis
+- [Tuning-Logbuch](#tuning-logbuch)
+  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Allgemeines](#allgemeines)
+    - [Hier ein Beispiel:](#hier-ein-beispiel)
+- [Appendix](#appendix)
+- [Logbuch-Template](#logbuch-template)
+
+## Allgemeines
 Wenn Du dich intensiver mit dem tunen Deines Copters beschäftigen möchtest empfiehlt es sich, dass du dir Setup-Einstellungen, Videos, etc. speicherst und dann später analysierst.
 
 Besonders bei Blackbox-Logfiles ist das Problem, dass diese zwar auf einer SD-Karte (oder im Flash) gespeichert werden aber durch das Fehlen einer RTC[^RTC] weder Datum noch Uhrzeigt im Dateinamen erfasst werde. Das mach später es häufig schwierig ein Setup einem Logfile zuzuordnen

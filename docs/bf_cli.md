@@ -1,8 +1,12 @@
 # Betaflight - CLI
-## Inhaltsverzeichnis
-[TOC]
 
-{{TOC}}
+![LunaX](./images/lunax_logo.png)
+
+## Inhaltsverzeichnis
+- [Betaflight - CLI](#betaflight---cli)
+  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Allgemeines](#allgemeines)
+  - [Liste der meist gebrauchten CLI-Befehle](#liste-der-meist-gebrauchten-cli-befehle)
 
 ## Allgemeines
 CLI steht für `Command line interface`und kann für das manuelle setzen und löschen von Parametern genutzt werden.

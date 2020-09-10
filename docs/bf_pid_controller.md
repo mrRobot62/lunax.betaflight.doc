@@ -1,7 +1,34 @@
 
 # PID - Controller
+
+![LunaX](./images/lunax_logo.png)
+
 ## Inhaltsverzeichnis
-[TOC]
+- [PID - Controller](#pid---controller)
+	- [Inhaltsverzeichnis](#inhaltsverzeichnis)
+	- [Historie](#historie)
+	- [_Allgemeines_](#allgemeines)
+		- [Soll-Wert](#soll-wert)
+		- [IST-Wert](#ist-wert)
+	- [_PID-Loop_](#pid-loop)
+	- [PIDError & PIDSum](#piderror--pidsum)
+		- [PID error](#pid-error)
+		- [PID SUM](#pid-sum)
+	- [_P-Term (Proportionaler Fehler)_](#p-term-proportionaler-fehler)
+	- [_I-Term (Integraler Fehler)_](#i-term-integraler-fehler)
+	- [_D-Term Derivativer-Wert (Vorhersage)_](#d-term-derivativer-wert-vorhersage)
+	- [_Looptime (d/t)_](#looptime-dt)
+- [PID tunen](#pid-tunen)
+	- [PTerm optimieren](#pterm-optimieren)
+		- [P-Roll](#p-roll)
+		- [P-Pitch](#p-pitch)
+		- [P-Yaw](#p-yaw)
+	- [DTerm optimieren](#dterm-optimieren)
+		- [D-Roll & Pitch](#d-roll--pitch)
+		- [D-Yaw](#d-yaw)
+	- [ITerm optimieren](#iterm-optimieren)
+		- [Roll & Pitch](#roll--pitch)
+		- [Yaw](#yaw)
 
 {{TOC}}
 
@@ -71,6 +98,17 @@ graph LR
 	MOT --> le
 	
 ```
+
+--------------------------------
+## PIDError & PIDSum
+### PID error
+Ist eine Aufsummierung aller anliegenden Fehler über all Achsen hinweg. Ein optimal (in der Theorie) getunter Copter liegt das Fehlersignal bei 0 und folgt somit exakt dem angegebenen Setpoint.
+
+Die größten Fehler entstehen in schnellen Manövvern bei Rolls & Flips. Propwash zeigt sich ebenfalls im PIDError und treibt diesen nach oben.
+
+### PID SUM
+Ist die Summe aller Anpassungen durch den PID-Controller bevor sie an die Motoren übergeben werden.
+
 --------------------------------
 ## _P-Term (Proportionaler Fehler)_
 
@@ -173,6 +211,46 @@ Daher ist es auch wichtig, dass man in BF die Looptime so einstellt das der FC d
 4KHz = 4000 Loops pro Sekunde - das schafft der FC problemlos 8KHz = 8000 Loops ist für einige F4 FCs zu viel, wenn zusätzliche Filter eingeschaltet wurden.
 Bei F7 FCs ist 8K typisch.
 
+--------------------------------------------
+# PID tunen
+So die Filter sind optimiert und nun beginnt das PID tuning.
+
+!!! notes "Tip"
+
+	Bevor an den PID gearbeitet wird, sollten die aktuellen PID-Wete immer gesichert werden. Am einfachsten ist es, das aktuelle Profil in ein anderes Profil zu kopieren. Erst dann die Werte anpassen.
+
+--------------------------------------------
+## PTerm optimieren
+Beim Optimieren der PID-Werte sollte zuerst die ROLL, dann die PITCH und zum Schluss die YAW Achse optimiert werden. Bezogen auf die Werte, startet man mit dem PTerm, dann dem DTerm und am Ende den ITerm.
+
+Die Anpsassungen werden schrittweise durchgeführt und in mehreren Iterationen. Das schafft man nicht in einem Zug.
+
+
+### P-Roll
+Ist der PTerm gut eingestellt, dann sollte sich die Steuerung des Copters präzise anfühlen und auf Die Sticks gut reagieren.
+
+Fliege einige scharfe Kurven ohne vom Throttle zu gehen, ist der PTerm zu niedrig, wird der Copter nun beim zurückgehen in den Geradeausflug zu einer Seite ein wenig kippen (fühlt sich wie ein Wackeln an oder ein sehr langsame Oszillation).
+
+Ist der PTerm zu hoch, wird der Copter sehr schnell oszillieren. Fühlt sich Vibrationen an.
+
+Ist der PTerm in Ordnung, sollte man nur minimale Oszillation verspüren.
+
+### P-Pitch
+
+### P-Yaw
+
+--------------------------------------------
+## DTerm optimieren
+### D-Roll & Pitch
+
+### D-Yaw
+
+--------------------------------------------
+## ITerm optimieren
+
+### Roll & Pitch
+
+### Yaw
 
 ---------------------
 

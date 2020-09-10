@@ -1,8 +1,14 @@
 # DMin - Handling
-## Inhaltsverzeichnis
-[TOC]
 
-{{TOC}}
+![LunaX](./images/lunax_logo.png)
+
+## Inhaltsverzeichnis
+- [DMin - Handling](#dmin---handling)
+	- [Inhaltsverzeichnis](#inhaltsverzeichnis)
+	- [Allgemeines](#allgemeines)
+	- [Setup für den Erstflug](#setup-für-den-erstflug)
+	- [Prüfen des D Wertes im Flug](#prüfen-des-d-wertes-im-flug)
+	- [Parameter](#parameter)
 
 -------------------------------------------------------------
 ## Allgemeines

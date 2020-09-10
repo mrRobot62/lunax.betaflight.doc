@@ -1,20 +1,38 @@
-<script>
-if(window.location.search.match(pdf/))
-{
-	setTimeout(() =>
-	{
-		mermaid.init(null, document.getElementsByClassName('mermaid'));
-	}, 1000);
-}
-</script>
-
 
 # _FILTER Ein mal Eins_
+
+![LunaX](./images/lunax_logo.png)
+
 ## Inhaltsverzeichnis
 
-[TOC]
-
-{{TOC}}
+- [_FILTER Ein mal Eins_](#filter-ein-mal-eins)
+	- [Inhaltsverzeichnis](#inhaltsverzeichnis)
+	- [Historie](#historie)
+- [Allgemeines](#allgemeines)
+	- [Typische Frequenzen](#typische-frequenzen)
+	- [_Noise / Vibrationen_](#noise--vibrationen)
+	- [_Oszillation_](#oszillation)
+	- [_Harmonics_](#harmonics)
+- [Gyro-Data-Filtering](#gyro-data-filtering)
+- [Grundlage Filter-Arten](#grundlage-filter-arten)
+	- [_Lowpass-Filter_](#lowpass-filter)
+	- [_Notch-Filter_](#notch-filter)
+	- [_Static-Filter_](#static-filter)
+	- [_Dynamic-Filter_](#dynamic-filter)
+- [Betaflight-Filter](#betaflight-filter)
+	- [_RPM-Filter_](#rpm-filter)
+	- [_BF - Dynamic-Lowpassfilter_](#bf---dynamic-lowpassfilter)
+	- [_BF - Static Notchfilter_](#bf---static-notchfilter)
+	- [_BF - Dynamic-Notchfilter_](#bf---dynamic-notchfilter)
+	- [_BF - Static-Lowpassfilter_](#bf---static-lowpassfilter)
+		- [PT1](#pt1)
+		- [BIQUAD](#biquad)
+	- [_BF - Gyro-RPM-Filter_](#bf---gyro-rpm-filter)
+	- [_BF - Gyro-LowPass Filter_](#bf---gyro-lowpass-filter)
+	- [_BF - DTerm LowPass Filter_](#bf---dterm-lowpass-filter)
+- [Appendix](#appendix)
+	- [Bilder in größerem Format](#bilder-in-größerem-format)
+	- [!](#)
 
 ## Historie
 | Version  |  Datum |  Inhalt |
@@ -74,7 +92,7 @@ Eine Oszillation ist eine Schwingung. In Bezug auf den PID-Controller ist es ein
 
 ![Oszillation0][imgOszi0]
 
-* **SetPoint** = SOLL-Wert = gestrichelte Linie (das ist das RC-Kommando z.B. 700deg/sec) 
+* **SetPoint** = SOLL-Wert = gestrichelte Linie (das ist das RC-Kommando z.B. 700deg/sec)
 * **Orangene-Linie** ein Versuch sich möglichst schnell an den Soll-Wert heranzutasten. Man überschießt den Soll-Wert korrigiert und fällt unter den Soll-Wert, korrigiert dann wieder überschießt man usw. bis man irgendwann den Sollwert Erreicht. 
 
 * **Ideal** ist es, wenn man die **grüne Linie**) möglichst schnell ohne bzw. geringer Oszillation den Sollwert erreicht 

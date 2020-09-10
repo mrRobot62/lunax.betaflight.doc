@@ -1,8 +1,36 @@
 # BF Allgemeine Tuning Tips 
 
-## Allgemeines
-Um eine möglichst gut abgestimmten Copter zu besitzen sollte nachfolgende Reihenfolge versucht werden einzuhalten
+![LunaX](./images/lunax_logo.png)
 
+## Inhaltsverzeichnis
+- [BF Allgemeine Tuning Tips](#bf-allgemeine-tuning-tips)
+	- [Inhaltsverzeichnis](#inhaltsverzeichnis)
+	- [Allgemeines](#allgemeines)
+	- [Die ersten Schritte](#die-ersten-schritte)
+	- [Filter reduzieren](#filter-reduzieren)
+	- [Tuning in a Nutshell](#tuning-in-a-nutshell)
+	- [Heiße Motoren](#heiße-motoren)
+		- [DTerm-Problem](#dterm-problem)
+	- [Spectogramm-Analyse](#spectogramm-analyse)
+		- [3D-Analyse](#3d-analyse)
+		- [2D-Analyse](#2d-analyse)
+		- [Interpretation der Daten](#interpretation-der-daten)
+		- [Detailbetrachtungen](#detailbetrachtungen)
+		- [Auszug aus dem Tuning-Logbuch](#auszug-aus-dem-tuning-logbuch)
+		- [DTerm Spectrogramm](#dterm-spectrogramm)
+- [Appendix](#appendix)
+	- [Bilder in besserer Auflösung](#bilder-in-besserer-auflösung)
+
+## Allgemeines
+Um eine möglichst gut abgestimmten Copter zu besitzen sollte nachfolgende Reihenfolge versucht werden einzuhalten. 
+
+Für das tunen eines Copters ist eine Blackbox-Auswertung aus meiner Sicht unerläßlich. Ob du dann später mit dem Blackbox-Explorer, PIDToolbox oder Plasmatree arbeitest ist jedem selbst überlassen.
+
+Ich persönlich nutze ausschließlich `Blackbox-Explorer` und `PIDToolbox`. Nach meinem Kenntnisstand wird an Plasmatree auch nicht mehr relevant gearbeitet
+
+Für PIDToolbox[^ PDT_Wiki_de] habe ich in Absprache mit Brian White das englischsprache Wiki auf Deutsch übersetzt und die wesentlichen Schritte stehen nun auch für deutschsprachige zur Verfügung.
+
+## Die ersten Schritte
 1. **_Sauber bauen_**. Vermeide schlackernde Kabel. Der FC[^FC] sollte vibrationsgedämpft verbaut sein. Prüfe ob den Gyro etwas berührt (**strikt vermeiden**). Sind alle Schrauben fest
 
 2. **Versuche auf die aktuelleste BF-Version aufzusetzen.** Mache vor Deinen Änderungen ein Backup der aktuellen FW. Sichere Deine Konfiguration mit `diff all`. Neue BF-Version versprechen Bugfixings und häufig verbesserte Filter/Tunig-Möglichkeiten. Leider ist der Update immer mit Arbeit verbunden.
@@ -34,9 +62,9 @@ Funktioniert das nicht - so kann man es prüfen:
 ![][imgProps]{: style="height:300px; width:300px"}
 
 ## Filter reduzieren
-Eigentlich votiere ich zu filtern, das heißt aber nicht "einfach alle Filter einschalten" sondern Filter mit bedacht aktivieren und andere Filter deaktivieren.
+Eigentlich votiere ich zu filtern, das heißt aber nicht "einfach alle Filter einschalten" sondern Filter mit bedacht aktivieren und andere Filter deaktivieren. Beginne mit den Default-PID Einstellungen für Deinen Copter.
 
-Das Reduzieren der Filter erhöht deutlich die Performance in Betaflight und die Latenzzeiten verringern sich. Dies resultiert in einem besseren "Stick-Gefühl", irgendwie direkter.
+Das Reduzieren der Filter erhöht(verbessert) deutlich die Performance in Betaflight und die Latenzzeiten verringern sich. Dies resultiert in einem besseren "Stick-Gefühl", irgendwie direkter.
 
 Andererseits geben Filter eine weicheres Gefühl, der Copter liegt irgendwie ruhiger, alles ist etwas gedämpfter (gemütlicher ;-) )
 
@@ -46,9 +74,9 @@ Also für jeden etwas.
 
 Das im Vorwege.
 
-Meine Setups die ich für meine Copter einstelle sind eher direkter - als Freestyler mag ich das lieber und ist mir auch wichtig.
+Meine Setups, die ich für meine Copter einstelle, sind eher direkter - als Freestyler mag ich das lieber und ist mir auch wichtig.
 
-Ich lebe mit Propwash und kleineren anderen Vibrationen. Filtere mich daher nicht "zu Tode" und vielleicht sind meine PID-Werte auch nicht optimal - aber ich fühle mich wohl mit meinen Coptern.
+Ich lebe mit Propwash (in Grenzen) und kleineren anderen Vibrationen. Filtere mich daher **nicht "zu Tode"** und vielleicht sind meine PID-Werte auch nicht optimal - aber ich fühle mich wohl mit meinen Coptern.
 
 ## Tuning in a Nutshell
 > * 1: **fliegen ist es was wir wollen**
@@ -61,7 +89,7 @@ Ich lebe mit Propwash und kleineren anderen Vibrationen. Filtere mich daher nich
 
 > * 5: Beginne mit den Default-Einstellungen von PIDs und Filter - noch **keine** Anpassungen vornehmen.
 
-> * 6: Erstflug mit Blackboxlogging (2K) - und prüfen wie das Setup ist.
+> * 6: Erstflug mit Blackboxlogging (2K) - und prüfen wie das Setup ist. **Für eine Blackboxauswertung setze den Debug-Mode auf `gyro_scaled`**
 
 > * 7: Erstelle dir ein Tuning-Logbuch indem du pro Flug dir die Einstellungen/Änderungen merkst [^Tuning_Logbuch]
 
