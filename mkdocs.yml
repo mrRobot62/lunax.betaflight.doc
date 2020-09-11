@@ -50,12 +50,12 @@ plugins:
       
 #  - mermaid2
   - markdownmermaid
-  - pdf-export:
-      verbose: false
-      combined : false
-      media_type: print
-      combined_output_path: pdf/bf_doc_all.pdf
-      enabled_if_env : ENABLE_PDF_EXPORT
+#  - pdf-export:
+#      verbose: false
+#      combined : false
+#      media_type: print
+#      combined_output_path: pdf/bf_doc_all.pdf
+#      enabled_if_env : ENABLE_PDF_EXPORT
         
 markdown_extensions:
   - toc:
@@ -64,16 +64,13 @@ markdown_extensions:
   - footnotes
   - admonition
   - attr_list
-
-#  - pymdownx.superfences:
-#      # make exceptions to highlighting of code:
-#      custom_fences:
-#        - name: mermaid
-#          class: mermaid
-#          format: !!python/name:mermaid2.fence_mermaid         
+  - markdown_katex:
+      no_inline_svg: True
+      insert_fonts_css: True
+     
 
 extra:
-   logo: images/LunaX_Font.png
+   logo: images/lunax_logo.png
    article_nav_top: false
    article_nav_bottom: false
    

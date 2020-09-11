@@ -53,6 +53,8 @@ Dies Repository basiert auf [MKDocs](https://mkdocs.org). Alle geschriebenen Sei
 		js/ Javascript Dateien
 		images/ Bilder die verwendet wurden
 		
+	pdf-export/
+		xxxxx.pdf Markdown-Datei als PDF konvertiert.
 	sites/
 		pdf/combined.pdf (hier liegt die Gesamt-PDF-Datei)
 		<folder> (diverse Subfolder, enthalten HTML-Seiten und PDF (Einzeldateien) zum Offline-Lesen)

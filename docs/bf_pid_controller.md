@@ -19,16 +19,6 @@
 	- [_D-Term Derivativer-Wert (Vorhersage)_](#d-term-derivativer-wert-vorhersage)
 	- [_Looptime (d/t)_](#looptime-dt)
 - [PID tunen](#pid-tunen)
-	- [PTerm optimieren](#pterm-optimieren)
-		- [P-Roll](#p-roll)
-		- [P-Pitch](#p-pitch)
-		- [P-Yaw](#p-yaw)
-	- [DTerm optimieren](#dterm-optimieren)
-		- [D-Roll & Pitch](#d-roll--pitch)
-		- [D-Yaw](#d-yaw)
-	- [ITerm optimieren](#iterm-optimieren)
-		- [Roll & Pitch](#roll--pitch)
-		- [Yaw](#yaw)
 
 {{TOC}}
 
@@ -43,6 +33,12 @@ _Allgemeines_
 Ein PID-Controller (PID-Regler) berechnet und reagiert auf den Fehlerwert der zwischen dem SOLL und dem IST-Wert. Jeweils für `P`, `I` und `D` wird dieser Fehler mit einer internen Konstanten (Kp, Ki, Kd)[^Kpid] multipliziert. Die Summe aller der Fehler ergibt den Gesamt Fehler frn PIDError
 
 Übrigens, diese Konstanten sind die Werte die man in Betaflight pro Achse erfasst.
+
+!!! note "Hinweis"
+
+	`PTerm` & `DTerm` arbeiten gegeneinander. Erhöht sich der `P-Wert`verringert sich der `D-Term`. Verringert sich der `P-Wert`dann erhöht sich der `D-Wert`
+
+
 
 ### Soll-Wert
 In Bezug auf Copter ist der Sollwert der Wert, der durch die Gimbals vorgegeben wird (RC-Command). Entspricht also dem Zielwert, den der Copter erreichen soll (z.B. der Copter soll ein Rolle mit 700deg/sec durchführen.
@@ -65,7 +61,7 @@ Der `IST-Wert` wird durch das verbaute Gyro über alle drei Achsen gemessen und 
 Die PID-Loop in Betaflight beinhaltet (für **alle** Achsen) folgende Punkte (vereinfachte Darstellung und nicht 100% vollständig). Die PID-Loop beschreibt auch die maximale [Looptime](#looptime-dt)
 
 ```mermaid
-graph LR
+graph TD
 	classDef LP fill:#f96
 
 	
@@ -105,6 +101,8 @@ graph LR
 Ist eine Aufsummierung aller anliegenden Fehler über all Achsen hinweg. Ein optimal (in der Theorie) getunter Copter liegt das Fehlersignal bei 0 und folgt somit exakt dem angegebenen Setpoint.
 
 Die größten Fehler entstehen in schnellen Manövvern bei Rolls & Flips. Propwash zeigt sich ebenfalls im PIDError und treibt diesen nach oben.
+
+$`PIDError = Setpoint - Gyro`$
 
 ### PID SUM
 Ist die Summe aller Anpassungen durch den PID-Controller bevor sie an die Motoren übergeben werden.
@@ -213,44 +211,10 @@ Bei F7 FCs ist 8K typisch.
 
 --------------------------------------------
 # PID tunen
-So die Filter sind optimiert und nun beginnt das PID tuning.
 
-!!! notes "Tip"
-
-	Bevor an den PID gearbeitet wird, sollten die aktuellen PID-Wete immer gesichert werden. Am einfachsten ist es, das aktuelle Profil in ein anderes Profil zu kopieren. Erst dann die Werte anpassen.
-
---------------------------------------------
-## PTerm optimieren
-Beim Optimieren der PID-Werte sollte zuerst die ROLL, dann die PITCH und zum Schluss die YAW Achse optimiert werden. Bezogen auf die Werte, startet man mit dem PTerm, dann dem DTerm und am Ende den ITerm.
-
-Die Anpsassungen werden schrittweise durchgeführt und in mehreren Iterationen. Das schafft man nicht in einem Zug.
+Schaue dir das `bf_tuning.md` Dokument an
 
 
-### P-Roll
-Ist der PTerm gut eingestellt, dann sollte sich die Steuerung des Copters präzise anfühlen und auf Die Sticks gut reagieren.
-
-Fliege einige scharfe Kurven ohne vom Throttle zu gehen, ist der PTerm zu niedrig, wird der Copter nun beim zurückgehen in den Geradeausflug zu einer Seite ein wenig kippen (fühlt sich wie ein Wackeln an oder ein sehr langsame Oszillation).
-
-Ist der PTerm zu hoch, wird der Copter sehr schnell oszillieren. Fühlt sich Vibrationen an.
-
-Ist der PTerm in Ordnung, sollte man nur minimale Oszillation verspüren.
-
-### P-Pitch
-
-### P-Yaw
-
---------------------------------------------
-## DTerm optimieren
-### D-Roll & Pitch
-
-### D-Yaw
-
---------------------------------------------
-## ITerm optimieren
-
-### Roll & Pitch
-
-### Yaw
 
 ---------------------
 

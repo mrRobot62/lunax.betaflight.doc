@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="betaflight--deutsch---als-ascii-markdown-dateien"><strong>Betaflight / Deutsch - als Ascii-Markdown Dateien</strong></h1>
+<h2 id="historie">Historie</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Version</th>
+<th>Datum</th>
+<th>Inhalt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0.1</td>
+<td>August 2020</td>
+<td>initial</td>
+</tr>
+<tr>
+<td style="text-align:center">0.2</td>
+<td>September 2020</td>
+<td>Material Theme, vereinzelte Updates, Mermaid2 Plugin</td>
+</tr>
+<tr>
+<td style="text-align:center">0.3</td>
+<td>September 2020</td>
+<td>Mermaid Extension für Chrome, zusätzliche Installations-Informationen rund um MKDocs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="info">Info</h2>
+<p>Dies hier ist eine Sammlung an Dokumenten, die im Laufe meiner kurzen FPV-Fliegerei entstanden sind und auch weiter entstehen bzw. weiter fortgeschrieben werden.</p>
+<p>Hintergrund für diese Ansammlung der Dokumente ist, dass ich mehr Verständnis für mich selbst schaffen möchte und dadurch ein besseres Verständnis über die Zusammenhänge und dem Flugverhalten von FPV-Coptern zu erhalten.</p>
+<p>Weiterhin möchte ich kein endloses Wiki in deutsch erstellen sondern einzelne Themenbereiche herauslösen - auch wenn es dadurch Redundanzen gibt. Für mich hat es den Vorteil, dass ich bestimmte Dokumente ausdrucken kann und mit zum Fliegen nehmen kann, wenn ich einen Copter optimieren möchte.</p>
+<p>Tja und zum Schluß - ich kann mir einfach nicht alles im Kopf behalten, daher lese ich gerne nach und dann helfen mir kleinere Dokumente mehr als große.</p>
+<p>Die einzelnen Seiten stehen auch zum Download als PDF zur Verfügung.</p>
+<p>Leider habe ich keine Extension für Markdown gefunden, mit der man einfach ein Wort-Index aufbauen kann aber es gibt eine gute Alternative über <a href="">MKDocs</a> und dem Theme welches ich nutzte.</p>
+<p>Hier kann man über die Suchfunktion Wörter im Gesamten repository suchen -** sehr sehr hilfreich** -</p>
+<p><strong>TIP</strong></p>
+<pre><code>Installiert Euch lokal MKDocs und cloned dieses Repository und 
+startet dann die Dokumente über `mkdocs serve`. 
+
+Aufruf über Euren Browser über `http:127.0.0.1:8000`
+</code></pre>
+<p>Sieht dann wie folgt aus:
+<img src="docs/images/mkdocs_overview1.png" alt=""></p>
+<p>Vielleicht hilft es dem ein oder Anderen</p>
+<p>Du kannst alle Seiten als PDF downloaden über .....</p>
+<p>Viel Spass und propwash freies Fliegen</p>
+<p>LunaX - August 2020</p>
+<p>P.S. Einige Kapitel sind noch in der Entstehung <img class="emoji" alt="open_mouth" src="data:image/png;base64,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" /> und enthalten noch keinen Text</p>
+<h2 id="handhabung-dieses-github-repositories">Handhabung dieses Github-Repositories</h2>
+<p>Dies Repository basiert auf <a href="https://mkdocs.org">MKDocs</a>. Alle geschriebenen Seiten wurden als einfache Markdown-Dateien erstellt.</p>
+<pre class="hljs"><code><div>	mkdocs.yml (Konfigurationsdatei für MKDocs)
+	docs/
+		xxxx.md Dateien (einzelne Markdown-Dateien zu den Themen)
+		css/ CSS Dateien
+		js/ Javascript Dateien
+		images/ Bilder die verwendet wurden
+		
+	sites/
+		pdf/combined.pdf (hier liegt die Gesamt-PDF-Datei)
+		&lt;folder&gt; (diverse Subfolder, enthalten HTML-Seiten und PDF (Einzeldateien) zum Offline-Lesen)
+
+</div></code></pre>
+<h1 id="online-lesen-in-github">Online-Lesen in GitHub</h1>
+<p>Wer online lesen möchte sollte sich für Chrome folgende Extension <a href="https://github.com/Redisrupt/mermaid-diagrams">Mermaid</a> installieren, dann werden auch Diagramme generiert und nicht nur der Mermaid-Code wird angezeigt.</p>
+<p><strong>Beachten</strong></p>
+<pre><code>**Fehler:** Beim Erstladen einer Markdown-Datei die Mermaid Code enthält kommt es häufig vor, dass nicht sofort das gerenderte Bild angezeigt wird - man sieht den Code 
+
+**Lösung:** Refresh der Seite, dann klappt es
+</code></pre>
+<p>In einigen Dokumenten werden solche Diagramme genutzt (z.B. Filter)</p>
+<p>Wenn alles sauber funktioniert solltet ihr hier ein Diagramm sehen</p>
+<pre><code class="language-mermaid"><div class="mermaid">graph LR
+	GY(Gyro) --> FLT[Filter]
+	RC(RC-Command) -->FLT
+	FLT --> PID(PID-Controller)
+	PID --> MIX(Mixer)
+	MIX --> MOT((Motoren))
+	MOT --> RPM[RPM-Filter BF 4.x]
+	RPM --> FLT
+
+</div></code></pre>
+<h1 id="offline-lesen">Offline-Lesen</h1>
+<h2 id="via-mkdocs">via MKDocs</h2>
+<p>Du möchtest Dir gerne alles lokal auf Deine Rechner installieren, somit hast du immer Zugriff auf alle Daten selbst wenn Du den Rechner mit zum Fliegen nimmst und &quot;mal eben&quot; was nachschauen möchtest?</p>
+<p><strong>Tip 1</strong></p>
+<pre><code>Mach Dir die Mühe und installiere [MKDocs](), dann hast du eine perfekte Übersicht und es funktioniert einwandfrei.
+
+MKDocs funktioniert auf MacOS, Linux und Windows (leider nicht auf iOS)
+</code></pre>
+<p><strong>Tip 2</strong></p>
+<pre><code>Getestet habe ich unter Python 3.6, sollte aber auch unter 3.7 funktionieren.
+
+Ich empfehle Dir die Installation in einer virtuellen Python-Umgebung (z.B. virtualenv oder über Anaconda.
+</code></pre>
+<h2 id="via-static-html-sites">via static HTML-Sites</h2>
+<p>Clone dieses Repository und kopiere es irgendwo auf Deinen Rechner.</p>
+<p>Im Verzeichnis <code>site</code> und in den Unterverzeichnissen sind alle <code>HTML</code>und <code>PDF</code>Seiten vorhanden.</p>
+<p>Die Navigation ist allerdings nicht so möglich wie unter MKDocs.</p>
+
+</body>
+</html>

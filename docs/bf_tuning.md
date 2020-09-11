@@ -18,6 +18,18 @@
 		- [Detailbetrachtungen](#detailbetrachtungen)
 		- [Auszug aus dem Tuning-Logbuch](#auszug-aus-dem-tuning-logbuch)
 		- [DTerm Spectrogramm](#dterm-spectrogramm)
+- [PIDs tunen](#pids-tunen)
+	- [PTerm optimieren](#pterm-optimieren)
+		- [P-Roll](#p-roll)
+		- [P-Pitch](#p-pitch)
+		- [P-Yaw](#p-yaw)
+	- [DTerm optimieren](#dterm-optimieren)
+		- [D-Roll & Pitch](#d-roll--pitch)
+		- [D-Yaw](#d-yaw)
+	- [ITerm optimieren](#iterm-optimieren)
+		- [Roll & Pitch](#roll--pitch)
+		- [Yaw](#yaw)
+	- [TPA - Throttle PID Attentuation](#tpa---throttle-pid-attentuation)
 - [Appendix](#appendix)
 	- [Bilder in besserer Auflösung](#bilder-in-besserer-auflösung)
 
@@ -233,6 +245,88 @@ Wie man sieht, wurde lediglich der `dyn_notch_max_hz` Parameter verändert und w
 	* Gyro-Prefiltert: ist wichtig um einen Überblick zu erhalten wie stark die Vibrationen am Copter sind und wo sie hauptsächlich auftreten. Je mehr helle Spots um so mehr Vibrationen sind vorhanden
 	* Gyro-gefiltert: hier sieht man das Ergebnis der aktuellen Filter und wie gut (oder noch nicht so gut) sie arbeiten
 	* DTerm gefiltert: Da es auch noch DTerm-Filter gibt, kann man hier auch nochmals prüfen ob die Filter gut eingestellt sind
+
+
+
+
+So die Filter sind optimiert und nun beginnt das PID tuning.
+
+!!! notes "Tip"
+
+	Bevor an den PID gearbeitet wird, sollten die aktuellen PID-Wete immer gesichert werden. Am einfachsten ist es, das aktuelle Profil in ein anderes Profil zu kopieren. Erst dann die Werte anpassen.
+
+# PIDs tunen
+Nachfolgend eine Tips um für Deinen Copter die PID-Werte zu optimieren
+
+!!! note "Tip 1"
+
+	Fange immer mit einer Achse an, wenn die gut funktioniert, dann die nächste Achse.
+	YAW ist die letzte Achse die du optimieren solltest.
+	Ich fange immer mit der Roll-Achse an
+
+
+
+--------------------------------------------
+## PTerm optimieren
+Beim Optimieren der PID-Werte sollte zuerst die ROLL, dann die PITCH und zum Schluss die YAW Achse optimiert werden. Bezogen auf die Werte, startet man mit dem PTerm, dann dem DTerm und am Ende den ITerm.
+
+Die Anpsassungen werden schrittweise durchgeführt und in mehreren Iterationen. Das schafft man nicht in einem Zug.
+
+
+### P-Roll
+Ist der PTerm gut eingestellt, dann sollte sich die Steuerung des Copters präzise anfühlen und auf Die Sticks gut reagieren.
+
+Fliege einige scharfe Kurven ohne vom Throttle zu gehen, ist der PTerm zu niedrig, wird der Copter nun beim zurückgehen in den Geradeausflug zu einer Seite ein wenig kippen (fühlt sich wie ein Wackeln an oder ein sehr langsame Oszillation).
+
+Ist der PTerm zu hoch, wird der Copter sehr schnell oszillieren. Fühlt sich Vibrationen an.
+
+Ist der PTerm in Ordnung, sollte man nur minimale Oszillation verspüren.
+
+### P-Pitch
+
+### P-Yaw
+
+--------------------------------------------
+## DTerm optimieren
+### D-Roll & Pitch
+
+### D-Yaw
+
+--------------------------------------------
+## ITerm optimieren
+
+### Roll & Pitch
+
+### Yaw
+
+
+## TPA - Throttle PID Attentuation
+TPA ist ein Dämpfungsglied der PID-Werte bezogen auf den aktuell anliegenden Throttle-Wert
+TPA läuft linear mit dem Throttle-Wert und dämpft die PID-Werte um Oszillationen vorzubeugen. Den TPA gab es schon in BF 3.x.
+
+TPA wirkt sich auf den `PTerm` und den `DTerm` aus.
+
+Ab BF 4.0 haben sich die Default-Werte für den TPA geändert
+
+```
+set tpa_rate = 75
+set tpa_breakpoint = 1500
+set tpa_mode = D
+```
+
+
+|Parameter|Hintergrund|
+|:---:|---|
+| `tpa_rate`| Dämpfungswert als Prozent|
+| `tpa_breakpoint` | Dämpfung wird ab diesem Punkt an linear bis 100% Throttle durchgeführt|
+|`tpa_mode`| Gibt an ob für den PTerm, den DTerm oder beide `P` oder `D` oder `PD`  |
+
+
+**Beispiel**
+
+	Wir gehen von den Default-Werten aus. Die Dämpfung beginnt bei 1500 Throttle (also 50%) und bei 100% Throttle wird die Dämpfung 75% (tpa_rate) betragen. Die Werte von 1500-2000 werden linear auf diese 75% abgebildet
+
+	Die Dämpfung bezieht sich auf den jeweiligen PTerm oder DTerm. Nehmen wir an der PTerm beträgt 30, dann würde bei 100% Throttle "nur" 22,5 (75%) verwendet werden
 
 
 -----------------------------------
