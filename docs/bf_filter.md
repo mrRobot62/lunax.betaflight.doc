@@ -38,6 +38,7 @@
 | Version  |  Datum |  Inhalt |
 |:-:|---|---|
 | 0.1  |  August 2020 | initial  |
+|0.2| August 2020| Updates Dynamic Filter und anderes | 
 
 -------------------------------------------------------------
 # Allgemeines
