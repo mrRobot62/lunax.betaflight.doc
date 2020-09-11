@@ -229,6 +229,7 @@ Dynamic Filter reduzieren ebenfalls Rauschen, vorausgesetzt die entsprechenden P
 Ein Dynamic-Filter ist ein Algorithmus, der die Frequenz des Rauschens erkennen kann und er kann den Notch-Filter verwenden, um ihn automatisch zu reduzieren. 
 
 !!! note "Nachteil"
+
 	von Dynamic-Filters ist die Erhöhung der CPU-Last und die Delays. 
 
 Betaflight-Filter
