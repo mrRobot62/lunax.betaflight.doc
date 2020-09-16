@@ -19,17 +19,18 @@
 		- [Auszug aus dem Tuning-Logbuch](#auszug-aus-dem-tuning-logbuch)
 		- [DTerm Spectrogramm](#dterm-spectrogramm)
 - [PIDs tunen](#pids-tunen)
-	- [PTerm optimieren](#pterm-optimieren)
-		- [P-Roll](#p-roll)
-		- [P-Pitch](#p-pitch)
-		- [P-Yaw](#p-yaw)
-	- [DTerm optimieren](#dterm-optimieren)
-		- [D-Roll & Pitch](#d-roll--pitch)
-		- [D-Yaw](#d-yaw)
-	- [ITerm optimieren](#iterm-optimieren)
-		- [Roll & Pitch](#roll--pitch)
-		- [Yaw](#yaw)
+	- [Phase 1 PTerm optimieren](#phase-1-pterm-optimieren)
+		- [PTerm für Roll optimieren](#pterm-für-roll-optimieren)
+		- [PTerm für Pitch optimieren](#pterm-für-pitch-optimieren)
+		- [PTerm für Yaw optimieren](#pterm-für-yaw-optimieren)
+	- [Phaste 2 DTerm optimieren](#phaste-2-dterm-optimieren)
+		- [DTerm für Roll & Pitch optimieren](#dterm-für-roll--pitch-optimieren)
+		- [DTerm für Yaw optimieren](#dterm-für-yaw-optimieren)
+	- [Phase 3 ITerm optimieren](#phase-3-iterm-optimieren)
+		- [ITerm für Roll & Pitch optimieren](#iterm-für-roll--pitch-optimieren)
+		- [ITerm für Yaw optimieren](#iterm-für-yaw-optimieren)
 	- [TPA - Throttle PID Attentuation](#tpa---throttle-pid-attentuation)
+	- [DMIN](#dmin)
 - [Appendix](#appendix)
 	- [Bilder in besserer Auflösung](#bilder-in-besserer-auflösung)
 
@@ -43,13 +44,14 @@ Ich persönlich nutze ausschließlich `Blackbox-Explorer` und `PIDToolbox`. Nach
 Für PIDToolbox[^ PDT_Wiki_de] habe ich in Absprache mit Brian White das englischsprache Wiki auf Deutsch übersetzt und die wesentlichen Schritte stehen nun auch für deutschsprachige zur Verfügung.
 
 ## Die ersten Schritte
-1. **_Sauber bauen_**. Vermeide schlackernde Kabel. Der FC[^FC] sollte vibrationsgedämpft verbaut sein. Prüfe ob den Gyro etwas berührt (**strikt vermeiden**). Sind alle Schrauben fest
+1. **_Sauber bauen_**. Vermeide schlackernde oder lose Kabel. Der FC[^FC] sollte vibrationsgedämpft verbaut sein. Prüfe ob den Gyro etwas berührt (**strikt vermeiden**). Sind alle Schrauben fest
 
 2. **Versuche auf die aktuelleste BF-Version aufzusetzen.** Mache vor Deinen Änderungen ein Backup der aktuellen FW. Sichere Deine Konfiguration mit `diff all`. Neue BF-Version versprechen Bugfixings und häufig verbesserte Filter/Tunig-Möglichkeiten. Leider ist der Update immer mit Arbeit verbunden.
 
 3. **Sender kalibrieren**. Im Receiver-Tab sollten für alle drei Achsen die Einstellungen zwischenn **1000** und **2000** liegen. Hintergrund ist, liegen die aktuellen Werte unter-/oberhalb wird das RC-Signal beschnitten oder gespreizt, beides sorgt dafür, dass die Signalverarbeitung nicht optimal ist.
 
-4. **Prüfe im BF-Configurator die Lage des Copters.** Der grüne Pfeil symbolisiert **Vorne**. Neige den Copter nach unten (PITCH-Forward), der simulierte Copter **muss** sich ebenfalls nach unten neigen. Wiederholen für alle Achsen. Der simulierte Copter **muss exakt** das gleiche tun als der echte Copter.
+4. **Prüfe im BF-Configurator die Lage des Copters.** Der grüne Pfeil symbolisiert **Vorne**. Neige den Copter nach unten (PITCH-Forward), der simulierte Copter **muss** sich ebenfalls nach unten neigen. Wiederholen für alle Achsen. Der simulierte Copter **muss exakt** das gleiche tun als der echte Copter. Übrigens auf dem FC gibt es in der Regel in der Nähe des Gyros ein kleines weißes Dreieck. Die Spitze des Dreiecks zeigt immer in Richtung Front.
+   
 Funktioniert das nicht - so kann man es prüfen:
 	- Die Gyro-Lage in BF-Configurator stimmt nicht mit dem überein, wie Dein Gyro tatsächlich verbaut ist. 
 	- Gehe schrittweise vor und ändere immer in **90 Grad** Schritten
@@ -59,18 +61,22 @@ Funktioniert das nicht - so kann man es prüfen:
 
 	> Das ist eine **sehr, sehr wichtige** Funktionsprüfung, ansonsten wird der Copter beim Erststart vermutlich direkt einen Salto schlagen
 
-5. **Motordrehrichtung prüfen** 
+1. **Motordrehrichtung prüfen** 
 	* Motor 2+3 müssen CCW[^CWCCW] drehen
 	* Motor 1+4 müssen CW drehen
 	
 !!! note "Hinweis"
+
 	Manchmal findet man im Internet Schaubilder mit Motoren-Beschriftungen, die abweichend sind. Meine Empfehlung: **wenn ihr Betaflight nutzt, nutzt auch die Default-Bezeichnungen, die für die Motoren in Betaflight vorgesehen sind**
 	
 <br>
+
 ![][imgMOTOREN]{: style="height:300px; width:300px"}
+
 <br>
 6. Prop-Montage, darauf achten, dass die Props in der korrekten weise montiert werden. Grundsätzlich gilt: Motor 1+3 und Motor 2+4 haben immer die gleichen Props montiert.
 <br>
+
 ![][imgProps]{: style="height:300px; width:300px"}
 
 ## Filter reduzieren
@@ -148,8 +154,10 @@ Den 2. DTerm-LPF Filter auf BIQUAD setzen
 Temperatur prüfen, prüfen prüfen
 
 !!! danger "Beachten"
+
 	**Ohne Sinn & Verstand am DTerm rumspielen oder an DTerm-LPF Änderungen durchführen, kann zur vollständigen Zerstörung der Motoren führen**
 
+<div class="page"/>
 
 ## Spectogramm-Analyse
 Die Spectogramm-Analyse [^PDT_Wiki_de] ist sehr hilfreich, denn sie zeigt uns in zwei oder drei Dimensionen. `PIDToolBox` zeigt die Daten sowohl als 2D als auch in 3D an
@@ -193,8 +201,7 @@ Starke Motorvibrationen können durch Lagerschäden, defekte Props, defekter Mot
 | **Filter-Delay**<br>![][ImgPDTFltDelay]{:style="height:127ox; width:256px"} | <br><br>Hier zeigt sich, dass die Änderungen an den Filtern sich auch unmittelbar auf die Delays positiv gezeigt hat. Warum der `DTerm-Delay` noch über 3ms ist, muss geprüft werden. Vielleicht ist es aber auch ok so. |
 
 ### Auszug aus dem Tuning-Logbuch
-
-Und bei diesen Files steht folgendes im Tuning-Logbuch: (Logfile 1 = T09 und Logfile 2 = T07)
+Bezogen auf die vorherigen Filter, nachfolgend ein kurzer Blick aus dem Tuning-Logbuch: (Logfile 1 = T09 und Logfile 2 = T07)
 ```
 ### log_20200719_t07.bbl
 - Retest, wegen Vibrationsproblemen, die erst einmal nicht erklärbar sind
@@ -239,9 +246,10 @@ Wie man sieht, wurde lediglich der `dyn_notch_max_hz` Parameter verändert und w
 | **Log 1 : logxxxxxxx_t09.bbl**<br>![][ImgSpAn6a] <br><br> ![][ImgSpAn6b] |
 | Auswertung aus dem vermeintlich schlechterem Setup, das untere Bild zeigt Gyro-gefiltert und DTerm-gefiltern im Bereich <100hz. Durch das verringern des `dyn_notch_max_hz` auf 300hz führt zu einem größeren Filterbereich, das sich zusätzlich zu einer verschlechtertem Delay  |
 | **Log 2 : log_20200719_t07.bbl**<br>![][ImgSpAn7a] <br><br> ![][ImgSpAn7b]  |
-| Deutlich sieht man, das die DTerm Filterung besser ist, das untere Bild zeigt Gyro-gefiltert und DTerm-gefiltern im Bereich <100hz - Deutlich sieht man das die Filterung des DTerms in den unteren Frequenzen. Der `dyn_notch_max_hz` ist auf  350hz. Im Gyro-Signal sieht man die Verbesserung, dies wirkt sich auch auf den DTerm aus.|
+| Deutlich sieht man, das die DTerm Filterung besser ist, das untere Bild zeigt Gyro-gefiltert und DTerm-gefiltern im Bereich <100hz - Weiterhin sieht man das die Filterung des DTerms in den unteren Frequenzen. Der `dyn_notch_max_hz` ist auf  350hz. Im Gyro-Signal sieht man die Verbesserung, dies wirkt sich auch auf den DTerm aus.|
 
 !!! note "Hinweis"
+
 	* Gyro-Prefiltert: ist wichtig um einen Überblick zu erhalten wie stark die Vibrationen am Copter sind und wo sie hauptsächlich auftreten. Je mehr helle Spots um so mehr Vibrationen sind vorhanden
 	* Gyro-gefiltert: hier sieht man das Ergebnis der aktuellen Filter und wie gut (oder noch nicht so gut) sie arbeiten
 	* DTerm gefiltert: Da es auch noch DTerm-Filter gibt, kann man hier auch nochmals prüfen ob die Filter gut eingestellt sind
@@ -255,6 +263,8 @@ So die Filter sind optimiert und nun beginnt das PID tuning.
 
 	Bevor an den PID gearbeitet wird, sollten die aktuellen PID-Wete immer gesichert werden. Am einfachsten ist es, das aktuelle Profil in ein anderes Profil zu kopieren. Erst dann die Werte anpassen.
 
+<div class="page"/>
+
 # PIDs tunen
 Nachfolgend eine Tips um für Deinen Copter die PID-Werte zu optimieren
 
@@ -267,13 +277,15 @@ Nachfolgend eine Tips um für Deinen Copter die PID-Werte zu optimieren
 
 
 --------------------------------------------
-## PTerm optimieren
+## Phase 1 PTerm optimieren
 Beim Optimieren der PID-Werte sollte zuerst die ROLL, dann die PITCH und zum Schluss die YAW Achse optimiert werden. Bezogen auf die Werte, startet man mit dem PTerm, dann dem DTerm und am Ende den ITerm.
 
 Die Anpsassungen werden schrittweise durchgeführt und in mehreren Iterationen. Das schafft man nicht in einem Zug.
 
 
-### P-Roll
+
+
+### PTerm für Roll optimieren
 Ist der PTerm gut eingestellt, dann sollte sich die Steuerung des Copters präzise anfühlen und auf Die Sticks gut reagieren.
 
 Fliege einige scharfe Kurven ohne vom Throttle zu gehen, ist der PTerm zu niedrig, wird der Copter nun beim zurückgehen in den Geradeausflug zu einer Seite ein wenig kippen (fühlt sich wie ein Wackeln an oder ein sehr langsame Oszillation).
@@ -282,31 +294,38 @@ Ist der PTerm zu hoch, wird der Copter sehr schnell oszillieren. Fühlt sich Vib
 
 Ist der PTerm in Ordnung, sollte man nur minimale Oszillation verspüren.
 
-### P-Pitch
+### PTerm für Pitch optimieren
 
-### P-Yaw
-
---------------------------------------------
-## DTerm optimieren
-### D-Roll & Pitch
-
-### D-Yaw
+### PTerm für Yaw optimieren
 
 --------------------------------------------
-## ITerm optimieren
+## Phaste 2 DTerm optimieren
+Der DTerm ist der Gegenpart des PTerms und ist gegenläufig. Der PTerm neigt zum überschwingen und mit dem DTerm kann dem entgegen gewirkt werden.
 
-### Roll & Pitch
+### DTerm für Roll & Pitch optimieren
 
-### Yaw
+### DTerm für Yaw optimieren
+In der Regel steht bei YAW der DTerm auf 0
+
+--------------------------------------------
+## Phase 3 ITerm optimieren
+
+### ITerm für Roll & Pitch optimieren
+
+### ITerm für Yaw optimieren
 
 
 ## TPA - Throttle PID Attentuation
 TPA ist ein Dämpfungsglied der PID-Werte bezogen auf den aktuell anliegenden Throttle-Wert
 TPA läuft linear mit dem Throttle-Wert und dämpft die PID-Werte um Oszillationen vorzubeugen. Den TPA gab es schon in BF 3.x.
 
-TPA wirkt sich auf den `PTerm` und den `DTerm` aus.
+TPA wirkt sich entweder auf den `DTerm` (`D`)oder auf den `PTerm` und den `DTerm` (`PD`).
 
 Ab BF 4.0 haben sich die Default-Werte für den TPA geändert
+
+Der TPA kann gut genutzt werden, wenn es bei hohen Throttle-Werte zu Vibrationen kommt. Durch TPA kann man hier die PID-Werte reduzieren und somit den Vibrationen vorbeugen ohne, das die PID-Werte ansich geändert werden müssen.
+
+Das macht auch Sinn, wenn man feststellt, dass die PID-Werte für den Copter im Bereich zwischen 0-`tpa_breakpoint` sehr gut eingestellt sind.
 
 ```
 set tpa_rate = 75
@@ -314,20 +333,25 @@ set tpa_breakpoint = 1500
 set tpa_mode = D
 ```
 
+Das nachfolgende Bild zeigt deutlich wie TPA funktioniert - hier am Beispiel, das `tpa_rate=50` ist und der `tpa_breakpoint=1500` beträgt.
+
+![][ImgTPA]
 
 |Parameter|Hintergrund|
 |:---:|---|
-| `tpa_rate`| Dämpfungswert als Prozent|
+| `tpa_rate`| Dämpfungswert in Prozent Prozent|
 | `tpa_breakpoint` | Dämpfung wird ab diesem Punkt an linear bis 100% Throttle durchgeführt|
-|`tpa_mode`| Gibt an ob für den PTerm, den DTerm oder beide `P` oder `D` oder `PD`  |
+|`tpa_mode`| Gibt an ob für den DTerm oder beide `D` oder `PD`  |
 
 
 **Beispiel**
 
-	Wir gehen von den Default-Werten aus. Die Dämpfung beginnt bei 1500 Throttle (also 50%) und bei 100% Throttle wird die Dämpfung 75% (tpa_rate) betragen. Die Werte von 1500-2000 werden linear auf diese 75% abgebildet
+	Wir gehen von den Default-Werten aus. Die Dämpfung beginnt bei 1500 Throttle (also 50%) und bei 100% Throttle wird um 75% gedämpft (tpa_rate). Die Werte von 1500-2000 werden linear auf diese 75% abgebildet
 
-	Die Dämpfung bezieht sich auf den jeweiligen PTerm oder DTerm. Nehmen wir an der PTerm beträgt 30, dann würde bei 100% Throttle "nur" 22,5 (75%) verwendet werden
+	Die Dämpfung bezieht sich auf den jeweiligen PTerm oder DTerm. Nehmen wir an der PTerm beträgt 68, dann würde bei 100% Throttle "nur" 17 (ein 75stel) verwendet werden
 
+## DMIN
+Für den DMIN gibt es ein eigenes Dokument bf_dmin.md [^DMIN]
 
 -----------------------------------
 # Appendix
@@ -364,7 +388,7 @@ Ein Klick auf das Bild öffnet die Vergrößerung
 [ImgSpAn6b]: images/pdt_specto_2flights_hres_gt100hz_A_DTerm2.png
 [ImgSpAn7a]: images/pdt_specto_2flights_hres_gt100hz_B_DTerm1.png
 [ImgSpAn7b]: images/pdt_specto_2flights_hres_gt100hz_B_DTerm2.png
-
+[ImgTPA]: images/tpa_breakpoint.png
 
 
 [^CWCCW]: CW = clockwise = rechts, CCW = counter clockwise = links
@@ -375,3 +399,4 @@ Ein Klick auf das Bild öffnet die Vergrößerung
 [^NOISE]: [Noise/Vibrationen]()
 [^PDT_Wiki_de]: [PDT Wiki in Deutsch](https://github.com/mrRobot62/PIDtoolbox)
 [^Tuning_Logbuch]: siehe bf_tuning_logbuch
+[^DMIN]: siehe bf_dmin.md

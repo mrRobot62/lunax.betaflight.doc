@@ -130,6 +130,18 @@ Eingabewerte:
 	 
 ```
 
+!!! note "P-Term in a Nutshell"
+
+	* Der PTerm ist proportional zur Fehlergröße zwischen Setpoint und Gyro
+	* Größere Fehler bedeuten stärker gegen den Setpoint anzuarbeiten
+	* Kleinere Fehler bedeuten weiter zu machen aber in kleinen Schritten
+	* Kein Fehler bedeutet, keine Differenz zwischen Setpoint und Gyro
+	* Der PTerm ist die primäre Größe für das Fluggefühl und das Handling
+	* Ein hoher PGain bedeutet, der Copter reagiert schneller um and die geforderte Ziel Rotation heranzukommen
+	* Hoher PGain heißt schärferes verhalten und fühlt sich auch so an
+	* zu hoher PGain führt unweigerlich zu mehr Oszillation und kann in Flugunfähigkeit enden.
+	* Kleiner PGain fühlt sich softer an - vielleicht auch schwamming
+
 _I-Term (Integraler Fehler)_
 ---------------------
 Ist eine Aufsummierung aller bis dato aufgetretenen Fehler über die Zeit (d/t). 
@@ -159,14 +171,26 @@ Im Beispiel gehen wir davon aus, dass IerrSum = -1 ist
 	
 ```
 
+!!! not "ITerm in a Nutshell"
+
+	* Proportional zur Größe und zur Dauer des Fehlers
+	* korrigiert aggregierten und un-korrigierten Fehler
+	* korrigiert statische Fehler und anhaltende Beeinflussungen
+	* Wenn zu niedrig wird der Copter slippen, wie ein Auto auf dem Eis
+	* Erhöhe den ITerm solange bis der Copter auf allen Achsen seine Lage behält nach einem scharfen Throttle-Boost. Alle weiters regelt der `anti_gravity_gain` 
+	* im BF dend ITerm nur so lange erhöhen, bis der Copter während des normalen Fluges die Fluglage hält, dann die `anti_gravity_gain` zur Steuerung der Gaskopplung hinzufügen
+
 _D-Term Derivativer-Wert (Vorhersage)_
 ---------------------
 Der DTerm ist im Prinzip der Gegenpart zum PTerm und versucht eine Vorhersage zu treffen, wie der Fehlerwert in der Zukunft ist und versucht diesem entgegen zu wirken. 
 
+**Der DTerm verstärkt hohe Frequenzen des Gyro-Signals und kann somit zur Überhitzung und Zerstörung der Motoren führen. Der Verstärkungsfaktor kann zwischen 10x - 100x betragen.**
+
+
+
 P & D hängen eng beieinander. 
 
-Der DTerm ist ein Dämpfungsglied für ein Überkorrigieren des P-Reglers und versucht „Overshoots“ zu minimieren. Ähnlich einem Schock-Absorber. 
-
+Der DTerm ist ein Dämpfungsglied für ein Überkorrigieren des P-Reglers und versucht „Overshoots“ zu minimieren. Ähnlich einem Schock-Absorber, allerdings mit dem Merkmal, das hohe Frequenzen nicht gedämpft sondern verstärkt werden.
 !!! note "Vergleich"
 
 	Stelle dir die Federung Deines Autos vor. Die Felder ist der PTerm und der Stoßdämpfer ist der DTerm. 

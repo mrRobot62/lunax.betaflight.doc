@@ -57,7 +57,7 @@
 | 0.1  |  August 2020 | initial  |
 | 0.2  | August 2020  | neu strukturiert  |
 
-
+--------------------------------------1
 # Tuning-Parameter
 Nachfolgende eine Reihe der wichtigsten Tuning-Variablen. 
 
@@ -74,6 +74,7 @@ Weitere Tuning-Tips findest du im BF-Wiki der jeweiligen Versionen:
 * [BF4.0-Tuning-Notes](https://github.com/betaflight/betaflight/wiki/4.0-Tuning-Notes)
 * [BF4.0-Tuning-Notes](https://github.com/betaflight/betaflight/wiki/3.5-tuning-notes)
 
+--------------------------------------
 # DSHOT RPM Telemetrie-Daten
 ### Allgemeines
 Ab BF 4.0 werden Telemetriedaten des ESCs ausgelesen und analysiert. Diese Informationen sind elementar wichtig für viele nachgelagerte Filtertechniken und für den PID-Controller. Voraussetzung ist, dass man für den ESC ein DSHOT-Protokoll ausgewählt hat
@@ -96,7 +97,7 @@ Diese Parameter können nicht direkt beeinflußt werden. Zu beachten sind welche
 * **DSHOT600**: empfohlen bei 8k PIDLoop
 * **DSHOT1200**: 8k PIDLoop
 
-
+--------------------------------------
 # Gyro Filter
 ### Allgemeines
 Der Gyro ist das zentrale Bauelement auf dem FC und stellt die aktuellen **IST** Flugdaten zur Verfügung. Diese Daten werden dann bezogen auf die **SOLL** Daten (Die RC-Commands) verrechnet, gefiltert dem PIDController zur Verfügung gestellt. Anschließend gemixt und den Motoren als neue.
@@ -235,12 +236,8 @@ Throttle-Daten
 | gyro_lowpass2_type | 4.0 | PT1/BIQUAD  ||  
 | gyro_lowpass2_hz | 4.0 |   | unter Grenzfrequenz des LPF in Hz, wenn auf 0, dann ist der LPF deaktiviert|  
 
-	
-	
 
-
-<X------------------------------------------------>
-
+--------------------------------------
 # DTerm Filter 
 ### Allgemeines
 Der DTerm-Filter besitzt eine Reihe von Parametern die dazu genutzt werden, das DTerm-Ausgangssignal zu bearbeiten und von Störungen (Vibrations-Frequenzen zu befreien). **Wichtig:**: Der DTerm des PID-Controllers verstärkt Vibrationen, daher ist es wichtig, dass dieses Signal möglichst frei von Störungs- / Vibrationssignalen ist.
@@ -301,6 +298,7 @@ Dynamischer Lowpass filter für den DTerm
 | `dterm_notch_hz `  | | | |
 | `dterm_notch_cutoff ` | | | |
 
+--------------------------------------
 # Feedforward
 ### Allgemeines
 Feedforward ist dem PID-Controller nachgelagert und unabhängig vom PID. FF verstärkt bzw. wirkt auf Deine Stickbewegung und hilft den Motoren schneller zu reagieren.
@@ -326,13 +324,13 @@ Feedforward ist dem PID-Controller nachgelagert und unabhängig vom PID. FF vers
 | `ff_smooth_factor`  |    4.2 | 37 | Glättungsfaktor für einkommende Signale. Funktioniert wie ein LowPassfilter. 0 = keine Glättung, höhere Werte wie der Defaultwert, erhöhen auch die Latzenzeit und wirkt dem eigentlich FF-Forward entgegen | 
 
 ** `ff_interpolate_sp` Ausprägung**
-* OFF
-* ON
-* AVERAGE-2 : passt für die meisten Copter & Freestyler
-* AVERAGE-3 :
-* AVERAGE-4 :  
+* OFF: alte lineare Interpolation-Methode, keine Boost/Störungsreduktion
+* ON: neue Setpoint Interpolations-Methode, mit Boost/Störungsreduktion, gut für Racing
+* AVERAGE-2: gleitender 2-Punkt Mittelwert, passt für die meisten Copter & Freestyler
+* AVERAGE-3: gleitender 3-Punkt	 Mittelwert, Jitter-Reduktion, ideal für Freestyle & HD-Aufnahmen
+* AVERAGE-4: gleitender 4-Punkt Mittelwert, Jitter-Reduktion, ideal für Cinematic HD Aufnahmen
 
-
+--------------------------------
 # VBat
 ### Allgemeines
 Ab BF 4.2 wir mit VBAT-SAG-Kompensation 
