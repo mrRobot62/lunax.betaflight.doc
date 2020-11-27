@@ -103,6 +103,39 @@ Du möchtest Dir gerne alles lokal auf Deine Rechner installieren, somit hast du
 	
 	Ich empfehle Dir die Installation in einer virtuellen Python-Umgebung (z.B. virtualenv oder über Anaconda.
 
+### 26.11.2020 Nachtrag
+Leider habe ich festgestellt, dass ich vergessen habe zu erwähnen. Zusätzlich zu MKDOCS muss eine zusätzliche Bibliothek installiert werden
+`markdown_katex`.
+Erhaltet ihr nachdem ihr `mkdocs serve`startet folgenden Fehler:
+```
+INFO    -  Building documentation... 
+ERROR   -  Config value: 'markdown_extensions'. Error: Failed loading extension "markdown_katex". 
+```
+dann fehlt genau diese Bibliothek.
+
+*Installation:*
+
+```
+$ >pip install markdown-katex
+...
+Requirement already satisfied: six in /Users/bernhardklein/opt/anaconda3/lib/python3.8/site-packages (from pathlib2->markdown-katex) (1.15.0)
+Installing collected packages: markdown-katex
+Successfully installed markdown-katex-202009.1026
+(base) 
+
+$ >mkdocs serve
+
+INFO    -  Building documentation... 
+INFO    -  Cleaning site directory 
+INFO    -  Documentation built in 0.83 seconds 
+[I 201127 16:25:13 server:335] Serving on http://127.0.0.1:8000
+INFO    -  Serving on http://127.0.0.1:8000
+[I 201127 16:25:13 handlers:62] Start watching changes
+INFO    -  Start watching changes
+[I 201127 16:25:13 handlers:64] Start detecting changes
+INFO    -  Start detecting changes
+```
+
 ## via static HTML-Sites
 Clone dieses Repository und kopiere es irgendwo auf Deinen Rechner.
 
